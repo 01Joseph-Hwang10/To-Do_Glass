@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions, response, generics
+from rest_framework import viewsets, permissions, response, generics, status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken import views as authtoken_view
 from .serializers import UserSerializer
@@ -10,16 +10,19 @@ from . import models
 class CustomAuthToken(authtoken_view.ObtainAuthToken):
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data,
-                                           context={'request': request})
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        token, created = Token.objects.get_or_create(user=user)
-        return response.Response({
-            'token': token.key,
-            'user_id': user.pk,
-            'email': user.email
-        })
+        try:
+            serializer = self.serializer_class(data=request.data,
+                                               context={'request': request})
+            serializer.is_valid(raise_exception=True)
+            user = serializer.validated_data['user']
+            token, _ = Token.objects.get_or_create(user=user)
+            return response.Response({
+                'token': token.key,
+                'user_id': user.pk
+            })
+        except Exception:
+            print("wrong?")
+            return response.Response(status=404,data="Authorization Failed")
 
 
 
@@ -56,6 +59,26 @@ class SignUpView(generics.CreateAPIView):
 
     queryset = models.User.objects.all()
     serializer_class = UserSerializer
+
+    def post(self, request):
+        try:
+            post_data = request.data
+            first_name=post_data['first_name']
+            email=post_data['email']
+            username=email
+            password=post_data['password']
+            new_object =models.User(
+                username=username,
+                first_name=first_name,
+                last_name="",
+                email=email,
+                )
+            new_object.set_password(password)
+            new_object.save()
+            return response.Response(status=201, data="Signed Up Successfully!")
+        except Exception:
+            return response.Response(status=500, data="Internal Server Error")
+
 
 
 class PublicUserViewSet(viewsets.ReadOnlyModelViewSet):
