@@ -4,25 +4,28 @@ import { Link } from 'react-router-dom'
 import {Logout} from '../actions/authActions';
 import useNav from '../hooks/useNav';
 
-function Navigation(props) {
+class Navigation extends React.Component {
 
-    // eslint-disable-next-line
-    const {onLanding,setOnLanding} = useNav();
-
-    let style="block";
-    if(onLanding) {
-        style="none";
-    } else {
-        style="block";
+    componentDidMount() {
+        console.log(document.getElementById("landing"))
+        const nav = document.getElementById("navigation")
+        if (document.getElementById("landing")) {
+            nav.style.display = "none";
+        } else {
+            nav.style.display = "block";
+        }
     }
 
-    return (
-        <div id="navigation" style={{display:style}}>
-            <Link to='/'><span>Logo</span></Link>
-            <span>Navigation</span>
-            <button onClick={props.Logout}>Log out</button>
-        </div>
-    )
+
+    render() {
+        return (
+            <div id="navigation" style={{display:'block'}}>
+                <Link to='/'><span>Logo</span></Link>
+                <span>Navigation</span>
+                <button onClick={this.props.Logout}>Log out</button>
+            </div>
+        )
+    }
 }
 
 export default connect(null,{Logout})(Navigation);
