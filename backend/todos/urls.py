@@ -5,12 +5,12 @@ from . import views
 app_name = "todos"
 
 router = routers.DefaultRouter()
-router.register(r'task', views.TaskViewSet,basename="task")
-router.register(r'container', views.ContainerViewSet,basename="container")
-router.register(r'project',views.ProjectViewSet,basename="project")
-router.register(r'public_task', views.PublicTaskViewSet,basename="public_task")
-router.register(r'public_container', views.PublicContainerViewSet,basename="public_container")
-router.register(r'public_project',views.PublicProjectViewSet,basename="public_project")
+router.register(r'tasks', views.TaskViewSet,'task')
+router.register(r'containers', views.ContainerViewSet,'container')
+router.register(r'projects',views.ProjectViewSet,'project')
+router.register(r'public_tasks', views.PublicTaskViewSet,'public_task')
+router.register(r'public_containers', views.PublicContainerViewSet,'public_container')
+router.register(r'public_projects',views.PublicProjectViewSet,'public_project')
 
 
 urlpatterns = [

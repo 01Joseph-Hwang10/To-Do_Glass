@@ -29,7 +29,7 @@ class Container(core_model.TimeStampedModel):
         return int(len(self.tasks.all()))
 
     def get_tasks(self):
-        return self.tasks.all()
+        return self.tasks.all().values()
 
     def __str__(self):
         return self.name
@@ -48,7 +48,7 @@ class Project(core_model.TimeStampedModel):
         return int(len(self.containers.all()))
 
     def get_containers(self):
-        return self.containers.all()
+        return self.containers.all().values()
 
     def __str__(self):
         return self.name

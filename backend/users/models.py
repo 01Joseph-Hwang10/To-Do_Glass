@@ -22,3 +22,6 @@ class User(AbstractUser):
     def followers_count(self):
         return self.users.count()
 
+    def get_my_projects(self):
+        return self.project_created_user.all().values()
+
