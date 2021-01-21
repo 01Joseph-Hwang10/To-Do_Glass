@@ -1,12 +1,13 @@
 from rest_framework.serializers import HyperlinkedModelSerializer, HyperlinkedRelatedField
-from rest_framework.serializers import ReadOnlyField, ImageField
+from rest_framework.serializers import ReadOnlyField, ImageField, JSONField
 from . import models as todo_model
 from users import models as user_model
 
 
 class ProjectSerializer(HyperlinkedModelSerializer):
     created_user = ReadOnlyField(source="created_user.id")
-
+    count_containers = JSONField()
+    get_containers = JSONField()
     class Meta:
         model = todo_model.Project
         fields = '__all__'
@@ -20,6 +21,8 @@ class ProjectSerializer(HyperlinkedModelSerializer):
 
 class ContainerSerializer(HyperlinkedModelSerializer):
     project = ReadOnlyField(source='project.id')
+    count_tasks = JSONField()
+    get_tasks = JSONField()
 
     class Meta:
         model = todo_model.Container

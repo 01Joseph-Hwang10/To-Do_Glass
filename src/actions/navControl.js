@@ -16,5 +16,23 @@ export const checkLanding = () => dispatch => {
             payload:false
         })
     }
-    
+}
+
+
+export const showNavAfterLogin = () => dispatch => {
+    const nav = document.getElementById("navigation");
+    nav.style.display = "block";
+    dispatch({
+        type:NOT_ON_LANDING,
+        payload:false
+    })
+}
+
+export const hideNavAfterLogout = () => dispatch => {
+    const nav = document.getElementById("navigation");
+    nav.style.display = "none";
+    dispatch({
+        type:ON_LANDING,
+        payload:true
+    })
 }

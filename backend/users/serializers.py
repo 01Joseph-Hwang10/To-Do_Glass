@@ -7,6 +7,8 @@ class UserSerializer(HyperlinkedModelSerializer):
     avatar = serializers.ImageField(use_url=True,required=False)
     following = serializers.PrimaryKeyRelatedField(many=True, read_only=False,queryset=models.User.objects.all(),required=False)
     followers = serializers.PrimaryKeyRelatedField(many=True, read_only=False,queryset=models.User.objects.all(),required=False)
+    following_count = serializers.ReadOnlyField()
+    followers_count = serializers.ReadOnlyField()
 
     class Meta:
         model = models.User

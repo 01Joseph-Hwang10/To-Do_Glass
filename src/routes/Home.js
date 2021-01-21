@@ -1,23 +1,32 @@
-import React from 'react'
-import Overview from '../components/Overview'
+import React from 'react';
+import Overview from '../components/Overview';
+import {showNavAfterLogin} from '../actions/navControl'
+import { connect } from 'react-redux';
 
-function Home() {
-    return (
-        <>
-        <div>
-            <h1>Home</h1>
-        </div>
-        <div>
+class Home extends React.Component {
+
+    componentDidMount() {
+        this.props.showNavAfterLogin();
+    }
+
+    render() {
+        return (
+            <>
             <div>
-                <Overview />
+                <h1>Home</h1>
             </div>
-            <div></div>
-            <div></div>
-        </div>
-        </>
-        
-    )
+            <div>
+                <div>
+                    <Overview />
+                </div>
+                <div></div>
+                <div></div>
+            </div>
+            </>
+            
+        );
+    }
 }
 
 
-export default Home;
+export default connect(null,{showNavAfterLogin})(Home);

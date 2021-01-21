@@ -20,9 +20,11 @@ function Landing(props) {
     }
 }
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.login.isAuthenticated
-})
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.login.isAuthenticated
+    }
+}
 
 
 export default connect(mapStateToProps, null)(Landing);

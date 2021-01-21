@@ -22,11 +22,13 @@ export const getProfile = () => dispatch => {
                 type:PROFILE_NOT_MINE,
                 payload:{
                     Profile:response,
-                    isMyProfile:false
+                    isMyProfile:false,
+                    isLoading:false
                 }
             }))
             .catch(error=>console.error(error))
-        } else {
+        } 
+        if (json_cookie && json_cookie.user_id.length > 0 && json_cookie.access_token.length > 0) {
             const config = {
                 headers: {
                     Authorization: `Token ${access_token}`
@@ -40,7 +42,8 @@ export const getProfile = () => dispatch => {
                         type:PROFILE_MINE,
                         payload:{
                             Profile:response,
-                            isMyProfile:true
+                            isMyProfile:true,
+                            isLoading:false
                         }
                     })
                 }
@@ -48,7 +51,19 @@ export const getProfile = () => dispatch => {
             .catch(error => console.error(error))
         }
         } catch (error) {
+            console.log(4)
             console.error(error);
             alert("something went wrong")
         }
     }
+
+
+export const deleteProfileAfterLogout = () => dispatch => {
+    dispatch({
+        type:PROFILE_NOT_MINE,
+        payload:{
+            Profile:[],
+            isMyProfile:false
+        }
+    })
+}

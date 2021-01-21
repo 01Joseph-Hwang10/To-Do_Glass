@@ -2,7 +2,8 @@ import { PROFILE_MINE, PROFILE_NOT_MINE } from "../actions/types";
 
 const initialState = {
     Profile:[],
-    isMyProfile:false
+    isMyProfile:false,
+    isLoading:true
 };
 
 // eslint-disable-next-line
@@ -12,13 +13,15 @@ export default function(state=initialState,action) {
             return {
                 ...state,
                 Profile:action.payload.Profile,
-                isMyProfile:action.payload.isMyProfile
+                isMyProfile:action.payload.isMyProfile,
+                isLoading:false
             }
         case PROFILE_NOT_MINE:
             return {
                 ...state,
                 Profile:action.payload.Profile,
-                isMyProfile:action.payload.isMyProfile
+                isMyProfile:action.payload.isMyProfile,
+                isLoading:false
             }
         default:
             return state;
