@@ -1,19 +1,20 @@
-import { useEffect, useState } from "react"
+import { NOT_ON_LANDING, ON_LANDING } from "./types";
 
 
-export const useNav = () => {
-    const [onLanding,setOnLanding] = useState(false);
-
-    useEffect(() => {
-        if(document.getElementById("landing")) {
-            setOnLanding(true)
-        } else {
-            setOnLanding(false);
-        }
-    },[onLanding])
-
-    return {
-        onLanding,
-        setOnLanding
+export const checkLanding = () => dispatch => {
+    const nav = document.getElementById("navigation")
+    if (window.location.hash.length <= 2) {
+        nav.style.display = "none";
+        dispatch({
+            type:ON_LANDING,
+            payload:true
+        })
+    } else {
+        nav.style.display = "block";
+        dispatch({
+            type:NOT_ON_LANDING,
+            payload:false
+        })
     }
+    
 }

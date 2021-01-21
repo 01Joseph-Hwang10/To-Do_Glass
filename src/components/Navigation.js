@@ -1,19 +1,21 @@
+// React
 import React from 'react'
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+// Redux
 import {Logout} from '../actions/authActions';
-import useNav from '../hooks/useNav';
+import {checkLanding} from '../actions/navControl';
+// etc
+import {PropTypes} from 'prop-types';
 
 class Navigation extends React.Component {
 
     componentDidMount() {
-        console.log(document.getElementById("landing"))
-        const nav = document.getElementById("navigation")
-        if (document.getElementById("landing")) {
-            nav.style.display = "none";
-        } else {
-            nav.style.display = "block";
-        }
+        this.props.checkLanding()
+    }
+
+    componentDidUpdate() {
+        this.props.checkLanding()
     }
 
 
@@ -28,4 +30,8 @@ class Navigation extends React.Component {
     }
 }
 
-export default connect(null,{Logout})(Navigation);
+Navigation.propTypes = {
+    Logout:PropTypes.func.isRequired
+}
+
+export default connect(null,{Logout, checkLanding})(Navigation);

@@ -6,7 +6,7 @@ from . import views as user_view
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 router = routers.DefaultRouter()
-router.register(r'users', user_view.UserViewSet)
+router.register(r'users', user_view.UserViewSet,basename="users")
 router.register(r'public_users', user_view.PublicUserViewSet)
 
 app_name = "users"

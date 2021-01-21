@@ -1,9 +1,6 @@
 // React
 import React from 'react';
 import { HashRouter, Route } from "react-router-dom";
-// Redux
-import { Provider } from 'react-redux';
-import store from './store/store';
 // CSS
 import './static/css/styles.css';
 // Routes
@@ -14,9 +11,9 @@ import Navigation from './components/Navigation';
 import Home from './routes/Home';
 
 
+
 function App() {
   return (
-    <Provider store={store}>
       <HashRouter>
         <Navigation />
         <Route path='/' exact component={Landing} />
@@ -26,7 +23,6 @@ function App() {
           <Route path='/signup' exact component={SignUpForm} />
         </div>
       </HashRouter>
-    </Provider>
   );
 }
 

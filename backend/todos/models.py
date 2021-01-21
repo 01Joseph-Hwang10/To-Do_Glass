@@ -34,12 +34,12 @@ class Container(core_model.TimeStampedModel):
 
 class Project(core_model.TimeStampedModel):
 
-    created_user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="project")
+    created_user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="project_created_user")
     name = models.CharField(max_length=50)
     order = models.IntegerField(validators=[MinValueValidator(1),])
     importance = models.BooleanField(default=False)
     description = models.TextField(blank=True,null=True)
-    contributor = models.ManyToManyField("users.User", blank=True,related_name="projects")
+    contributor = models.ManyToManyField("users.User", blank=True,related_name="project_contributor")
 
     def count_containers(self):
         return int(len(self.containers.all()))

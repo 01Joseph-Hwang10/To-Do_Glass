@@ -3,6 +3,7 @@ from rest_framework import serializers
 from . import models
 
 class UserSerializer(HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name="users:user-detail")
     avatar = serializers.ImageField(use_url=True,required=False)
     following = serializers.PrimaryKeyRelatedField(many=True, read_only=False,queryset=models.User.objects.all(),required=False)
     followers = serializers.PrimaryKeyRelatedField(many=True, read_only=False,queryset=models.User.objects.all(),required=False)
@@ -22,4 +23,4 @@ class UserSerializer(HyperlinkedModelSerializer):
             'avatar',
             'following',
             'followers',
-        ]        
+        ]
