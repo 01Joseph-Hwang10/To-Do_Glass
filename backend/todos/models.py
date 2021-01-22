@@ -50,5 +50,15 @@ class Project(core_model.TimeStampedModel):
     def get_containers(self):
         return self.containers.all().values()
 
+    def get_tags(self):
+        return self.tags.all().values()
+
     def __str__(self):
         return self.name
+
+
+class Tag(core_model.TimeStampedModel):
+
+    name=models.CharField(max_length=50)
+    tag_for = models.ForeignKey("todos.Project", on_delete=models.CASCADE, related_name="tags")
+

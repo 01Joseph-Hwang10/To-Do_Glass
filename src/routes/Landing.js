@@ -1,4 +1,6 @@
+// React
 import React from 'react';
+// Redux
 import { connect } from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 

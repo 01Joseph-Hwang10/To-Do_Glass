@@ -15,10 +15,7 @@ function ProjectSection(props) {
                     myProjects.map(project => {
                         return (
                             <ProjectCard 
-                            name={project.name}
-                            order={project.order}
-                            importance={project.importance}
-                            description={project.description}
+                            {...project}
                             />
                         )
                     })
