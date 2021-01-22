@@ -9,10 +9,10 @@ from users import serializers as user_serializer
 class ProjectSerializer(HyperlinkedModelSerializer):
 
     url = HyperlinkedIdentityField(view_name='todos:project-detail')
-    created_user = user_serializer.LightUserSerializer()
+    created_user = user_serializer.LightUserSerializer(required=False)
     count_containers = ReadOnlyField(required=False)
     get_containers = ListField(required=False)
-    contributor = PrimaryKeyRelatedField(many=True,read_only=False,queryset=user_model.User.objects.all(),required=False)
+    participants = user_serializer.LightUserSerializer(many=True,read_only=False,required=False)
 
     class Meta:
         model = todo_model.Project

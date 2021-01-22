@@ -42,7 +42,7 @@ class Project(core_model.TimeStampedModel):
     order = models.IntegerField(validators=[MinValueValidator(1),])
     importance = models.BooleanField(default=False)
     description = models.TextField(blank=True,null=True)
-    contributor = models.ManyToManyField("users.User", blank=True,related_name="project_contributor")
+    participants = models.ManyToManyField("users.User", blank=True,related_name="project_contributor")
 
     def count_containers(self):
         return int(len(self.containers.all()))
