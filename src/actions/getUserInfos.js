@@ -51,7 +51,6 @@ export const getProfile = () => dispatch => {
             .catch(error => console.error(error))
         }
         } catch (error) {
-            console.log(4)
             console.error(error);
             alert("something went wrong")
         }

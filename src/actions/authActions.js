@@ -28,15 +28,14 @@ export const postLogin = (post_data) => dispatch => {
         axios
         .post('/api/users-api/api-token-auth/',post_data)
         .then(response => {
+            console.log(response)
             if(response.status === 200) {
-                document.cookie = ("user_id="+response.data.user_id+"; path=/;");
-                document.cookie = ("access_token="+response.data.token+"; path=/;");
                 dispatch({
                     type:LOGIN,
                     payload:true
                         });
-                window.location.href="/#/";
-                window.location.reload()
+                // window.location.href="/#/";
+                // window.location.reload()
             } else {
                 alert("Login Failed!")
             }
@@ -50,8 +49,6 @@ export const postLogin = (post_data) => dispatch => {
 
 
 export const Logout = () => dispatch => {
-    document.cookie = "user_id=; path=/;"
-    document.cookie = "access_token=; path=/;";
     dispatch({
         type:LOGOUT,
         payload:false
@@ -66,8 +63,6 @@ export const CleanUp = () => dispatch => {
         || !json_cookie 
         || json_cookie.user_id.length===0 
         || json_cookie.access_token.length===0) {
-            document.cookie = "user_id=; path=/;"
-            document.cookie = "access_token=; path=/;";
             dispatch({
                 type:LOGOUT,
                 payload:false

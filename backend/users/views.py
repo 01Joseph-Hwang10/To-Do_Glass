@@ -1,3 +1,6 @@
+import datetime
+from datetime import datetime, timezone, timedelta
+# from django.http import HttpResponse
 from rest_framework import viewsets, permissions, response, generics, status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken import views as authtoken_view
@@ -10,19 +13,26 @@ from . import models
 class CustomAuthToken(authtoken_view.ObtainAuthToken):
 
     def post(self, request, *args, **kwargs):
-        try:
+        # try:
             serializer = self.serializer_class(data=request.data,
                                                context={'request': request})
             serializer.is_valid(raise_exception=True)
             user = serializer.validated_data['user']
             token, _ = Token.objects.get_or_create(user=user)
-            return response.Response({
-                'token': token.key,
-                'user_id': user.pk
-            })
-        except Exception:
-            print("wrong?")
-            return response.Response(status=404,data="Authorization Failed")
+            expires = datetime.now(timezone.utc)+timedelta(weeks=54)
+            expires_str = expires.strftime('%a, %w %b %Y %X GMT')
+            cookie=f"access_token={token.key}; Expires={expires_str}; Secure; HttpOnly, remember_me=true"
+            headers = {
+                "Set-Cookie":cookie,
+                "vary":"Origin, Accept-Encoding, Cookie"
+            }
+            auth_response = response.Response(status=200,data={"user_id":user.id},headers=headers)
+            # auth_response['Cookie'] = cookie
+            auth_response.set_cookie(key="access_token",value=token.key,expires=expires_str,path='/',secure=True,httponly=True)
+            return auth_response
+        # except Exception:
+        #     print("wrong?")
+        #     return response.Response(status=404,data="Authorization Failed")
 
 
 
