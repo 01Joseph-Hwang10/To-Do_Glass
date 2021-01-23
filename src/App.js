@@ -18,7 +18,7 @@ function App() {
         <Navigation />
         <Route path='/' exact component={Landing} />
         <div>
-          <Route path='/home' exact component={Home} />
+          <Route path='/:id/home' exact component={Home} />
           <Route path='/login' exact component={LoginForm} />
           <Route path='/signup' exact component={SignUpForm} />
         </div>

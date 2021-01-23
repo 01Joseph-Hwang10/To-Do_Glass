@@ -3,7 +3,7 @@ from datetime import datetime, timezone, timedelta
 # from django.http import HttpResponse
 from rest_framework import viewsets, permissions, response, generics, status
 from rest_framework.authtoken.models import Token
-from rest_framework.authtoken import views as authtoken_view
+# from rest_framework.authtoken import views as authtoken_view
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -28,15 +28,14 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         except TokenError as e:
             raise InvalidToken(e.args[0])
 
-        auth_response = response.Response(serializer.validated_data, status=status.HTTP_200_OK)
+        auth_response = response.Response(data=serializer.validated_data, status=status.HTTP_200_OK)
 
-        expires_5min = datetime.now(timezone.utc)+timedelta(minutes=5)
-        expires_str_5min = expires_5min.strftime('%a, %w %b %Y %X GMT')
-        expires_2days = datetime.now(timezone.utc)+timedelta(days=2)
-        expires_str_2days = expires_2days.strftime('%a, %w %b %Y %X GMT')
+        max_age_5min = 5*60
+        max_age_2days = 2*24*60*60
 
-        auth_response.set_cookie(key="access_token",value=serializer.validated_data['access'],expires=expires_str_5min,path='/',secure=True,httponly=True)
-        auth_response.set_cookie(key="refresh_token",value=serializer.validated_data['refresh'],expires=expires_str_2days,path='/',secure=True,httponly=True)
+        # Need to add Secure options!!
+        auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_5min,httponly=True)
+        auth_response.set_cookie("refresh_token",value=serializer.validated_data['refresh'],max_age=max_age_2days,httponly=True)
 
         return auth_response
 
@@ -48,52 +47,77 @@ class CustomTokenRefreshView(TokenRefreshView):
 
         try:
             serializer.is_valid(raise_exception=True)
+            user_id = user_model.User.objects.get(username=request.data['username']).id
         except TokenError as e:
             raise InvalidToken(e.args[0])
 
         auth_response = response.Response(serializer.validated_data, status=status.HTTP_200_OK)
             
-        expires_5min = datetime.now(timezone.utc)+timedelta(minutes=5)
-        expires_str_5min = expires_5min.strftime('%a, %w %b %Y %X GMT')
+        # max_age = 365 * 24 * 60 * 60
+        max_age_5min = 5*60
 
-        auth_response.set_cookie(key="access_token",value=serializer.validated_data['access'],expires=expires_str_5min,path='/',secure=True,httponly=True)
+        # Need to add Secure options!!
+        auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_5min,httponly=True)
 
         return auth_response
 
 
+class LogoutView(generics.RetrieveAPIView):
 
-class CustomAuthToken(authtoken_view.ObtainAuthToken):
+    queryset = models.User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    # permission_classes = (permissions.IsAuthenticated,)
 
-    def post(self, request, *args, **kwargs):
-        # try:
-            serializer = self.serializer_class(data=request.data,
-                                               context={'request': request})
-            serializer.is_valid(raise_exception=True)
-            user = serializer.validated_data['user']
-            token, _ = Token.objects.get_or_create(user=user)
-            expires = datetime.now(timezone.utc)+timedelta(minutes=5)
-            expires_str = expires.strftime('%a, %w %b %Y %X GMT')
-            cookie=f"access_token={token.key}; Expires={expires_str}; Secure; HttpOnly, remember_me=true"
-            # headers = {
-            #     "Set-Cookie":cookie,
-            #     "vary":"Origin, Accept-Encoding, Cookie"
-            # }
-            auth_response = response.Response(status=200)
-            # auth_response['Cookie'] = cookie
-            auth_response.set_cookie(key="access_token",value=token.key,expires=expires_str,path='/',secure=True,httponly=True)
-            auth_response.data = {'access_token':token.key,'user_id':user.id}
-            return auth_response
-        # except Exception:
-        #     print("wrong?")
-        #     return response.Response(status=404,data="Authorization Failed")
+    def get(self, request, *args, **kwargs):
+        auth_response = response.Response(status=status.HTTP_200_OK)
+        auth_response.delete_cookie("access_token")
+        auth_response.delete_cookie("refresh_token")
+        return auth_response
 
+
+
+
+# class CustomAuthToken(authtoken_view.ObtainAuthToken):
+
+#     def post(self, request, *args, **kwargs):
+#         # try:
+#             serializer = self.serializer_class(data=request.data,
+#                                                context={'request': request})
+#             serializer.is_valid(raise_exception=True)
+#             user = serializer.validated_data['user']
+#             token, _ = Token.objects.get_or_create(user=user)
+#             expires = datetime.now(timezone.utc)+timedelta(minutes=5)
+#             expires_str = expires.strftime('%a, %w %b %Y %X GMT')
+#             cookie=f"access_token={token.key}; Expires={expires_str}; Secure; HttpOnly, remember_me=true"
+#             # headers = {
+#             #     "Set-Cookie":cookie,
+#             #     "vary":"Origin, Accept-Encoding, Cookie"
+#             # }
+#             auth_response = response.Response(status=200)
+#             # auth_response['Cookie'] = cookie
+#             auth_response.set_cookie(key="access_token",value=token.key,expires=expires_str,path='/',secure=True,httponly=True)
+#             auth_response.data = {'access_token':token.key,'user_id':user.id}
+#             return auth_response
+#         # except Exception:
+#         #     print("wrong?")
+#         #     return response.Response(status=404,data="Authorization Failed")
+
+class IsAllowedToWrite(permissions.IsAuthenticated):
+    
+    def has_permission(self, request, view, obj):
+        isAuthenticated = bool(
+            request.user and
+            request.user.is_authenticated and
+            request.user == obj
+            )
+        return isAuthenticated
 
 
 class UserViewSet(viewsets.ModelViewSet):
 
     queryset = models.User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (IsAllowedToWrite,)
 
 
     def partial_update(self, request, *args, **kwargs):
@@ -148,3 +172,9 @@ class PublicUserViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = models.User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
+    
+    def retrieve(self, request, *args, **kwargs):
+        print(request.headers['Cookie'])
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return response.Response(serializer.data)

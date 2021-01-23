@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 // Redux
-import {Logout, CleanUp} from '../actions/authActions';
+import {Logout} from '../actions/authActions';
 import {checkLanding,hideNavAfterLogout} from '../actions/navControl';
 import {deleteProfileAfterLogout} from '../actions/getUserInfos';
 // etc
@@ -13,12 +13,10 @@ class Navigation extends React.Component {
 
     componentDidMount() {
         this.props.checkLanding()
-        this.props.CleanUp()
     }
 
     componentWillUpdate() {
         this.props.checkLanding()
-        this.props.CleanUp()
     }
 
     render() {
@@ -39,7 +37,7 @@ class Navigation extends React.Component {
     }
 }
 
-const actions={Logout, checkLanding, CleanUp,
+const actions={Logout, checkLanding, 
     hideNavAfterLogout, deleteProfileAfterLogout};
 
 Navigation.propTypes = {

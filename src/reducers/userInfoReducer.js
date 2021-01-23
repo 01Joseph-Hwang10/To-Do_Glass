@@ -1,4 +1,4 @@
-import { PROFILE_MINE, PROFILE_NOT_MINE } from "../actions/types";
+import { CLEAR_PROFILE, GET_PROFILE, PROFILE_MINE, PROFILE_NOT_MINE } from "../actions/types";
 
 const initialState = {
     Profile:[],
@@ -12,16 +12,27 @@ export default function(state=initialState,action) {
         case PROFILE_MINE:
             return {
                 ...state,
-                Profile:action.payload.Profile,
                 isMyProfile:action.payload.isMyProfile,
                 isLoading:false
             }
         case PROFILE_NOT_MINE:
             return {
                 ...state,
-                Profile:action.payload.Profile,
                 isMyProfile:action.payload.isMyProfile,
                 isLoading:false
+            }
+        case GET_PROFILE:
+            return {
+                ...state,
+                Profile:action.payload.Profile,
+                isLoading:false
+            }
+        case CLEAR_PROFILE:
+            return {
+                ...state,
+                Profile:action.payload.Profile,
+                isMyProfile:action.payload.isMyProfile,
+                isLoading:action.payload.isLoading
             }
         default:
             return state;

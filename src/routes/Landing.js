@@ -7,8 +7,11 @@ import {Link, Redirect} from 'react-router-dom';
 function Landing(props) {
 
     if(props.isAuthenticated) {
+        
+        const user_id = window.localStorage.getItem('user_id');
+
         return (
-            <Redirect to={{pathname:'/home'}} />
+            <Redirect to={{pathname:`/${user_id}/home`}} />
         )
     } else {
         return (

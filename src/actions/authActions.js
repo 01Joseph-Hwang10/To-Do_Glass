@@ -1,5 +1,4 @@
-import axios from "axios"
-import json_cookie from "../store/cookie";
+import axios from "axios";
 import { LOGIN, LOGOUT, SIGN_UP } from "./types";
 
 
@@ -17,7 +16,7 @@ export const postSignUp = (post_data) => dispatch => {
                 });
     } catch (error) {
         console.log(error);
-        alert("Something went wrong");
+        alert("Signup error");
     }
 }
 
@@ -26,15 +25,16 @@ export const postSignUp = (post_data) => dispatch => {
 export const postLogin = (post_data) => dispatch => {
     try {
         axios
-        .post('/api/users-api/api-token-auth/',post_data)
+        .post('/api/users-api/token/',post_data,{withCredentials:true})
         .then(response => {
-            console.log(response)
             if(response.status === 200) {
+                const user_id = response.data.user_id;
+                window.localStorage.setItem('user_id',user_id)
                 dispatch({
                     type:LOGIN,
                     payload:true
                         });
-                // window.location.href="/#/";
+                window.location.href="/#/";
                 // window.location.reload()
             } else {
                 alert("Login Failed!")
@@ -42,31 +42,42 @@ export const postLogin = (post_data) => dispatch => {
                 });
     } catch (error) {
         console.log(error);
-        alert("Something went wrong");
+        alert("Login error");
     }
 }
 
 
 
 export const Logout = () => dispatch => {
-    dispatch({
-        type:LOGOUT,
-        payload:false
-    });
-    window.location.href = "/#/"
-    window.location.reload();
+    try {
+        axios
+        .get('/api/users-api/logout/',{withCredentials:true})
+        .then(response => {
+            if(response.status===200){
+                window.localStorage.removeItem('user_id')
+                dispatch({
+                    type:LOGOUT,
+                    payload:false
+                });
+                window.location.href = "/#/";
+                window.location.reload();
+            } else {
+                alert("Logout failed")
+            }
+        })
+    } catch (error) {
+        console.error(error)
+        alert("Logout error")
+    }
 }
 
 
-export const CleanUp = () => dispatch => {
-    if(!document.cookie 
-        || !json_cookie 
-        || json_cookie.user_id.length===0 
-        || json_cookie.access_token.length===0) {
-            dispatch({
-                type:LOGOUT,
-                payload:false
-            });
-            window.location.href = "/#/"
-        }
+export const checkAuth = () => dispatch => {
+    try {
+        const user_id = window.localStorage.getItem('user_id')
+        
+    } catch (error) {
+        console.error(error);
+        alert("Authentication Error")
+    }
 }
