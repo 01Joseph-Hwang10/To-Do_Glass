@@ -20,7 +20,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api-token-auth/', user_view.CustomAuthToken.as_view(),name="api_token_auth"),
     path('sign-up/',user_view.SignUpView.as_view(),name="sign_up"),
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/', user_view.CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', user_view.CustomTokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),  
 ]

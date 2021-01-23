@@ -4,10 +4,62 @@ from datetime import datetime, timezone, timedelta
 from rest_framework import viewsets, permissions, response, generics, status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken import views as authtoken_view
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView
+)
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from .serializers import UserSerializer
 from . import models
+from users import models as user_model
 
 # Authenticated View
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        try:
+            serializer.is_valid(raise_exception=True)
+            user_id = user_model.User.objects.get(username=request.data['username']).id
+            serializer.validated_data['user_id'] = user_id
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+
+        auth_response = response.Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+        expires_5min = datetime.now(timezone.utc)+timedelta(minutes=5)
+        expires_str_5min = expires_5min.strftime('%a, %w %b %Y %X GMT')
+        expires_2days = datetime.now(timezone.utc)+timedelta(days=2)
+        expires_str_2days = expires_2days.strftime('%a, %w %b %Y %X GMT')
+
+        auth_response.set_cookie(key="access_token",value=serializer.validated_data['access'],expires=expires_str_5min,path='/',secure=True,httponly=True)
+        auth_response.set_cookie(key="refresh_token",value=serializer.validated_data['refresh'],expires=expires_str_2days,path='/',secure=True,httponly=True)
+
+        return auth_response
+
+
+class CustomTokenRefreshView(TokenRefreshView):
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+
+        auth_response = response.Response(serializer.validated_data, status=status.HTTP_200_OK)
+            
+        expires_5min = datetime.now(timezone.utc)+timedelta(minutes=5)
+        expires_str_5min = expires_5min.strftime('%a, %w %b %Y %X GMT')
+
+        auth_response.set_cookie(key="access_token",value=serializer.validated_data['access'],expires=expires_str_5min,path='/',secure=True,httponly=True)
+
+        return auth_response
+
 
 
 class CustomAuthToken(authtoken_view.ObtainAuthToken):
@@ -19,16 +71,17 @@ class CustomAuthToken(authtoken_view.ObtainAuthToken):
             serializer.is_valid(raise_exception=True)
             user = serializer.validated_data['user']
             token, _ = Token.objects.get_or_create(user=user)
-            expires = datetime.now(timezone.utc)+timedelta(weeks=54)
+            expires = datetime.now(timezone.utc)+timedelta(minutes=5)
             expires_str = expires.strftime('%a, %w %b %Y %X GMT')
             cookie=f"access_token={token.key}; Expires={expires_str}; Secure; HttpOnly, remember_me=true"
-            headers = {
-                "Set-Cookie":cookie,
-                "vary":"Origin, Accept-Encoding, Cookie"
-            }
-            auth_response = response.Response(status=200,data={"user_id":user.id},headers=headers)
+            # headers = {
+            #     "Set-Cookie":cookie,
+            #     "vary":"Origin, Accept-Encoding, Cookie"
+            # }
+            auth_response = response.Response(status=200)
             # auth_response['Cookie'] = cookie
             auth_response.set_cookie(key="access_token",value=token.key,expires=expires_str,path='/',secure=True,httponly=True)
+            auth_response.data = {'access_token':token.key,'user_id':user.id}
             return auth_response
         # except Exception:
         #     print("wrong?")
