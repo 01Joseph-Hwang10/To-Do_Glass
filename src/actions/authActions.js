@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOGIN, LOGOUT, SIGN_UP } from "./types";
+import { LOGIN, LOGOUT, PROFILE_MINE, PROFILE_NOT_MINE, SIGN_UP } from "./types";
 
 
 export const postSignUp = (post_data) => dispatch => {
@@ -75,9 +75,62 @@ export const Logout = () => dispatch => {
 export const checkAuth = () => dispatch => {
     try {
         const user_id = window.localStorage.getItem('user_id')
-        
+        axios
+        .post('/api/users-api/check-self-auth/',{user_id:user_id},{withCredentials:true})
+        .then(response => {
+            if(response.status === 200){
+                dispatch({
+                    type:PROFILE_MINE,
+                    payload:{
+                        isMyProfile:true
+                    }
+                })
+                dispatch({
+                    type:LOGIN,
+                    payload:true
+                })
+            } else {
+                axios
+                .post('/api/users-api/token/refresh/',{user_id:user_id},{withCredentials:true})
+                .then(response => {
+                    if(response.status === 200){
+                        dispatch({
+                            type:PROFILE_MINE,
+                            payload:{
+                                isMyProfile:true
+                            }
+                        })
+                        dispatch({
+                            type:LOGIN,
+                            payload:true
+                        })
+                    } else {
+                        dispatch({
+                            type:PROFILE_NOT_MINE,
+                            payload:{
+                                isMyProfile:true
+                            }
+                        })
+                        dispatch({
+                            type:LOGOUT,
+                            payload:false
+                        })
+                    }
+                })
+            }
+        })
     } catch (error) {
         console.error(error);
         alert("Authentication Error")
+        dispatch({
+            type:PROFILE_NOT_MINE,
+            payload:{
+                isMyProfile:false
+            }
+        })
+        dispatch({
+            type:LOGOUT,
+            payload:false
+        })
     }
 }

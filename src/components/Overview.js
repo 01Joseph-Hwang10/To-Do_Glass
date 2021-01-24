@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux';
 import {getProfile} from '../actions/getUserInfos';
+import {checkAuth} from '../actions/authActions';
 // Components
 import ProfileCard from './profile/ProfileCard';
 import ProjectSection from './project/ProjectSection';
@@ -11,6 +12,7 @@ class Overview extends Component {
 
     componentWillMount() {
         this.props.getProfile()
+        this.props.checkAuth()
     }
 
     render() {
@@ -47,4 +49,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps,{getProfile})(Overview);
+export default connect(mapStateToProps,{getProfile,checkAuth})(Overview);

@@ -33,8 +33,7 @@ export const deleteProfileAfterLogout = () => dispatch => {
         type:CLEAR_PROFILE,
         payload:{
             Profile:[],
-            isMyProfile:false,
-            isLoading:false
+            isMyProfile:false
         }
     })
 }

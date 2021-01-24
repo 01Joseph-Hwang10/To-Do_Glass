@@ -11,8 +11,8 @@ from rest_framework_simplejwt.views import (
 )
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from .serializers import UserSerializer
-from . import models
 from users import models as user_model
+from users import permissions as user_permission
 
 # Authenticated View
 
@@ -24,11 +24,10 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         try:
             serializer.is_valid(raise_exception=True)
             user_id = user_model.User.objects.get(username=request.data['username']).id
-            serializer.validated_data['user_id'] = user_id
         except TokenError as e:
             raise InvalidToken(e.args[0])
 
-        auth_response = response.Response(data=serializer.validated_data, status=status.HTTP_200_OK)
+        auth_response = response.Response(data={"user_id":user_id}, status=status.HTTP_200_OK)
 
         max_age_5min = 5*60
         max_age_2days = 2*24*60*60
@@ -36,6 +35,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         # Need to add Secure options!!
         auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_5min,httponly=True)
         auth_response.set_cookie("refresh_token",value=serializer.validated_data['refresh'],max_age=max_age_2days,httponly=True)
+        auth_response.set_cookie("user_id",value=user_id,max_age=max_age_5min,httponly=True)
 
         return auth_response
 
@@ -43,11 +43,18 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 class CustomTokenRefreshView(TokenRefreshView):
     
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+
+        raw_cookie = request.headers['Cookie'].split(";")
+        cookie={}
+        for e in raw_cookie:
+            splited_e = e.split("=")
+            cookie[splited_e[0].replace(" ","")]=splited_e[1]
+        print(cookie)
+
+        serializer = self.get_serializer(data={"refresh":cookie['refresh']})
 
         try:
             serializer.is_valid(raise_exception=True)
-            user_id = user_model.User.objects.get(username=request.data['username']).id
         except TokenError as e:
             raise InvalidToken(e.args[0])
 
@@ -58,13 +65,14 @@ class CustomTokenRefreshView(TokenRefreshView):
 
         # Need to add Secure options!!
         auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_5min,httponly=True)
+        auth_response.set_cookie("user_id",value=cookie['user_id'],max_age=max_age_5min,httponly=True)
 
         return auth_response
 
 
 class LogoutView(generics.RetrieveAPIView):
 
-    queryset = models.User.objects.all().order_by('-date_joined')
+    queryset = user_model.User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     # permission_classes = (permissions.IsAuthenticated,)
 
@@ -72,6 +80,7 @@ class LogoutView(generics.RetrieveAPIView):
         auth_response = response.Response(status=status.HTTP_200_OK)
         auth_response.delete_cookie("access_token")
         auth_response.delete_cookie("refresh_token")
+        auth_response.delete_cookie("user_id")
         return auth_response
 
 
@@ -102,40 +111,41 @@ class LogoutView(generics.RetrieveAPIView):
 #         #     print("wrong?")
 #         #     return response.Response(status=404,data="Authorization Failed")
 
-class IsAllowedToWrite(permissions.IsAuthenticated):
-    
-    def has_permission(self, request, view, obj):
-        isAuthenticated = bool(
-            request.user and
-            request.user.is_authenticated and
-            request.user == obj
-            )
-        return isAuthenticated
-
 
 class UserViewSet(viewsets.ModelViewSet):
 
-    queryset = models.User.objects.all().order_by('-date_joined')
+    queryset = user_model.User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = (IsAllowedToWrite,)
+    permission_classes = (user_permission.IsAllowedToWrite,)
 
 
     def partial_update(self, request, *args, **kwargs):
         try: # Follow
             data=request.data
             following_user_id=data['id']
-            following_user=models.User.objects.get(id=following_user_id)
+            following_user=user_model.User.objects.get(id=following_user_id)
             followed_user_id=int(request.data['following'])
             if(bool(data['data'])):
-                following_user.following.add(models.User.objects.get(id=followed_user_id))
+                following_user.following.add(user_model.User.objects.get(id=followed_user_id))
                 following_user.save()
             else:
-                following_user.following.remove(models.User.objects.get(id=followed_user_id))
+                following_user.following.remove(user_model.User.objects.get(id=followed_user_id))
                 following_user.save()
             return response.Response(data="Saved successfully")
         except Exception: # Else
             kwargs['partial'] = True
             return self.update(request, *args, **kwargs)
+
+class CheckSelfAuthView(generics.CreateAPIView):
+
+    queryset = user_model.User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (user_permission.IsAllowedToWrite,)
+
+    def post(self,request):
+        return response.Response(status=200, data={"isAuthenticated":True})
+
+
 
 
 # Public View
@@ -144,7 +154,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class SignUpView(generics.CreateAPIView):
 
-    queryset = models.User.objects.all()
+    queryset = user_model.User.objects.all()
     serializer_class = UserSerializer
 
     def post(self, request):
@@ -154,7 +164,7 @@ class SignUpView(generics.CreateAPIView):
             email=post_data['email']
             username=email
             password=post_data['password']
-            new_object =models.User(
+            new_object =user_model.User(
                 username=username,
                 first_name=first_name,
                 last_name="",
@@ -170,7 +180,7 @@ class SignUpView(generics.CreateAPIView):
 
 class PublicUserViewSet(viewsets.ReadOnlyModelViewSet):
 
-    queryset = models.User.objects.all().order_by('-date_joined')
+    queryset = user_model.User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     
     def retrieve(self, request, *args, **kwargs):

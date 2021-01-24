@@ -32,7 +32,7 @@ export default function(state=initialState,action) {
                 ...state,
                 Profile:action.payload.Profile,
                 isMyProfile:action.payload.isMyProfile,
-                isLoading:action.payload.isLoading
+                isLoading:false
             }
         default:
             return state;
