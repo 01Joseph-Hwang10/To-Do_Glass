@@ -7,7 +7,7 @@ from .serializers import TaskSerializer, ContainerSerializer, ProjectSerializer
 
 class ProjectViewSet(viewsets.ModelViewSet):
 
-    queryset = models.Project.objects.all()
+    queryset = models.Project.objects.all().order_by('updated')
     serializer_class = ProjectSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -30,7 +30,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
 class PublicProjectViewSet(viewsets.ReadOnlyModelViewSet):
 
-    queryset = models.Project.objects.all()
+    queryset = models.Project.objects.all().order_by('updated')
     serializer_class = ProjectSerializer
 
 

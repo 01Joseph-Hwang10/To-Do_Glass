@@ -8,6 +8,7 @@ export default function ProjectCard(props) {
             <span>{props.order}</span>
             <span>{props.importance.toString()}</span>
             <span>{props.description}</span>
+            <span>{props.updated}</span>
         </div>
     )
 }

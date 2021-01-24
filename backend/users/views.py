@@ -31,12 +31,13 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         auth_response = response.Response(data={"user_id":user_id}, status=status.HTTP_200_OK)
 
         max_age_5min = 5*60
-        max_age_2days = 2*24*60*60
+        # It's too long!!
+        max_age_10years = 10*365*24*60*60
 
         # Need to add Secure options!!
         auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_5min,httponly=True)
-        auth_response.set_cookie("refresh_token",value=serializer.validated_data['refresh'],max_age=max_age_2days,httponly=True)
-        auth_response.set_cookie("user_id",value=user_id,max_age=max_age_2days,httponly=True)
+        auth_response.set_cookie("refresh_token",value=serializer.validated_data['refresh'],max_age=max_age_10years,httponly=True)
+        auth_response.set_cookie("user_id",value=user_id,max_age=max_age_10years,httponly=True)
 
         return auth_response
 
@@ -61,7 +62,6 @@ class CustomTokenRefreshView(TokenRefreshView):
 
         # Need to add Secure options!!
         auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_5min,httponly=True)
-        auth_response.set_cookie("user_id",value=cookie['user_id'],max_age=max_age_5min,httponly=True)
 
         return auth_response
 

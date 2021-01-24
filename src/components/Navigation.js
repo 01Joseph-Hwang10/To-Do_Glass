@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 // Redux
 import {Logout} from '../actions/authActions';
-import {checkLanding,hideNavAfterLogout} from '../actions/navControl';
+import {checkPlace,hideNavAfterLogout} from '../actions/navControl';
 import {deleteProfileAfterLogout} from '../actions/getUserInfos';
 // etc
 import {PropTypes} from 'prop-types';
@@ -12,11 +12,11 @@ import {PropTypes} from 'prop-types';
 class Navigation extends React.Component {
 
     componentDidMount() {
-        this.props.checkLanding()
+        this.props.checkPlace()
     }
 
     componentWillUpdate() {
-        this.props.checkLanding()
+        this.props.checkPlace()
     }
 
     render() {
@@ -37,13 +37,12 @@ class Navigation extends React.Component {
     }
 }
 
-const actions={Logout, checkLanding, 
+const actions={Logout, checkPlace, 
     hideNavAfterLogout, deleteProfileAfterLogout};
 
 Navigation.propTypes = {
     Logout:PropTypes.func.isRequired,
-    checkLanding:PropTypes.func.isRequired,
-    CleanUp:PropTypes.func.isRequired,
+    checkPlace:PropTypes.func.isRequired,
     hideNavAfterLogout:PropTypes.func.isRequired,
     deleteProfileAfterLogout:PropTypes.func.isRequired
 }

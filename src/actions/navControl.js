@@ -1,9 +1,13 @@
 import { NOT_ON_LANDING, ON_LANDING } from "./types";
 
 
-export const checkLanding = () => dispatch => {
+export const checkPlace = () => dispatch => {
     const nav = document.getElementById("navigation")
-    if (window.location.hash.length <= 2) {
+    const navNotAllowed = Boolean(
+        window.location.hash === '#/' || window.location.hash === '#'
+        || window.location.hash === '#/login' || window.location.hash ==='#/login/'
+        || window.location.hash === '#/signup' || window.location.hash === '#/signup/')
+    if (navNotAllowed) {
         nav.style.display = "none";
         dispatch({
             type:ON_LANDING,

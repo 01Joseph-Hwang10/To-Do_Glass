@@ -12,7 +12,6 @@ class Overview extends Component {
 
     componentWillMount() {
         this.props.getProfile()
-        if(this.props.isAuthenticated) this.props.checkAuth()
     }
 
     render() {
@@ -21,6 +20,7 @@ class Overview extends Component {
                 {
                     this.props.Profile ? (
                         <div>
+                            <span>Overview</span>
                             <div>
                                 <ProfileCard 
                                 Profile={this.props.Profile}

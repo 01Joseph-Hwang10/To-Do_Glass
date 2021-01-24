@@ -1,12 +1,16 @@
+// React
 import React from 'react';
-import Overview from '../components/Overview';
-import {showNavAfterLogin} from '../actions/navControl'
+// Redux
+import {checkAuth} from '../actions/authActions';
 import { connect } from 'react-redux';
+// Component
+import Overview from '../components/Overview';
+import Pinboard from '../components/Pinboard';
 
 class Home extends React.Component {
 
     componentDidMount() {
-        this.props.showNavAfterLogin();
+        this.props.checkAuth();
     }
 
     render() {
@@ -19,7 +23,9 @@ class Home extends React.Component {
                 <div>
                     <Overview />
                 </div>
-                <div></div>
+                <div>
+                    <Pinboard />
+                </div>
                 <div></div>
             </div>
             </>
@@ -28,4 +34,4 @@ class Home extends React.Component {
 }
 
 
-export default connect(null,{showNavAfterLogin})(Home);
+export default connect(null,{checkAuth})(Home);

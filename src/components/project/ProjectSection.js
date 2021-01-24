@@ -1,9 +1,21 @@
+// React
 import React from 'react'
+// Redux
+import { connect } from 'react-redux';
+import {getProject,clearProject} from '../../actions/getProject';
+// Component
 import ProjectCard from './ProjectCard';
 
 function ProjectSection(props) {
 
     const myProjects = props.projects;
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const project_id = e.target.childNodes[0].value;
+        props.clearProject();
+        props.getProject(project_id);
+    };
 
     return (
         <div>
@@ -14,9 +26,14 @@ function ProjectSection(props) {
                 {
                     myProjects.map(project => {
                         return (
-                            <ProjectCard 
-                            {...project}
-                            />
+                        <form onSubmit={onSubmit}>
+                            <input className="hidden" value={project.id} readOnly></input>
+                            <button>
+                                <ProjectCard 
+                                {...project}
+                                />
+                            </button>
+                        </form>
                         )
                     })
                 }
@@ -25,4 +42,4 @@ function ProjectSection(props) {
     )
 }
 
-export default ProjectSection;
+export default connect(null,{getProject,clearProject})(ProjectSection);

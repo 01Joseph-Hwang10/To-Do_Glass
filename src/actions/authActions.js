@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLEAR_PROFILE, LOGIN, LOGOUT, PROFILE_MINE, PROFILE_NOT_MINE, SIGN_UP } from "./types";
+import { CLEAR_PROFILE, LOGIN, LOGOUT, PROFILE_MINE, NOT_ON_LANDING, SIGN_UP, CLEAR_PROJECT } from "./types";
 
 
 export const postSignUp = (post_data) => dispatch => {
@@ -69,6 +69,10 @@ const userNotAuthenticatedDispatchSet = dispatch => {
         }
     })
     dispatch({
+        type:CLEAR_PROJECT,
+        payload:[]
+    })
+    dispatch({
         type:LOGOUT,
         payload:false
     })
@@ -98,28 +102,47 @@ export const Logout = () => dispatch => {
 
 export const checkAuth = () => dispatch => {
     
-        const user_id = window.localStorage.getItem('user_id')
-        if(user_id){
+    const user_id = window.localStorage.getItem('user_id')
+    
+    const permission_denied = dispatch => {
+        userNotAuthenticatedDispatchSet(dispatch);
+        window.location.href = "/#/login";
+    }
+
+        const check_self_auth = (dispatch) => {
+            axios
+            .post('/api/users-api/check-self-auth/',{user_id:user_id},{withCredentials:true})
+            .then(response => {
+                if(response.status===200) {
+                    userAuthenticatedDispatchSet(dispatch)
+                    const nav = document.getElementById("navigation")
+                    nav.style.display = "block";
+                    dispatch({
+                        type:NOT_ON_LANDING,
+                        payload:false
+                    })
+                } else {
+                    permission_denied(dispatch);
+                }
+            })
+        }
+
+        const token_refresh = (dispatch) => {
             axios
             .post('/api/users-api/token/refresh/',{user_id:user_id},{withCredentials:true})
             .then(response => {
                 if(response.status === 200){
-                    userAuthenticatedDispatchSet(dispatch)
-                    return true;
-                }
-            })
-            axios
-            .post('/api/users-api/check-self-auth/',{user_id:user_id},{withCredentials:true})
-            .then(response => {
-                if(response.status === 200){
-                    userAuthenticatedDispatchSet(dispatch)
-                    return true;
+                    check_self_auth(dispatch);
+                } else {
+                    permission_denied(dispatch);
                 }
             })
         }
-        userNotAuthenticatedDispatchSet(dispatch);
-        window.location.href = "/#/";
-        alert("Authentication Error")
-        Logout();
-        return false;
+
+
+        if(user_id){
+            token_refresh(dispatch);
+        } else {
+            permission_denied(dispatch)
+        }
     }
