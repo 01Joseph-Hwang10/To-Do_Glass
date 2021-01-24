@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOGIN, LOGOUT, PROFILE_MINE, PROFILE_NOT_MINE, SIGN_UP } from "./types";
+import { CLEAR_PROFILE, LOGIN, LOGOUT, PROFILE_MINE, PROFILE_NOT_MINE, SIGN_UP } from "./types";
 
 
 export const postSignUp = (post_data) => dispatch => {
@@ -47,6 +47,33 @@ export const postLogin = (post_data) => dispatch => {
 }
 
 
+const userAuthenticatedDispatchSet = dispatch => {
+    dispatch({
+        type:PROFILE_MINE,
+        payload:{
+            isMyProfile:true
+        }
+    })
+    dispatch({
+        type:LOGIN,
+        payload:true
+    })
+}
+
+const userNotAuthenticatedDispatchSet = dispatch => {
+    dispatch({
+        type:CLEAR_PROFILE,
+        payload:{
+            isMyProfile:false,
+            Profile:[]
+        }
+    })
+    dispatch({
+        type:LOGOUT,
+        payload:false
+    })
+}
+
 
 export const Logout = () => dispatch => {
     try {
@@ -55,10 +82,7 @@ export const Logout = () => dispatch => {
         .then(response => {
             if(response.status===200){
                 window.localStorage.removeItem('user_id')
-                dispatch({
-                    type:LOGOUT,
-                    payload:false
-                });
+                userNotAuthenticatedDispatchSet(dispatch)
                 window.location.href = "/#/";
                 window.location.reload();
             } else {
@@ -73,64 +97,29 @@ export const Logout = () => dispatch => {
 
 
 export const checkAuth = () => dispatch => {
-    try {
+    
         const user_id = window.localStorage.getItem('user_id')
-        axios
-        .post('/api/users-api/check-self-auth/',{user_id:user_id},{withCredentials:true})
-        .then(response => {
-            if(response.status === 200){
-                dispatch({
-                    type:PROFILE_MINE,
-                    payload:{
-                        isMyProfile:true
-                    }
-                })
-                dispatch({
-                    type:LOGIN,
-                    payload:true
-                })
-            } else {
-                axios
-                .post('/api/users-api/token/refresh/',{user_id:user_id},{withCredentials:true})
-                .then(response => {
-                    if(response.status === 200){
-                        dispatch({
-                            type:PROFILE_MINE,
-                            payload:{
-                                isMyProfile:true
-                            }
-                        })
-                        dispatch({
-                            type:LOGIN,
-                            payload:true
-                        })
-                    } else {
-                        dispatch({
-                            type:PROFILE_NOT_MINE,
-                            payload:{
-                                isMyProfile:true
-                            }
-                        })
-                        dispatch({
-                            type:LOGOUT,
-                            payload:false
-                        })
-                    }
-                })
-            }
-        })
-    } catch (error) {
-        console.error(error);
+        if(user_id){
+            axios
+            .post('/api/users-api/token/refresh/',{user_id:user_id},{withCredentials:true})
+            .then(response => {
+                if(response.status === 200){
+                    userAuthenticatedDispatchSet(dispatch)
+                    return true;
+                }
+            })
+            axios
+            .post('/api/users-api/check-self-auth/',{user_id:user_id},{withCredentials:true})
+            .then(response => {
+                if(response.status === 200){
+                    userAuthenticatedDispatchSet(dispatch)
+                    return true;
+                }
+            })
+        }
+        userNotAuthenticatedDispatchSet(dispatch);
+        window.location.href = "/#/";
         alert("Authentication Error")
-        dispatch({
-            type:PROFILE_NOT_MINE,
-            payload:{
-                isMyProfile:false
-            }
-        })
-        dispatch({
-            type:LOGOUT,
-            payload:false
-        })
+        Logout();
+        return false;
     }
-}

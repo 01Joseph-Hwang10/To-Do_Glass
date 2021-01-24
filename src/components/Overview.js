@@ -12,7 +12,7 @@ class Overview extends Component {
 
     componentWillMount() {
         this.props.getProfile()
-        this.props.checkAuth()
+        if(this.props.isAuthenticated) this.props.checkAuth()
     }
 
     render() {
@@ -45,7 +45,8 @@ class Overview extends Component {
 const mapStateToProps = state => {
     return {
         Profile: state.userInfo.Profile.data,
-        isMyProfile: state.userInfo.isMyProfile
+        isMyProfile: state.userInfo.isMyProfile,
+        isAuthenticated: state.login.isAuthenticated
     }
 }
 

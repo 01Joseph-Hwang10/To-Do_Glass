@@ -11,8 +11,9 @@ from rest_framework_simplejwt.views import (
 )
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from .serializers import UserSerializer
-from users import models as user_model
-from users import permissions as user_permission
+from . import models as user_model
+from . import permissions as user_permission
+from .mixins import get_cookie
 
 # Authenticated View
 
@@ -35,7 +36,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         # Need to add Secure options!!
         auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_5min,httponly=True)
         auth_response.set_cookie("refresh_token",value=serializer.validated_data['refresh'],max_age=max_age_2days,httponly=True)
-        auth_response.set_cookie("user_id",value=user_id,max_age=max_age_5min,httponly=True)
+        auth_response.set_cookie("user_id",value=user_id,max_age=max_age_2days,httponly=True)
 
         return auth_response
 
@@ -44,15 +45,10 @@ class CustomTokenRefreshView(TokenRefreshView):
     
     def post(self, request, *args, **kwargs):
 
-        raw_cookie = request.headers['Cookie'].split(";")
-        cookie={}
-        for e in raw_cookie:
-            splited_e = e.split("=")
-            cookie[splited_e[0].replace(" ","")]=splited_e[1]
-        print(cookie)
+        cookie=get_cookie(request)
+        post_data={"refresh":str(cookie['refresh_token'])}
 
-        serializer = self.get_serializer(data={"refresh":cookie['refresh']})
-
+        serializer = self.get_serializer(data=post_data)
         try:
             serializer.is_valid(raise_exception=True)
         except TokenError as e:
@@ -184,7 +180,6 @@ class PublicUserViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UserSerializer
     
     def retrieve(self, request, *args, **kwargs):
-        print(request.headers['Cookie'])
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return response.Response(serializer.data)
