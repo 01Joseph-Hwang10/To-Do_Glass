@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { URL_PUBLIC_PROFILE } from '../store/variables';
 import { GET_PROFILE, CLEAR_PROFILE } from './types';
 
 
@@ -11,7 +12,7 @@ export const getProfile = () => dispatch => {
         if(window.location.hash.replace(/\D/g,'')) {
                 const user_id = window.location.hash.replace(/\D/g,'');
                 axios
-                .get(`/api/users-api/public_users/${user_id}/`,{withCredentials:true})
+                .get([URL_PUBLIC_PROFILE,user_id,'/'].join(''),{withCredentials:true})
                 .then(response => dispatch({
                     type:GET_PROFILE,
                     payload:{

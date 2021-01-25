@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 // Redux
 import {Logout} from '../actions/authActions';
 import {checkPlace,hideNavAfterLogout} from '../actions/navControl';
-import {deleteProfileAfterLogout} from '../actions/getUserInfos';
+import {deleteProfileAfterLogout} from '../actions/userInfoActions';
 // etc
 import {PropTypes} from 'prop-types';
 

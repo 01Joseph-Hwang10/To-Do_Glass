@@ -2,11 +2,13 @@
 import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux';
-import {getProfile} from '../actions/getUserInfos';
+import {getProfile} from '../actions/userInfoActions';
 import {checkAuth} from '../actions/authActions';
+// etc
+import PropTypes from 'prop-types';
 // Components
-import ProfileCard from './profile/ProfileCard';
-import ProjectSection from './project/ProjectSection';
+import ProfileCard from './overview/ProfileCard';
+import ProjectSection from './overview/ProjectSection';
 
 class Overview extends Component {
 
@@ -48,6 +50,10 @@ const mapStateToProps = state => {
         isMyProfile: state.userInfo.isMyProfile,
         isAuthenticated: state.login.isAuthenticated
     }
+}
+
+Overview.propTypes = {
+    getProfile:PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps,{getProfile,checkAuth})(Overview);

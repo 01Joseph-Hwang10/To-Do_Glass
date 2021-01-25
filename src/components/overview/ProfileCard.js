@@ -1,9 +1,9 @@
 // React
 import React from 'react'
 // Components
-import UserAction from './UserAction';
+import UserAction from './partials/UserAction';
 import UserInfo from './UserInfo';
-import UserInteraction from './UserInteraction';
+import UserInteraction from './partials/UserInteraction';
 
 function ProfileCard(props)  {
 

@@ -1,11 +1,12 @@
 import axios from "axios";
+import { URL_CHECK_SELF_AUTH, URL_LOGOUT, URL_SIGN_UP, URL_TOKEN, URL_TOKEN_REFRESH } from "../store/variables";
 import { CLEAR_PROFILE, LOGIN, LOGOUT, PROFILE_MINE, NOT_ON_LANDING, SIGN_UP, CLEAR_PROJECT } from "./types";
 
 
 export const postSignUp = (post_data) => dispatch => {
     try {
         axios
-        .post('/api/users-api/sign-up/',post_data)
+        .post(URL_SIGN_UP,post_data)
         .then(response => {
             if(response.status===201) {
                 dispatch({type:SIGN_UP});
@@ -25,7 +26,7 @@ export const postSignUp = (post_data) => dispatch => {
 export const postLogin = (post_data) => dispatch => {
     try {
         axios
-        .post('/api/users-api/token/',post_data,{withCredentials:true})
+        .post(URL_TOKEN,post_data,{withCredentials:true})
         .then(response => {
             if(response.status === 200) {
                 const user_id = response.data.user_id;
@@ -82,7 +83,7 @@ const userNotAuthenticatedDispatchSet = dispatch => {
 export const Logout = () => dispatch => {
     try {
         axios
-        .get('/api/users-api/logout/',{withCredentials:true})
+        .get(URL_LOGOUT,{withCredentials:true})
         .then(response => {
             if(response.status===200){
                 window.localStorage.removeItem('user_id')
@@ -111,7 +112,7 @@ export const checkAuth = () => dispatch => {
 
         const check_self_auth = (dispatch) => {
             axios
-            .post('/api/users-api/check-self-auth/',{user_id:user_id},{withCredentials:true})
+            .post(URL_CHECK_SELF_AUTH,{user_id:user_id},{withCredentials:true})
             .then(response => {
                 if(response.status===200) {
                     userAuthenticatedDispatchSet(dispatch)
@@ -129,7 +130,7 @@ export const checkAuth = () => dispatch => {
 
         const token_refresh = (dispatch) => {
             axios
-            .post('/api/users-api/token/refresh/',{user_id:user_id},{withCredentials:true})
+            .post(URL_TOKEN_REFRESH,{user_id:user_id},{withCredentials:true})
             .then(response => {
                 if(response.status === 200){
                     check_self_auth(dispatch);

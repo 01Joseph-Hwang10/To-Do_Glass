@@ -2,9 +2,11 @@
 import React from 'react'
 // Redux
 import { connect } from 'react-redux';
-import {getProject,clearProject} from '../../actions/getProject';
+import {getProject,clearProject} from '../../actions/projectActions';
+// etc
+import PropTypes from 'prop-types';
 // Component
-import ProjectCard from './ProjectCard';
+import ProjectCard from './cards/ProjectCard';
 
 function ProjectSection(props) {
 
@@ -40,6 +42,11 @@ function ProjectSection(props) {
             </div>
         </div>
     )
+}
+
+ProjectSection.propTypes = {
+    getProject:PropTypes.func.isRequired,
+    clearProject:PropTypes.func.isRequired
 }
 
 export default connect(null,{getProject,clearProject})(ProjectSection);
