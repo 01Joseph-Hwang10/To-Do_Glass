@@ -1,4 +1,4 @@
-import { CLEAR_PROJECT, GET_PROJECT } from "../actions/types";
+import { CLEAR_PROJECT, GET_PROJECT, UPDATE_PROJECT } from "../actions/types";
 
 
 const initialState = {
@@ -14,6 +14,11 @@ export default function(state=initialState,action) {
                 Project:action.payload
             }
         case CLEAR_PROJECT:
+            return {
+                ...state,
+                Project:action.payload
+            }
+        case UPDATE_PROJECT:
             return {
                 ...state,
                 Project:action.payload

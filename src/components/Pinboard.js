@@ -2,7 +2,11 @@
 import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux'
+// Components
+import ContainerBox from './pinboard/ContainerBox';
 import Header from './pinboard/Header';
+import ProjectDetail from './pinboard/ProjectDetail';
+import Scheme from './pinboard/Scheme';
 
 class Pinboard extends Component {
 
@@ -10,7 +14,6 @@ class Pinboard extends Component {
 
         const project = this.props.Project;
         const userPermission = Boolean(this.props.isAuthenticated && this.props.isMyProfile)
-        // eslint-disable-next-line
         const participantPermission = Boolean(userPermission || (this.props.isAuthenticated && this.props.isParticipant))
 
         return (
@@ -19,7 +22,18 @@ class Pinboard extends Component {
                 {
                     project.url ? (
                         <div>
-                            <Header project={project} permission={userPermission} />
+                            <div>
+                                <Header project={project} permission={userPermission} />
+                            </div>
+                            <div>
+                                <Scheme project={project} permission={participantPermission}/>
+                            </div>
+                            <div>
+                                <ProjectDetail project={project} permission={participantPermission} />
+                            </div>
+                            <div>
+                                <ContainerBox project={project} permission={participantPermission}/>
+                            </div>
                         </div>
                     ) : (
                         <div>

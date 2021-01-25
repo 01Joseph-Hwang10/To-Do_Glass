@@ -10,7 +10,9 @@ import Pinboard from '../components/Pinboard';
 class Home extends React.Component {
 
     componentDidMount() {
-        this.props.checkAuth();
+        const CheckAuth = this.props.checkAuth;
+        CheckAuth();
+        setInterval(function(){CheckAuth(); }, (1000*60*4+1000*50) )
     }
 
     render() {

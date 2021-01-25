@@ -100,6 +100,14 @@ export const Logout = () => dispatch => {
     }
 }
 
+// export const refresh = () => {
+
+//     const user_id = window.localStorage.getItem('user_id')
+
+//     axios
+//     .post(URL_TOKEN_REFRESH,{user_id:user_id},{withCredentials:true})
+// }
+
 
 export const checkAuth = () => dispatch => {
     

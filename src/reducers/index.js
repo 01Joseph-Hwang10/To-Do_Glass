@@ -1,5 +1,6 @@
 // Redux
 import { combineReducers } from 'redux';
+import containerReducer from './containerReducer';
 // Reducers
 import navReducer from './navReducer';
 import permissionReducer from './permissionReducer';
@@ -15,5 +16,6 @@ export default combineReducers({
     onLanding:navReducer,
     userInfo:userInfoReducer,
     project:projectReducer,
-    permission:permissionReducer
+    permission:permissionReducer,
+    container:containerReducer
 });

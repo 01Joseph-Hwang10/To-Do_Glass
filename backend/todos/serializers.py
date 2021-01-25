@@ -9,9 +9,11 @@ from users import serializers as user_serializer
 class ProjectSerializer(HyperlinkedModelSerializer):
 
     url = HyperlinkedIdentityField(view_name='todos:project-detail')
+    id=ReadOnlyField()
     created_user = user_serializer.LightUserSerializer()
     count_containers = ReadOnlyField(required=False)
     get_containers = ListField(required=False)
+    get_container_ids = ListField(required=False)
     get_tags = ListField(required=False)
     participants = user_serializer.LightUserSerializer(many=True,read_only=False,required=False)
 
@@ -29,6 +31,7 @@ class ProjectSerializer(HyperlinkedModelSerializer):
         return exclusions + [
             'created_user',
             'get_containers',
+            'get_container_ids',
             'contributor',
             'get_tags',
         ]
@@ -51,6 +54,7 @@ class TagSerializer(HyperlinkedModelSerializer):
 
 class ContainerSerializer(HyperlinkedModelSerializer):
     project = ReadOnlyField(source='project.id')
+    id=ReadOnlyField()
     count_tasks = ReadOnlyField()
     get_tasks = ListField()
 
@@ -73,6 +77,7 @@ class ContainerSerializer(HyperlinkedModelSerializer):
 
 class TaskSerializer(HyperlinkedModelSerializer):
     container = ReadOnlyField(source='container.id')
+    id=ReadOnlyField()
 
     class Meta:
         model = todo_model.Task

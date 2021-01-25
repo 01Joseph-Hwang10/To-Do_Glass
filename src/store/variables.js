@@ -11,3 +11,7 @@ export const URL_LOGOUT='/api/users-api/logout/';
 export const URL_PUBLIC_PROFILE=`/api/users-api/public_users/`;
 // Project url
 export const URL_PUBLIC_PROJECT='/api/todos-api/public_projects/';
+export const URL_PROJECT='/api/todos-api/projects/'
+// Container url
+export const URL_PUBLIC_CONTAINER='/api/todos-api/public_containers/';
+export const URL_CONTAINER = '/api/todos-api/containers/';

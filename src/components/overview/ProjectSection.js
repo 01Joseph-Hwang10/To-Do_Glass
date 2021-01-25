@@ -6,7 +6,7 @@ import {getProject,clearProject} from '../../actions/projectActions';
 // etc
 import PropTypes from 'prop-types';
 // Component
-import ProjectCard from './cards/ProjectCard';
+import ProjectCard from '../../mixins/cards/ProjectCard';
 
 function ProjectSection(props) {
 

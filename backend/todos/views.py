@@ -14,14 +14,14 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
 class ContainerViewSet(viewsets.ModelViewSet):
 
-    queryset = models.Container.objects.all()
+    queryset = models.Container.objects.all().order_by('order')
     serializer_class = ContainerSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 
 class TaskViewSet(viewsets.ModelViewSet):
 
-    queryset = models.Task.objects.all()
+    queryset = models.Task.objects.all().order_by('order')
     serializer_class = TaskSerializer
     permission_classes = (permissions.IsAuthenticated,)
 

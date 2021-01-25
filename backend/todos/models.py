@@ -50,6 +50,13 @@ class Project(core_model.TimeStampedModel):
     def get_containers(self):
         return self.containers.all().values()
 
+    def get_container_ids(self):
+        containers = self.containers.all()
+        container_ids = []
+        for container in containers:
+            container_ids.append(container.id)
+        return container_ids
+
     def get_tags(self):
         return self.tags.all().values()
 

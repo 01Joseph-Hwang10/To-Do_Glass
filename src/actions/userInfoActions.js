@@ -8,7 +8,7 @@ import { GET_PROFILE, CLEAR_PROFILE } from './types';
 // Authenticated
 
 export const getProfile = () => dispatch => {
-    try {
+    // try {
         if(window.location.hash.replace(/\D/g,'')) {
                 const user_id = window.location.hash.replace(/\D/g,'');
                 axios
@@ -22,10 +22,10 @@ export const getProfile = () => dispatch => {
                 }))
                 .catch(error=>console.error(error))
             }
-        } catch (error) {
-            console.error(error);
-            alert("Profile request error")
-        }
+        // } catch (error) {
+        //     console.error(error);
+        //     alert("Profile request error")
+        // }
     }
 
 

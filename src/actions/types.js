@@ -13,5 +13,9 @@ export const PROFILE_NOT_MINE = "PROFILE_NOT_MINE";
 // Project
 export const GET_PROJECT = "GET_PROJECT";
 export const CLEAR_PROJECT = "CLEAR_PROJECT";
+export const UPDATE_PROJECT = "UPDATE_PROJECT";
 export const PARTICIPANT = "PARTICIPANT";
 export const NOT_PARTICIPANT = "NOT_PARTICIPANT";
+// Container
+export const GET_CONTAINER = "GET_CONTAINER"
+export const UPDATE_CONTAINER = "UPDATE_CONTAINER";
