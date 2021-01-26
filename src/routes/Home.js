@@ -6,13 +6,15 @@ import { connect } from 'react-redux';
 // Component
 import Overview from '../components/Overview';
 import Pinboard from '../components/Pinboard';
+import Glance from '../components/Glance';
 
 class Home extends React.Component {
 
     componentDidMount() {
         const CheckAuth = this.props.checkAuth;
-        CheckAuth();
-        setInterval(function(){CheckAuth(); }, (1000*60*4+1000*50) )
+        const isAuthenticated = this.props.isAuthenticated
+        CheckAuth(isAuthenticated);
+        setInterval(function(){CheckAuth(isAuthenticated); }, (1000*60*4+1000*50) )
     }
 
     render() {
@@ -28,12 +30,20 @@ class Home extends React.Component {
                 <div>
                     <Pinboard />
                 </div>
-                <div></div>
+                <div>
+                    <Glance />
+                </div>
             </div>
             </>
         );
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.login.isAuthenticated
+    }
+}
 
-export default connect(null,{checkAuth})(Home);
+
+export default connect(mapStateToProps,{checkAuth})(Home);

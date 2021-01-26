@@ -1,7 +1,7 @@
-import { GET_CONTAINER } from "../actions/types";
+import { CLEAR_CONTAINER, GET_CONTAINER } from "../actions/types";
 
 
-const initialState = {}
+const initialState = {};
 
 // eslint-disable-next-line
 export default function(state=initialState, action) {
@@ -13,6 +13,8 @@ export default function(state=initialState, action) {
                 ...state,
                 [containerId]:container
             }
+        case CLEAR_CONTAINER:
+            return {}
         default:
             return state
     }

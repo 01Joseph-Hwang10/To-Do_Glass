@@ -3,6 +3,7 @@ import React from 'react'
 // Redux
 import { connect } from 'react-redux';
 import {getProject,clearProject} from '../../actions/projectActions';
+import {clearContainer} from  '../../actions/containerActions';
 // etc
 import PropTypes from 'prop-types';
 // Component
@@ -16,6 +17,7 @@ function ProjectSection(props) {
         e.preventDefault();
         const project_id = e.target.childNodes[0].value;
         props.clearProject();
+        props.clearContainer();
         props.getProject(project_id);
     };
 
@@ -46,7 +48,8 @@ function ProjectSection(props) {
 
 ProjectSection.propTypes = {
     getProject:PropTypes.func.isRequired,
-    clearProject:PropTypes.func.isRequired
+    clearProject:PropTypes.func.isRequired,
+    clearContainer:PropTypes.func.isRequired
 }
 
-export default connect(null,{getProject,clearProject})(ProjectSection);
+export default connect(null,{getProject,clearProject,clearContainer})(ProjectSection);
