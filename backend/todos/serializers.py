@@ -16,6 +16,7 @@ class ProjectSerializer(HyperlinkedModelSerializer):
     get_container_ids = ListField(required=False)
     get_tags = ListField(required=False)
     participants = user_serializer.LightUserSerializer(many=True,read_only=False,required=False)
+    participant_ids = ReadOnlyField(required=False)
 
     class Meta:
         model = todo_model.Project
@@ -34,6 +35,8 @@ class ProjectSerializer(HyperlinkedModelSerializer):
             'get_container_ids',
             'contributor',
             'get_tags',
+            'participants',
+            'participant_ids',
         ]
 
 

@@ -8,6 +8,7 @@ import {checkPlace,hideNavAfterLogout} from '../actions/navControl';
 import {deleteProfileAfterLogout} from '../actions/userInfoActions';
 // etc
 import {PropTypes} from 'prop-types';
+import {switchDisplay} from '../functions/switchDisplay';
 
 class Navigation extends React.Component {
 
@@ -31,7 +32,12 @@ class Navigation extends React.Component {
             <div id="navigation" style={{display:'block'}}>
                 <Link to='/'><span>Logo</span></Link>
                 <span>Navigation</span>
-                <button onClick={Logout}>Log out</button>
+                <div className='relative'>
+                    <button onClick={switchDisplay}>Menu</button>
+                    <div className="absolute bg-white" style={{display:'none'}}>
+                        <button onClick={Logout}>Log out</button>
+                    </div>
+                </div>
             </div>
         )
     }

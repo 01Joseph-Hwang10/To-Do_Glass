@@ -15,4 +15,5 @@ router.register(r'public_projects',views.PublicProjectViewSet,'public_project')
 
 urlpatterns = [
     path('', include((router.urls))),
+    path('glance/',views.SortedProjectView.as_view(),name="glance")
 ]

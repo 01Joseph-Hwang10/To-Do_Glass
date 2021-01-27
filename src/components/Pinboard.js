@@ -12,15 +12,21 @@ class Pinboard extends Component {
 
     render() {
 
-        const project = this.props.Project;
-        const userPermission = Boolean(this.props.isAuthenticated && this.props.isMyProfile)
-        const participantPermission = Boolean(userPermission || (this.props.isAuthenticated && this.props.isParticipant))
+        const project = this.props.Project
+        const createdBy=this.props.createdBy
+        const myId = localStorage.getItem('user_id')
+        const isMyProject = Boolean(createdBy===myId)
+        const userPermission = Boolean(this.props.isAuthenticated && isMyProject)
+        const participantList = this.props.participant_ids
+        // Need to work on Backend!!!
+        const isParticipant = (function(){return( participantList ? Boolean(participantList.includes(myId)) : false )})()
+        const participantPermission = Boolean(userPermission || (this.props.isAuthenticated && isParticipant))
 
         return (
             <div>
                 <span>Pinboard</span>
                 {
-                    project.url ? (
+                    Boolean(project) ? (
                         <div>
                             <div>
                                 <Header project={project} permission={userPermission} />
@@ -50,8 +56,8 @@ const mapStateToProps = state => {
     return {
         Project:state.project.Project,
         isAuthenticated:state.login.isAuthenticated,
-        isMyProfile:state.userInfo.isMyProfile,
-        isParticipant:state.permission.isParticipant
+        createdBy:state.project.Project.created_user.id,
+        participantList:state.project.Project.participant_ids
     }
 }
 

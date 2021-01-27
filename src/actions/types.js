@@ -16,6 +16,12 @@ export const CLEAR_PROJECT = "CLEAR_PROJECT";
 export const UPDATE_PROJECT = "UPDATE_PROJECT";
 export const PARTICIPANT = "PARTICIPANT";
 export const NOT_PARTICIPANT = "NOT_PARTICIPANT";
+export const PROJECT_MINE = "PROJECT_MINE";
+export const PROJECT_NOT_MINE = "PROJECT_NOT_MINE";
+// Glance
+export const GET_GLANCE = "GET_GLANCE";
+export const UPDATE_GLANCE = "UPDATE_GLANCE";
+export const CLEAR_GLANCE = "CLEAR_GLANCE";
 // Container
 export const GET_CONTAINER = "GET_CONTAINER";
 export const UPDATE_CONTAINER = "UPDATE_CONTAINER";

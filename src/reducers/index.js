@@ -1,9 +1,9 @@
 // Redux
 import { combineReducers } from 'redux';
 import containerReducer from './containerReducer';
+import glanceReducer from './glanceReducer';
 // Reducers
 import navReducer from './navReducer';
-import permissionReducer from './permissionReducer';
 import projectReducer from './projectReducer';
 import signInReducer from './signInReducer';
 import signUpReducer from './signUpReducer';
@@ -16,6 +16,6 @@ export default combineReducers({
     onLanding:navReducer,
     userInfo:userInfoReducer,
     project:projectReducer,
-    permission:permissionReducer,
-    container:containerReducer
+    container:containerReducer,
+    glance:glanceReducer
 });

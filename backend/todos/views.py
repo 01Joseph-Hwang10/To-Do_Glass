@@ -1,4 +1,5 @@
-from rest_framework import viewsets, generics, permissions, viewsets, response
+from django.db.models import Q
+from rest_framework import viewsets, generics, permissions, viewsets, response, status
 from . import models
 from users import models as user_model
 from users.mixins import get_cookie
@@ -14,17 +15,18 @@ class ProjectViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAllowedToWrite,)
 
 
-class SortedProjectViewSet(generics.RetrieveAPIView):
+class SortedProjectView(generics.RetrieveAPIView):
 
     queryset = models.Project.objects.all().order_by('updated')
     serializer_class = ProjectSerializer
-    permission_classes = (IsAllowedToWrite,)
 
     def retrieve(self, request, *args, **kwargs):
         cookie=get_cookie(request)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return response.Response(serializer.data)
+        user_id=int(cookie['user_id'])
+        user=user_model.User.objects.get(id=user_id)
+        instance = models.Project.objects.filter(~Q(created_user=user))[:5]
+        response_data = list(instance.values())
+        return response.Response(data=response_data,status=status.HTTP_200_OK)
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)

@@ -18,6 +18,9 @@ class Home extends React.Component {
     }
 
     render() {
+
+        const pinboardIsLoaded = Boolean(Object.keys(this.props.Project).length > 0)
+
         return (
             <>
             <div>
@@ -28,7 +31,15 @@ class Home extends React.Component {
                     <Overview />
                 </div>
                 <div>
-                    <Pinboard />
+                    {
+                        pinboardIsLoaded ? (
+                            <Pinboard />
+                        ) : (
+                            <div>
+                                <span>Open Your Project!</span>
+                            </div>
+                        )
+                    }
                 </div>
                 <div>
                     <Glance />
@@ -41,7 +52,8 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.login.isAuthenticated
+        isAuthenticated: state.login.isAuthenticated,
+        Project:state.project.Project
     }
 }
 

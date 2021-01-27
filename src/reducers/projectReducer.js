@@ -2,7 +2,7 @@ import { CLEAR_PROJECT, GET_PROJECT, UPDATE_PROJECT } from "../actions/types";
 
 
 const initialState = {
-    Project:[]
+    Project:{}
 }
 
 // eslint-disable-next-line
