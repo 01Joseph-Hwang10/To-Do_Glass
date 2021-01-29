@@ -16,3 +16,10 @@ export const URL_GLANCE='/api/todos-api/glance/';
 // Container url
 export const URL_PUBLIC_CONTAINER='/api/todos-api/public_containers/';
 export const URL_CONTAINER = '/api/todos-api/containers/';
+
+// Colors
+export const COLOR_FIRST = "#0f3057"
+export const COLOR_SECOND = "#00587a"
+export const COLOR_THIRD = "#008891"
+export const COLOR_FOURTH = "#e7e7de"
+export const COLOR_FIFTH = "#F8F8FF"

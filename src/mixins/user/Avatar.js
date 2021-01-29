@@ -8,9 +8,9 @@ function Avatar(props) {
 
     return (
         <Link to={{pathname:`/${user.id}/home`}}>
-            <div>
+            <div className="flex justify-center items-center">
                 <div className='w-8 h-8 rounded-2xl bg-cover bg-center' style={{backgroundImage:`url("${user.avatar}")`}}></div>
-                <div><span>{user.first_name}</span></div>
+                <div className="mx-2 text-sm"><span>{user.first_name}</span></div>
             </div>
         </Link>
     )

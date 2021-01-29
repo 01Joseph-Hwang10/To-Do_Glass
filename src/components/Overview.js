@@ -22,8 +22,7 @@ class Overview extends Component {
                 {
                     this.props.Profile ? (
                         <div>
-                            <span>Overview</span>
-                            <div>
+                            <div className="flex justify-center items-center">
                                 <ProfileCard 
                                 Profile={this.props.Profile}
                                 isMyProfile={this.props.isMyProfile}

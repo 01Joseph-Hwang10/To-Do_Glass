@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Overview from '../components/Overview';
 import Pinboard from '../components/Pinboard';
 import Glance from '../components/Glance';
+// import { COLOR_FOURTH } from '../store/variables';
 
 class Home extends React.Component {
 
@@ -23,14 +24,11 @@ class Home extends React.Component {
 
         return (
             <>
-            <div>
-                <h1>Home</h1>
-            </div>
-            <div>
-                <div>
+            <div className="mt-16 flex justify-center w-full">
+                <div className="container w-2/12 m-2 rounded p-3">
                     <Overview />
                 </div>
-                <div>
+                <div className="container w-5/12 m-2">
                     {
                         pinboardIsLoaded ? (
                             <Pinboard />
@@ -41,7 +39,7 @@ class Home extends React.Component {
                         )
                     }
                 </div>
-                <div>
+                <div className="container w-4/12 m-2">
                     <Glance />
                 </div>
             </div>

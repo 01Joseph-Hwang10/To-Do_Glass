@@ -1,9 +1,16 @@
 
 
 export const switchDisplay = (e) => {
-    const button = e.target
-    const div = e.target.parentNode
-    const menu = div.childNodes[1]
+    let button,div,menu
+    if(e.target.parentNode.nodeName==="DIV") {
+        button = e.target
+        div = e.target.parentNode
+        menu = div.childNodes[1]
+    } else {
+        button = e.target.parentNode
+        div = e.target.parentNode.parentNode
+        menu = div.childNodes[1]
+    }
     if (menu.style.display === "none") {
         menu.style.display = "block";
     } else {
