@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 // Components
 import ProfileCard from './overview/ProfileCard';
 import ProjectSection from './overview/ProjectSection';
+import { COLOR_FIFTH, COLOR_FOURTH } from '../store/variables';
 
 class Overview extends Component {
 
@@ -18,24 +19,48 @@ class Overview extends Component {
 
     render() {
         return (
-            <section>
+            <section className="w-full">
                 {
                     this.props.Profile ? (
-                        <div>
-                            <div className="flex justify-center items-center">
+                        <div className="w-full">
+                            <div className="w-full flex justify-center items-center">
                                 <ProfileCard 
                                 Profile={this.props.Profile}
                                 isMyProfile={this.props.isMyProfile}
                                 />
                             </div>
-                            <div>
+                            <div className="w-full mt-2">
                                 <ProjectSection projects={this.props.Profile.get_my_projects} />
                             </div>
                         </div>
                     ) : (
-                        <div>
-                            <span>Loading</span>
-                        </div>
+                        <div className="w-full">
+                            <div className="w-full rounded" style={{backgroundColor:COLOR_FOURTH}}>
+                                <div className="animate-pulse w-full flex flex-col justify-center items-center p-3" style={{height:"200px"}}>
+                                    <div className="w-10 h-10 rounded-3xl m-3" style={{backgroundColor:COLOR_FIFTH}}></div>
+                                    <div className="h-2 w-11/12 rounded m-1" style={{backgroundColor:COLOR_FIFTH}}></div>
+                                    <div className="h-2 w-11/12 rounded m-1" style={{backgroundColor:COLOR_FIFTH}}></div>
+                                    <div className="h-2 w-11/12 rounded m-1" style={{backgroundColor:COLOR_FIFTH}}></div>   
+                                    <div className="h-7 w-10/12 rounded m-5" style={{backgroundColor:COLOR_FIFTH}}></div>
+                                </div>
+                            </div>
+                            <div className="w-full">
+                                <div className="w-full flex flex-col justify-between items-center mt-3">
+                                        <div className="w-full rounded flex justify-start items-center mt-2 p-2" style={{backgroundColor:COLOR_FOURTH}}>
+                                            <div className="animate-pulse h-3 w-9/12 rounded m-1" style={{backgroundColor:COLOR_FIFTH}}></div>
+                                        </div>
+                                        <div className="w-full rounded flex justify-start items-center mt-2 p-2" style={{backgroundColor:COLOR_FOURTH}}>
+                                            <div className="animate-pulse h-3 w-9/12 rounded m-1" style={{backgroundColor:COLOR_FIFTH}}></div>
+                                        </div>
+                                        <div className="w-full rounded flex justify-start items-center mt-2 p-2" style={{backgroundColor:COLOR_FOURTH}}>
+                                            <div className="animate-pulse h-3 w-9/12 rounded m-1" style={{backgroundColor:COLOR_FIFTH}}></div>
+                                        </div>
+                                        <div className="w-full rounded flex justify-start items-center mt-2 p-2" style={{backgroundColor:COLOR_FOURTH}}>
+                                            <div className="animate-pulse h-3 w-9/12 rounded m-1" style={{backgroundColor:COLOR_FIFTH}}></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     )
                 }
             </section>

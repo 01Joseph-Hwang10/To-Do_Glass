@@ -15,24 +15,29 @@ class Header extends React.Component {
         const permission = this.props.permission
 
         return (
-            <div>
-                <div>
-                    <CTCInput 
-                    id={project.id}
-                    name={project.name}
-                    permission={permission}
-                    dataType={"name"}
-                    action={this.props.updateProject}
-                    afterAction={this.props.getProfile}
-                    />
+            <div className="w-full flex justify-between px-3">
+                <div className="w-5/12 flex justify-start items-center ml-1">
+                    <div className="text-xl">
+                        <CTCInput 
+                        id={project.id}
+                        name={project.name}
+                        permission={permission}
+                        dataType={"name"}
+                        action={this.props.updateProject}
+                        afterAction={this.props.getProfile}
+                        textAlign={"left"}
+                        />
+                    </div>
                 </div>
                 {permission ? (
-                    <>
-                        <Avatar user={project.created_user} />
+                    <div className="w-5/12 flex justify-end items-center">
+                        <div className="border p-2 border-blue-50 rounded bg-blue-100 mr-5"><Avatar user={project.created_user} /></div>
                         <HeaderMenu />
-                    </>
+                    </div>
                 ) : (
-                    <Avatar user={project.created_user} />
+                    <div className="w-5/12 flex justify-end items-center">
+                        <Avatar user={project.created_user} />
+                    </div>
                 )}
             </div>
         )

@@ -1,10 +1,10 @@
 module.exports = {
   purge: [],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'media', // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
-        quarternary:"#0f3057",
+        quarternary:"#0f305",
         tertiary:"#00587a",
         secondary:"#008891",
         primary:"#e7e7de",

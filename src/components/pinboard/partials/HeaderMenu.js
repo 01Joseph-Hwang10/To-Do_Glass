@@ -5,9 +5,9 @@ import { switchDisplay } from '../../../functions/switchDisplay';
 function headerMenu(props) {
     return (
         <div className="relative">
-            <button onClick={switchDisplay}>Menu</button>
-            <div style={{display:'none'}} className='bg-white absolute'>
-                <div><span>Settings</span></div>
+            <button className="fas fa-ellipsis-v text-2xl text-gray-600" onClick={switchDisplay}></button>
+            <div style={{display:'none'}} className='bg-white absolute rounded p-1 right-1'>
+                <div className="p-1"><span>Settings</span></div>
             </div>
         </div>
     )

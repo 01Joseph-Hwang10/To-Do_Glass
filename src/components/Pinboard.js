@@ -13,9 +13,9 @@ class Pinboard extends Component {
     render() {
 
         const project = this.props.Project
-        const createdBy=this.props.createdBy
+        const createdBy= this.props.createdBy
         const myId = localStorage.getItem('user_id')
-        const isMyProject = Boolean(createdBy===myId)
+        const isMyProject = Boolean(Number(createdBy)===Number(myId))
         const userPermission = Boolean(this.props.isAuthenticated && isMyProject)
         const participantList = this.props.participant_ids
         // Need to work on Backend!!!
@@ -23,15 +23,14 @@ class Pinboard extends Component {
         const participantPermission = Boolean(userPermission || (this.props.isAuthenticated && isParticipant))
 
         return (
-            <div>
-                <span>Pinboard</span>
+            <div className="w-full">
                 {
                     Boolean(project) ? (
-                        <div>
-                            <div>
+                        <div className="w-full bg-blue-50 rounded shadow-inner">
+                            <div className="p-3 rounded-t bg-gradient-to-b from-blue-100 to-blue-50">
                                 <Header project={project} permission={userPermission} />
                             </div>
-                            <div>
+                            <div className="p-5 rounded">
                                 <Scheme project={project} permission={participantPermission}/>
                             </div>
                             <div>

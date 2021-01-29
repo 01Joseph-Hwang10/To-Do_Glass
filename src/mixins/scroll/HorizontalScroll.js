@@ -6,7 +6,7 @@ function HorizontalScroll(props) {
 
 
     return (
-        <div className='flex justify-start flex-nowrap overflow-x-auto'>
+        <div className='scroller flex justify-start flex-nowrap overflow-x-auto'>
             {props.card}
         </div>
     )

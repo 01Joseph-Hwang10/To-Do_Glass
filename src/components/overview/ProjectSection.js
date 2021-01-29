@@ -7,7 +7,7 @@ import {clearContainer} from  '../../actions/containerActions';
 // etc
 import PropTypes from 'prop-types';
 // Component
-import ProjectCard from '../../mixins/cards/ProjectCard';
+import ProjectCard from './partials/ProjectCard';
 
 function ProjectSection(props) {
 
@@ -22,17 +22,14 @@ function ProjectSection(props) {
     };
 
     return (
-        <div>
-            <div>
-                <span>Projects</span>
-            </div>
-            <div>
+        <div className="w-full">
+            <div className="w-full flex flex-col justify-start">
                 {
                     myProjects.map(project => {
                         return (
-                        <form onSubmit={onSubmit}>
+                        <form className="w-full" onSubmit={onSubmit}>
                             <input className="hidden" value={project.id} readOnly></input>
-                            <button>
+                            <button className="w-full">
                                 <ProjectCard 
                                 {...project}
                                 />

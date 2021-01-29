@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 class CTCInput extends Component {
 
     render() {
+
+        const textAlign = this.props.textAlign || "center"
         
         const OnClick = e => {
             const button = e.target
@@ -37,8 +39,16 @@ class CTCInput extends Component {
             postData[dataType] = inputValue
             const action = this.props.action
             const id = this.props.id
+            const afterActionInput = this.props.afterActionInput
+            console.log(afterActionInput)
             action(postData,id)
-            if(this.props.afterAction) this.props.afterAction()
+            if(this.props.afterAction) {
+                if(afterActionInput) {
+                    this.props.afterAction(afterActionInput)
+                } else {
+                    this.props.afterAction()
+                }
+            }
             button.style.display="block"
             form.style.display="none"
         };
@@ -46,14 +56,17 @@ class CTCInput extends Component {
         return (
             <>
             {this.props.permission ? (
-                <div className='w-full h-full'>
-                    <button className='w-full h-full' style={{display:'block'}} onClick={OnClick}>{this.props.name}</button>
+                <div className='w-full h-full bg-transparent'>
+                    <button className='w-full h-full font-semibold' style={{display:'block',textAlign:textAlign}} onClick={OnClick}>{this.props.name}</button>
                     <form className='w-full h-full' style={{display:'none'}} onSubmit={OnSubmit}>
-                        <input className='w-full h-full' name={this.props.dataType} placeholder="Project Name"></input>
+
+                        <input className='w-full h-full bg-transparent p-1 border-b-2 border-gray-600' name={this.props.dataType} placeholder="Project Name"></input>
                     </form>
                 </div>
             ) : (
-                <span>{this.props.name}</span>
+                <div className="w-full h-full">
+                    <span className="font-semibold">{this.props.name}</span>
+                </div>
             )}
             </>
         )

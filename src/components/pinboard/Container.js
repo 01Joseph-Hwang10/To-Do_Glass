@@ -6,7 +6,7 @@ import { getContainer } from '../../actions/containerActions';
 // etc
 import PropTypes from 'prop-types'
 // Components
-import TaskCard from '../../mixins/cards/TaskCard';
+import TaskCard from './partials/TaskCard';
 import HorizontalScroll from '../../mixins/scroll/HorizontalScroll';
 
 

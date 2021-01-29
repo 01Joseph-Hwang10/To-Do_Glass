@@ -7,7 +7,7 @@ import {clearContainer} from '../../actions/containerActions';
 // etc
 // import PropTypes from 'prop-types'
 // Components
-import GlanceCard from '../../mixins/cards/GlanceCard';
+import GlanceCard from './GlanceCard';
 
 class GlanceBox extends Component {
     
@@ -28,7 +28,7 @@ class GlanceBox extends Component {
         return (
             <div>
                 {
-                    glances ? (
+                    Boolean(glances.length>0) ? (
                         <>
                             {
                                 glances.map(glance => {

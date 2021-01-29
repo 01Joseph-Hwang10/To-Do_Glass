@@ -43,7 +43,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     queryset = models.Task.objects.all().order_by('order')
     serializer_class = TaskSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (IsAllowedToWrite,)
 
 
 # Public View
