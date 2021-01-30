@@ -37,10 +37,10 @@ class CTCInput extends Component {
             const dataType = input.name;
             const postData = {}
             postData[dataType] = inputValue
+            postData['user_id'] = localStorage.getItem('user_id')
             const action = this.props.action
             const id = this.props.id
             const afterActionInput = this.props.afterActionInput
-            console.log(afterActionInput)
             action(postData,id)
             if(this.props.afterAction) {
                 if(afterActionInput) {

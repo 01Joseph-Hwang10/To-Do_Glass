@@ -1,6 +1,6 @@
 from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
 from rest_framework.serializers import PrimaryKeyRelatedField, HyperlinkedIdentityField, HyperlinkedRelatedField
-from rest_framework.serializers import ReadOnlyField, ImageField, ListField
+from rest_framework.serializers import ReadOnlyField, ImageField, ListField, IntegerField
 from . import models as todo_model
 from users import models as user_model
 from users import serializers as user_serializer
@@ -56,10 +56,10 @@ class TagSerializer(HyperlinkedModelSerializer):
 
 
 class ContainerSerializer(HyperlinkedModelSerializer):
-    project = ReadOnlyField(source='project.id')
-    id=ReadOnlyField()
-    count_tasks = ReadOnlyField()
-    get_tasks = ListField()
+    project = IntegerField(source='project.id')
+    id=IntegerField()
+    count_tasks = ReadOnlyField(required=False)
+    get_tasks = ReadOnlyField(required=False)
 
     class Meta:
         model = todo_model.Container
@@ -74,12 +74,13 @@ class ContainerSerializer(HyperlinkedModelSerializer):
         exclusions = super(ContainerSerializer, self).get_validation_exclusions()
         return exclusions + [
             'get_tasks',
+            'count_tasks',
         ]
 
 
 
 class TaskSerializer(HyperlinkedModelSerializer):
-    container = ReadOnlyField(source='container.id')
+    container = IntegerField(source='container.id')
     id=ReadOnlyField()
 
     class Meta:

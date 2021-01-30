@@ -108,6 +108,7 @@ class LogoutView(generics.RetrieveAPIView):
 #         #     return response.Response(status=404,data="Authorization Failed")
 
 
+
 class UserViewSet(viewsets.ModelViewSet):
 
     queryset = user_model.User.objects.all().order_by('-date_joined')
@@ -131,6 +132,8 @@ class UserViewSet(viewsets.ModelViewSet):
         except Exception: # Else
             kwargs['partial'] = True
             return self.update(request, *args, **kwargs)
+
+
 
 class CheckSelfAuthView(generics.CreateAPIView):
 

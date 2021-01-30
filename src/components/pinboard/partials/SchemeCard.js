@@ -18,7 +18,7 @@ function SchemeCard(props) {
     const projectId = container.project_id
 
     return (
-        <div className="rounded shadow-lg w-32 h-24 mx-2" style={{backgroundColor:COLOR_SIXTH}}>
+        <div className="rounded shadow-lg w-32 h-24 mx-2 flex flex-col justify-between items-center" style={{backgroundColor:COLOR_SIXTH}}>
             {props.permission ? (
             <>
                 <div className="w-full flex justify-center items-center">
@@ -28,8 +28,8 @@ function SchemeCard(props) {
                         <Important isImportant={container.importance} />
                     </div>
                 </div>
-                <div className="w-full flex flex-col justify-center items-center">
-                    <div>
+                <div className="w-full h-full flex flex-col justify-around items-center">
+                    <button className="w-full">
                     <CTCInput 
                             id={container.id}
                             name={container.name}
@@ -39,7 +39,7 @@ function SchemeCard(props) {
                             afterAction={props.getProject}
                             afterActionInput={projectId}
                             />
-                    </div>
+                    </button>
                     <div className="mt-px"><button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold">Detail</button></div>
                 </div>
 
@@ -53,7 +53,7 @@ function SchemeCard(props) {
                         <Important isImportant={container.importance} />
                     </div>
                 </div>
-                <div className="w-full flex flex-col justify-center items-center">
+                <div className="w-full h-full flex flex-col justify-around items-center">
                     <div><button>{container.name}</button></div>
                     <div className="mt-px"><button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold">Detail</button></div>
                 </div>

@@ -55,8 +55,7 @@ THIRD_PARTY_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+DJANGO_MIDDLEWARD = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,8 +63,21 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+PROJECT_MIDDLEWARE = [
     'core.middlewares.CustomHeaderMiddleware',
 ]
+
+THIRD_PARTY_MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+MIDDLEWARE = DJANGO_MIDDLEWARD + PROJECT_MIDDLEWARE + THIRD_PARTY_MIDDLEWARE
+
+# MIDDLEWARE_CLASSES = (
+    
+# )
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -168,9 +180,6 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
-    "DEFAULT_PERMISSION_CLASSES": (
-        'rest_framework.permissions.IsAuthenticated',
-        )
 }
 
 DEFAULTS = {
