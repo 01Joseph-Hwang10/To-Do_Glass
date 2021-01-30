@@ -19,7 +19,7 @@ class Scheme extends Component {
         const containers = project.get_containers;
         const projectId = project.id
         const permission = this.props.permission
-        const countContainers = project.count_containers
+        const countContainers = Number(project.count_containers)
         
         const OnSubmit = (e) => {
             e.preventDefault()
@@ -29,7 +29,7 @@ class Scheme extends Component {
                 name:input.value,
                 project:projectId,
                 user_id:localStorage.getItem('user_id'),
-                countContainers,
+                order:(countContainers+1),
             }
             this.props.createContainer(post_data)
             this.props.getProject()
