@@ -1,6 +1,6 @@
 import axios from "axios"
 import { URL_CONTAINER, URL_PUBLIC_CONTAINER } from "../store/variables"
-import { CLEAR_CONTAINER, CREATE_CONTAINER, GET_CONTAINER, UPDATE_CONTAINER } from "./types"
+import { CLEAR_CONTAINER, CREATE_CONTAINER, DELETE_CONTAINER, GET_CONTAINER, UPDATE_CONTAINER } from "./types"
 
 
 export const getContainer = (id) => dispatch => {
@@ -21,14 +21,21 @@ export const createContainer = (post_data) => dispatch => {
     axios
     .post(URL_CONTAINER,post_data,{withCredentials:true})
     .then(response => {
-        console.log(response)
-        // dispatch({
-        //     type:CREATE_CONTAINER,
-        //     payload:{
-        //         containerId:response.data.id,
-        //         container:response.data
-        //     }
-        // })
+        dispatch({
+            type:CREATE_CONTAINER,
+            payload:response.data.id
+        })
+    })
+}
+
+export const deleteContainer = (id) => dispatch => {
+    axios
+    .delete([URL_CONTAINER,id,'/'].join(''),{withCredentials:true})
+    .then(response => {
+        dispatch({
+            type:DELETE_CONTAINER,
+            payload:id
+        })
     })
 }
 

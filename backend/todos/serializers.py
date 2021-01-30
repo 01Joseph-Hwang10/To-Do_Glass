@@ -57,7 +57,7 @@ class TagSerializer(HyperlinkedModelSerializer):
 
 class ContainerSerializer(HyperlinkedModelSerializer):
     project = IntegerField(source='project.id')
-    id=IntegerField()
+    id=ReadOnlyField()
     count_tasks = ReadOnlyField(required=False)
     get_tasks = ReadOnlyField(required=False)
 
@@ -69,12 +69,15 @@ class ContainerSerializer(HyperlinkedModelSerializer):
                 'view_name': 'todos:container-detail',
             },
         }
+    
 
     def get_validation_exclusions(self):
         exclusions = super(ContainerSerializer, self).get_validation_exclusions()
         return exclusions + [
             'get_tasks',
             'count_tasks',
+            'created',
+            'updated',
         ]
 
 

@@ -1,4 +1,6 @@
+import datetime, json
 from django.db.models import Q
+from django.forms.models import model_to_dict
 from rest_framework import viewsets, generics, permissions, viewsets, response, status
 from . import models
 from users import models as user_model
@@ -48,17 +50,16 @@ class ContainerViewSet(viewsets.ModelViewSet):
     #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def create(self, request, *args, **kwargs):
-        request.data['description'] = ""
-        request.data['completed'] = False
-        request.data['importance'] = False
-        del request.data['user_id']
-        serializer = self.get_serializer(data=request.data)
-        print(serializer)
-        serializer.is_valid(raise_exception=True)
-        print("work?")
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        post_data = request.data
+        new_object=models.Container.objects.create(
+            project=models.Project.objects.get(id=post_data['project_id']),
+            name=post_data['name'],
+            order=post_data['order'],
+            completed=False,
+            importance=False,
+            description=""
+        )
+        return response.Response(data=model_to_dict(new_object),status=status.HTTP_201_CREATED)
 
 
 

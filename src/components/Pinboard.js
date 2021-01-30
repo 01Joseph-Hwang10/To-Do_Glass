@@ -30,10 +30,10 @@ class Pinboard extends Component {
                             <div className="p-3 rounded-t bg-gradient-to-b from-blue-100 to-blue-50">
                                 <Header project={project} permission={userPermission} />
                             </div>
-                            <div className="p-5 rounded">
+                            <div className="px-5 pt-5 rounded">
                                 <Scheme project={project} permission={participantPermission}/>
                             </div>
-                            <div>
+                            <div className="px-5 py-3 rounded">
                                 <ProjectDetail project={project} permission={participantPermission} />
                             </div>
                             <div>

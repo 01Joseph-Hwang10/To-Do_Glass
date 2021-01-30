@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux'
 import {createContainer} from '../../actions/containerActions';
-import {getProject} from '../../actions/projectActions';
+import {getContainer} from '../../actions/containerActions';
 // etc
 import { COLOR_FIFTH, COLOR_SIXTH } from '../../store/variables';
 import PropTypes from 'prop-types'
@@ -27,12 +27,12 @@ class Scheme extends Component {
             const input = form.childNodes[0]
             const post_data = {
                 name:input.value,
-                project:projectId,
+                project_id:projectId,
                 user_id:localStorage.getItem('user_id'),
                 order:(countContainers+1),
             }
             this.props.createContainer(post_data)
-            this.props.getProject()
+            this.props.getContainer(this.props.createdId)
             input.value=""
             input.blur()
         };
@@ -81,7 +81,15 @@ class Scheme extends Component {
 
 Scheme.propTypes = {
     createContainer:PropTypes.func.isRequired,
-    getProject:PropTypes.func.isRequired
+    getContainer:PropTypes.func.isRequired
 }
 
-export default connect(null,{createContainer,getProject})(Scheme);
+
+const mapStateToProps = state => {
+    return {
+        createdId: state.container.created
+    }
+}
+
+
+export default connect(mapStateToProps,{createContainer,getContainer})(Scheme);

@@ -27,6 +27,8 @@ export const updateProject = (post_data, project_id) => dispatch => {
 }
 
 
+
+
 export const clearProject = () => dispatch => {
     dispatch({
         type:CLEAR_PROJECT,

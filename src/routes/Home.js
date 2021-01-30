@@ -33,8 +33,10 @@ class Home extends React.Component {
                         pinboardIsLoaded ? (
                             <Pinboard />
                         ) : (
-                            <div>
-                                <span>Open Your Project!</span>
+                            <div className="w-full">
+                                <div className="flex justify-center items-center w-full bg-gray-100 rounded shadow-inner" style={{height:"500px"}}>
+                                    <span>No Projects are opened</span>
+                                </div>
                             </div>
                         )
                     }

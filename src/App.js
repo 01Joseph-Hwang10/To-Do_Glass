@@ -19,7 +19,7 @@ function App() {
         <div className="w-full text-gray-800">
           <Navigation />
           <Route path='/' exact component={Landing} />
-          <div className="mt-14" style={{minHeight:"75vh"}}>
+          <div className="mt-14" style={{minHeight:"100vh"}}>
             <Route path='/:id/home' exact component={Home} />
             <Route path='/login' exact component={LoginForm} />
             <Route path='/signup' exact component={SignUpForm} />

@@ -13,6 +13,7 @@ export const switchDisplay = (e) => {
     }
     if (menu.style.display === "none") {
         menu.style.display = "block";
+        // menu.style.transition = "all 0.25s ease-in-out"
     } else {
         menu.style.display = "none";
     }
