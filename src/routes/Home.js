@@ -28,7 +28,7 @@ class Home extends React.Component {
                 <div className="container w-2/12 m-2 rounded p-3">
                     <Overview />
                 </div>
-                <div className="container w-5/12 m-2">
+                <div className="container w-6/12 m-2">
                     {
                         pinboardIsLoaded ? (
                             <Pinboard />
@@ -41,7 +41,7 @@ class Home extends React.Component {
                         )
                     }
                 </div>
-                <div className="container w-4/12 m-2">
+                <div className="container w-3/12 m-2 mt-6">
                     <Glance />
                 </div>
             </div>

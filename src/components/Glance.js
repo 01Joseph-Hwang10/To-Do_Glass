@@ -18,11 +18,11 @@ class Glance extends Component {
     render() {
 
         return (
-            <div>
-                <div>
+            <div className="w-full">
+                <div className="w-full">
                     <Search />
                 </div>
-                <div>
+                <div className="w-full">
                     <GlanceBox />
                 </div>
             </div>

@@ -28,7 +28,10 @@ class SortedProjectView(generics.RetrieveAPIView):
         user_id=int(cookie['user_id'])
         user=user_model.User.objects.get(id=user_id)
         instance = models.Project.objects.filter(~Q(created_user=user))[:5]
-        response_data = list(instance.values())
+        response_data = []
+        for i in instance:
+            serializer = self.get_serializer(i)
+            response_data.append(serializer.data)
         return response.Response(data=response_data,status=status.HTTP_200_OK)
 
     def get(self, request, *args, **kwargs):

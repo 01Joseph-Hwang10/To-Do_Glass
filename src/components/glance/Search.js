@@ -10,10 +10,10 @@ class Search extends Component {
         }
 
         return (
-            <div>
-                <form onSubmit={OnSubmit}>
-                    <input placeholder="search for your glance!"></input>
-                    <button>Search</button>
+            <div className="w-full">
+                <form className="w-full flex justify-between items-center" onSubmit={OnSubmit}>
+                    <input className="flex-grow bg-transparent border-2 p-1 rounded-xl border-gray-400" placeholder="search for your glance!"></input>
+                    <button className="fas fa-search p-1 ml-2 text-xl"></button>
                 </form>
             </div>
         )

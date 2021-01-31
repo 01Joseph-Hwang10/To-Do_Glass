@@ -18,9 +18,15 @@ export const URL_PUBLIC_CONTAINER='/api/todos-api/public_containers/';
 export const URL_CONTAINER = '/api/todos-api/containers/';
 
 // Colors
+// Set 1
 export const COLOR_FIRST = "#0f3057"
 export const COLOR_SECOND = "#00587a"
 export const COLOR_THIRD = "#008891"
 export const COLOR_FOURTH = "#e7e7de"
+// Set 2
 export const COLOR_FIFTH = "#F8F8FF"
+// Set 3
 export const COLOR_SIXTH = "#ffe3de"
+export const COLOR_SEVENTH = "#bbbbbb"
+export const COLOR_EIGHTH = "#03506f"
+export const COLOR_NINTH = "#0a043c"

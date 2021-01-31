@@ -36,7 +36,7 @@ class Header extends React.Component {
                     </div>
                 ) : (
                     <div className="w-5/12 flex justify-end items-center">
-                        <Avatar user={project.created_user} />
+                        <div className="border p-2 border-blue-50 rounded bg-blue-100 mr-5"><Avatar user={project.created_user} /></div>
                     </div>
                 )}
             </div>

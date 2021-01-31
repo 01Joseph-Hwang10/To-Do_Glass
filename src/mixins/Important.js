@@ -6,7 +6,6 @@ function Important(props) {
     const isImportant = props.isImportant
     const top = props.top || false
     const style=(function(){return(top?"flex":"block")})()
-    console.log(style)
 
     return (
         <>

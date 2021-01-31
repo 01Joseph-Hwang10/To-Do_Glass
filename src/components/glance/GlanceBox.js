@@ -26,16 +26,16 @@ class GlanceBox extends Component {
         }
 
         return (
-            <div>
+            <div className="w-full">
                 {
                     Boolean(glances.length>0) ? (
                         <>
                             {
                                 glances.map(glance => {
                                     return (
-                                        <form onSubmit={OnSubmit}>
+                                        <form className="w-full" onSubmit={OnSubmit}>
                                             <input className="hidden" value={glance.id} readOnly></input>
-                                            <button>
+                                            <button className="w-full">
                                                 <GlanceCard glance={glance} />
                                             </button>
                                         </form>
