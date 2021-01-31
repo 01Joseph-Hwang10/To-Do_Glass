@@ -1,4 +1,4 @@
-import { CLEAR_PROJECT, GET_PROJECT, UPDATE_PROJECT } from "../actions/types";
+import { CLEAR_PROJECT, GET_PROJECT, UPDATE_PROJECT} from "../actions/types";
 
 
 const initialState = {
@@ -23,6 +23,18 @@ export default function(state=initialState,action) {
                 ...state,
                 Project:action.payload
             }
+        // case UPDATE_PROJECT_DESCRIPTION: {
+        //     state.Project.description = action.payload
+        //     return {
+        //         ...state
+        //     }
+        // }
+        // case UPDATE_PROJECT_NAME: {
+        //     state.Project.name = action.payload
+        //     return {
+        //         ...state
+        //     }
+        // }
         default:
             return state;
     }

@@ -36,9 +36,10 @@ class Pinboard extends Component {
                             <div className="px-5 py-3 rounded">
                                 <ProjectDetail project={project} permission={participantPermission} />
                             </div>
-                            <div>
+                            <div className="px-5 rounded">
                                 <ContainerBox project={project} permission={participantPermission}/>
                             </div>
+                            <div className="w-1 h-10"></div>
                         </div>
                     ) : (
                         <div className="flex justify-center items-center w-full bg-gray-100 rounded shadow-inner" style={{height:"500px"}}>

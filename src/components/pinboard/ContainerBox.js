@@ -12,7 +12,7 @@ class ContainerBox extends Component {
         const permission = this.props.permission
 
         return (
-            <div>
+            <div className="w-full">
                 {
                     container_ids.map(container_id => {
                         let container;

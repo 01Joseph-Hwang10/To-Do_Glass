@@ -26,11 +26,11 @@ function SchemeCard(props) {
         <div className="rounded shadow-lg w-32 h-24 mx-2 flex flex-col justify-between items-center" style={{backgroundColor:COLOR_SIXTH}}>
             {props.permission ? (
             <>
-                <div className="w-full flex justify-center items-center">
+                <div className="w-full flex justify-center items-start">
                     <div className="w-3/12 flex justify-start pl-1 pt-1"><button className="fas fa-trash-alt text-sm" onClick={OnClick}></button></div>
                     <div className="w-6/12 h-5 bg-pink-200 inset-0 flex justify-center rounded-b"><i className="fas fa-grip-lines-vertical inset-0"></i></div>
                     <div className="w-3/12 flex justify-end pr-1 pt-1 text-sm">
-                        <Important isImportant={container.importance} />
+                        <Important isImportant={container.importance} top={true} />
                     </div>
                 </div>
                 <div className="w-full h-full flex flex-col justify-around items-center">
@@ -51,7 +51,7 @@ function SchemeCard(props) {
             </>
             ) : (
             <>
-                <div className="w-full flex justify-center items-center">
+                <div className="w-full flex justify-center items-start">
                     <div className="w-3/12 flex justify-start pl-1 pt-1"></div>
                     <div className="w-6/12 h-5 bg-pink-200 inset-0 flex justify-center rounded-b"><i className="fas fa-grip-lines-vertical inset-0"></i></div>
                     <div className="w-3/12 flex justify-end pr-1 pt-1 text-sm">

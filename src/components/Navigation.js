@@ -38,7 +38,7 @@ class Navigation extends React.Component {
         }
 
         return (
-            <div id="navigation" className="w-full border-b fixed top-0 p-2 px-5 flex-col justify-between items-center" style={{display:'block',backgroundColor:COLOR_FIRST}}>
+            <div id="navigation" className="w-full border-b fixed top-0 p-2 px-5 flex-col justify-between items-center z-10" style={{display:'block',backgroundColor:COLOR_FIRST}}>
                 <div className="w-5/12 float-left flex justify-start items-center mt-1">
                     <Link to='/'><i className="text-2xl text-white font-bold" style={{fontFamily:"Brush Script MT, Brush Script Std, cursive",color:COLOR_FOURTH}}>FLglance</i></Link>
                 </div>
