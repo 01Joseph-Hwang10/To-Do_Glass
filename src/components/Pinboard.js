@@ -31,13 +31,13 @@ class Pinboard extends Component {
                                 <Header project={project} permission={userPermission} />
                             </div>
                             <div className="px-5 pt-5 rounded">
-                                <Scheme project={project} permission={participantPermission}/>
+                                <Scheme project={project} permission={participantPermission} />
                             </div>
                             <div className="px-5 py-3 rounded">
                                 <ProjectDetail project={project} permission={participantPermission} />
                             </div>
                             <div className="px-5 rounded">
-                                <ContainerBox project={project} permission={participantPermission}/>
+                                <ContainerBox project={project} permission={participantPermission} />
                             </div>
                             <div className="w-1 h-10"></div>
                         </div>
