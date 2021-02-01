@@ -2,8 +2,6 @@
 import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux';
-import {getProject,clearProject} from '../../actions/projectActions';
-import {clearContainer} from '../../actions/containerActions';
 // etc
 // import PropTypes from 'prop-types'
 // Components
@@ -15,16 +13,6 @@ class GlanceBox extends Component {
 
         const glances = this.props.Glance
 
-        const OnSubmit = (e) => {
-            e.preventDefault()
-            const form = e.target
-            const input = form.childNodes[0]
-            const project_id=input.value
-            this.props.clearProject()
-            this.props.clearContainer()
-            this.props.getProject(project_id)
-        }
-
         return (
             <div className="w-full">
                 {
@@ -33,12 +21,9 @@ class GlanceBox extends Component {
                             {
                                 glances.map(glance => {
                                     return (
-                                        <form className="w-full" onSubmit={OnSubmit}>
-                                            <input className="hidden" value={glance.id} readOnly></input>
-                                            <button className="w-full">
-                                                <GlanceCard glance={glance} />
-                                            </button>
-                                        </form>
+                                    <div className="w-full">
+                                        <GlanceCard glance={glance} />
+                                    </div>
                                     )
                                 })
                             }
@@ -65,11 +50,4 @@ const mapStateToProps = state => {
     }
 }
 
-const actions = {
-    getProject,
-    clearProject,
-    clearContainer
-}
-
-
-export default connect(mapStateToProps,actions)(GlanceBox);
+export default connect(mapStateToProps,null)(GlanceBox);
