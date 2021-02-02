@@ -2,8 +2,8 @@
 import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux';
-import {getProfile} from '../actions/userInfoActions';
-import {checkAuth} from '../actions/authActions';
+import {getProfile} from '../actions/useractions/userInfoActions';
+import {checkAuth} from '../actions/useractions/authActions';
 // etc
 import PropTypes from 'prop-types';
 // Components

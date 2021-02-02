@@ -51,7 +51,7 @@ class Project(core_model.TimeStampedModel):
         return self.containers.all().values()
 
     def get_container_ids(self):
-        return self.containers.all().values_list('id',flat=True)
+        return self.containers.all().values_list('id',flat=True).order_by('order')
 
     def get_tags(self):
         return self.tags.all().values()

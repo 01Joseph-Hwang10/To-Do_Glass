@@ -16,6 +16,9 @@ export const URL_GLANCE='/api/todos-api/glance/';
 // Container url
 export const URL_PUBLIC_CONTAINER='/api/todos-api/public_containers/';
 export const URL_CONTAINER = '/api/todos-api/containers/';
+// Task url
+export const URL_PUBLIC_TASK='/api/todos-api/public_tasks/';
+export const URL_TASK='/api/todos-api/tasks/';
 
 // Colors
 // Set 1

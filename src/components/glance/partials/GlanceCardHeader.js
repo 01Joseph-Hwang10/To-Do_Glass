@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {getProject,clearProject} from '../../../actions/projectActions';
-import {clearContainer} from '../../../actions/containerActions';
+import {getProject,clearProject} from '../../../actions/todoactions/projectActions';
+import {clearContainer} from '../../../actions/todoactions/containerActions';
 import Avatar from '../../../mixins/user/Avatar'
 import PropTypes from 'prop-types'
 import { COLOR_FOURTH } from '../../../store/variables';

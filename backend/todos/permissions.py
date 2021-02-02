@@ -16,7 +16,8 @@ class ProjectAllowedToWrite(permissions.IsAuthenticated):
         cookie=get_cookie(request)
         user_id = int(cookie['user_id'])
         isAuthenticated = bool(
-            user_id == int(request.data['user_id']) and
+            # Needa Implement this!!
+            # user_id == int(request.data['user_id']) and
             user_id == int(obj.created_user.id)
         )
         return isAuthenticated
@@ -34,7 +35,8 @@ class ContainerAllowedToWrite(permissions.IsAuthenticated):
         cookie=get_cookie(request)
         user_id = int(cookie['user_id'])
         isAuthenticated = bool(
-            user_id == int(request.data['user_id']) and
+            # Needa Implement this!!
+            # user_id == int(request.data['user_id']) and
             user_id == int(obj.project.created_user.id)
         )
         return isAuthenticated
@@ -52,7 +54,8 @@ class TaskAllowedToWrite(permissions.IsAuthenticated):
         cookie=get_cookie(request)
         user_id = int(cookie['user_id'])
         isAuthenticated = bool(
-            user_id == int(request.data['user_id']) and
+            # Needa Implement this!!
+            # user_id == int(request.data['user_id']) and
             user_id == int(obj.container.project.created_user.id)
         )
         return isAuthenticated

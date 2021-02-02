@@ -2,7 +2,7 @@
 import React from 'react'
 // Redux
 import { connect } from 'react-redux';
-import { postSignUp } from '../../actions/authActions';
+import { postSignUp } from '../../actions/useractions/authActions';
 // etc
 import PropTypes from 'prop-types';
 import { spaceNotAllowed } from '../../functions/spaceNotAllowed';

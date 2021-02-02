@@ -1,6 +1,6 @@
 import axios from "axios"
-import { URL_GLANCE } from "../store/variables"
-import { CLEAR_GLANCE, GET_GLANCE } from "./types"
+import { URL_GLANCE } from "../../store/variables"
+import { CLEAR_GLANCE, GET_GLANCE } from "../types"
 
 
 export const getGlance = () => dispatch => {

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { URL_PUBLIC_PROFILE } from '../store/variables';
-import { GET_PROFILE, CLEAR_PROFILE } from './types';
+import { URL_PUBLIC_PROFILE } from '../../store/variables';
+import { GET_PROFILE, CLEAR_PROFILE } from '../types';
 
 
 // Not Authenticated

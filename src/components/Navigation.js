@@ -3,9 +3,9 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 // Redux
-import {Logout} from '../actions/authActions';
+import {Logout} from '../actions/useractions/authActions';
 import {checkPlace,hideNavAfterLogout} from '../actions/navControl';
-import {deleteProfileAfterLogout} from '../actions/userInfoActions';
+import {deleteProfileAfterLogout} from '../actions/useractions/userInfoActions';
 // etc
 import {PropTypes} from 'prop-types';
 import {switchDisplay} from '../functions/switchDisplay';

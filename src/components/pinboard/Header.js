@@ -1,9 +1,13 @@
+// React
 import React from 'react'
+// Redux
 import { connect } from 'react-redux';
+import {updateProject} from '../../actions/todoactions/projectActions';
+import {getProfile} from '../../actions/useractions/userInfoActions';
+// etc
 import PropTypes from 'prop-types'
+// Components
 import CTCInput from '../../mixins/input/CTCInput';
-import {updateProject} from '../../actions/projectActions';
-import {getProfile} from '../../actions/userInfoActions';
 import HeaderMenu from './partials/HeaderMenu';
 import Avatar from '../../mixins/user/Avatar';
 import SwitchFullScreen from './partials/SwitchFullScreen';

@@ -2,11 +2,11 @@
 import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux'
-import {createContainer} from '../../actions/containerActions';
-import {getContainer} from '../../actions/containerActions';
+import {createContainer,getContainer} from '../../actions/todoactions/containerActions';
 // etc
-import { COLOR_FIFTH, COLOR_SIXTH } from '../../store/variables';
+import { COLOR_FIFTH, COLOR_FIRST, COLOR_SIXTH } from '../../store/variables';
 import PropTypes from 'prop-types'
+import {switchHidden} from '../../functions/switchDisplay'
 // Components
 import SchemeCard from './partials/SchemeCard';
 import HorizontalScroll from '../../mixins/scroll/HorizontalScroll';
@@ -16,7 +16,7 @@ class Scheme extends Component {
     render() {
 
         const project = this.props.project
-        const containers = project.get_containers;
+        const containers = project.get_containers
         const projectId = project.id
         const permission = this.props.permission
         const countContainers = Number(project.count_containers)
@@ -58,11 +58,11 @@ class Scheme extends Component {
                         permission ? (
                         <div className="w-36 h-24 mx-1">
                             <div className="flex flex-col justify-start items-center rounded shadow-lg w-36 h-24 mx-2 py-1" style={{backgroundColor:COLOR_SIXTH}}>
-                                <div className="w-full h-full flex flex-col justify-between items-center">
-                                    <div className="w-full flex justify-center items-start"><span className="text-xs font-bold mb-1">New Container</span></div>
-                                    <form className="w-full h-full flex flex-col justify-around items-center" onSubmit={OnSubmit}>
+                                <div className="w-full h-full flex flex-col justify-center items-center">
+                                    <button className="fas fa-plus-circle text-3xl w-full h-full" style={{display:'block',color:COLOR_FIRST}} onClick={switchHidden}></button>
+                                    <form className="w-full h-full flex flex-col justify-around items-center" style={{display:'none'}} onSubmit={OnSubmit}>
                                         <input placeholder="Name" className="w-11/12 rounded border-2 mb-1 text-sm" style={{backgroundColor:COLOR_FIFTH}}></input>
-                                        <button className="text-xs bg-pink-100 p-1 px-2 font-semibold rounded">Submit</button>
+                                        <button className="text-xs bg-pink-100 p-1 px-2 font-semibold rounded">Create</button>
                                     </form>
                                 </div>
                             </div>

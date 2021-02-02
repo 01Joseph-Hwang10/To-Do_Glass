@@ -4,6 +4,16 @@ import { connect } from 'react-redux';
 
 class CTCInput extends Component {
 
+    /* parameters
+    id: item's id, this is also an action's input
+    name: item's name or data want to send to backend
+    permission: permission you want to assign
+    dataType: the name of data type you want to send to backend
+    action: the function that'll axios data to backend
+    afterAction(Optional): the function that'll do something after the action
+    afterActionInput(Optional): the input afterAction recieves
+    */
+
     render() {
 
         const textAlign = this.props.textAlign || "center"

@@ -13,6 +13,7 @@ class ContainerBox extends Component {
 
         return (
             <div className="w-full">
+                <div className="w-full border-b-2"></div>
                 {
                     container_ids.map(container_id => {
                         let container;
@@ -28,6 +29,9 @@ class ContainerBox extends Component {
                         )
                     })
                 }
+                <div className="w-full border-b-2 flex justify-center items-center py-1">
+                    <button className="fas fa-plus-circle text-xl"></button>
+                </div>
             </div>
         )
     }

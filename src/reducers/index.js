@@ -1,14 +1,15 @@
 // Redux
 import { combineReducers } from 'redux';
-import containerReducer from './containerReducer';
 // Reducers
 import navReducer from './navReducer';
-import projectReducer from './projectReducer';
+import containerReducer from './todoreducer/containerReducer';
+import projectReducer from './todoreducer/projectReducer';
 import screenReducer from './screenReducer';
-import signInReducer from './signInReducer';
-import signUpReducer from './signUpReducer';
-import glanceReducer from './glanceReducer';
-import userInfoReducer from './userInfoReducer';
+import signInReducer from './userreducer/signInReducer';
+import signUpReducer from './userreducer/signUpReducer';
+import glanceReducer from './todoreducer/glanceReducer';
+import userInfoReducer from './userreducer/userInfoReducer';
+import taskReducer from './todoreducer/taskReducer';
 
 
 export default combineReducers({
@@ -18,6 +19,7 @@ export default combineReducers({
     userInfo:userInfoReducer,
     project:projectReducer,
     container:containerReducer,
+    task:taskReducer,
     glance:glanceReducer,
     screen:screenReducer
 });

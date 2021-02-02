@@ -1,4 +1,4 @@
-import { CLEAR_PROJECT, GET_PROJECT, UPDATE_PROJECT} from "../actions/types";
+import { CLEAR_PROJECT, GET_PROJECT, UPDATE_PROJECT} from "../../actions/types";
 
 
 const initialState = {

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { URL_CHECK_SELF_AUTH, URL_LOGOUT, URL_SIGN_UP, URL_TOKEN, URL_TOKEN_REFRESH } from "../store/variables";
-import { CLEAR_PROFILE, LOGIN, LOGOUT, PROFILE_MINE, NOT_ON_LANDING, SIGN_UP, CLEAR_PROJECT, ON_LANDING } from "./types";
+import { URL_CHECK_SELF_AUTH, URL_LOGOUT, URL_SIGN_UP, URL_TOKEN, URL_TOKEN_REFRESH } from "../../store/variables";
+import { CLEAR_PROFILE, LOGIN, LOGOUT, PROFILE_MINE, NOT_ON_LANDING, SIGN_UP, CLEAR_PROJECT, ON_LANDING } from "../types";
 
 
 export const postSignUp = (post_data) => dispatch => {

@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 // Redux
 import { connect } from 'react-redux';
-import {postLogin} from '../../actions/authActions'
+import {postLogin} from '../../actions/useractions/authActions'
 // etc
 import PropTypes from 'prop-types';
 

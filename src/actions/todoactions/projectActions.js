@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { URL_PROJECT, URL_PUBLIC_PROJECT } from '../store/variables';
-import { CLEAR_PROJECT, GET_PROJECT, UPDATE_PROJECT} from './types';
+import { URL_PROJECT, URL_PUBLIC_PROJECT } from '../../store/variables';
+import { CLEAR_PROJECT, GET_PROJECT, UPDATE_PROJECT} from '../types';
 
 
 export const getProject = (project_id) => dispatch => {

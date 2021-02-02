@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux';
-import {getGlance} from '../actions/glanceActions';
+import {getGlance} from '../actions/todoactions/glanceActions';
 // etc
 import PropTypes from 'prop-types'
 // components

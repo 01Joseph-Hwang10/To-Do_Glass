@@ -1,4 +1,4 @@
-import { SIGN_UP } from "../actions/types";
+import { SIGN_UP } from "../../actions/types";
 
 
 // eslint-disable-next-line

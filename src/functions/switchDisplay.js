@@ -23,3 +23,31 @@ export const switchDisplay = (e) => {
         }
     });
 }
+
+
+export const switchHidden = (e) => {
+    let button,div,form
+    if(e.target.parentNode.nodeName==="DIV") {
+        button = e.target
+        div = e.target.parentNode
+        form = div.childNodes[1]
+    } else {
+        button = e.target.parentNode
+        div = e.target.parentNode.parentNode
+        form = div.childNodes[1]
+    }
+    if (form.style.display === "none") {
+        form.style.display = "flex";
+        button.style.display = "none"
+    } else {
+        form.style.display = "none";
+        button.style.display = "block";
+    }
+    document.addEventListener("click",(e)=>{
+        if (e.target !== form && e.target !== button && !form.contains(e.target)) {
+            form.style.display="none";
+            button.style.display="block";
+        }
+    });
+}
+

@@ -2,12 +2,13 @@
 import React from 'react'
 // Redux
 import { connect } from 'react-redux';
-import {getProject,clearProject} from '../../actions/projectActions';
-import {clearContainer} from  '../../actions/containerActions';
+import {getProject,clearProject} from '../../actions/todoactions/projectActions';
+import {clearContainer} from  '../../actions/todoactions/containerActions';
 // etc
 import PropTypes from 'prop-types';
 // Component
 import ProjectCard from './partials/ProjectCard';
+import { COLOR_FIRST, COLOR_FOURTH } from '../../store/variables';
 
 function ProjectSection(props) {
 
@@ -38,6 +39,9 @@ function ProjectSection(props) {
                         )
                     })
                 }
+                <div className="w-full flex justify-center items-center py-px rounded my-2" style={{backgroundColor:COLOR_FOURTH}}>
+                    <button className="fas fa-plus-circle text-lg" style={{color:COLOR_FIRST}}></button>
+                </div>
             </div>
         </div>
     )

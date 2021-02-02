@@ -1,6 +1,6 @@
 import axios from "axios"
-import { URL_CONTAINER, URL_PUBLIC_CONTAINER } from "../store/variables"
-import { CLEAR_CONTAINER, CREATE_CONTAINER, DELETE_CONTAINER, GET_CONTAINER, UPDATE_CONTAINER } from "./types"
+import { URL_CONTAINER, URL_PUBLIC_CONTAINER } from "../../store/variables"
+import { CLEAR_CONTAINER, CREATE_CONTAINER, DELETE_CONTAINER, GET_CONTAINER, UPDATE_CONTAINER } from "../types"
 
 
 export const getContainer = (id) => dispatch => {

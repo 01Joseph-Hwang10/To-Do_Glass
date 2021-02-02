@@ -1,8 +1,8 @@
 // React
 import React from 'react';
 // Redux
-import {checkAuth} from '../actions/authActions';
 import { connect } from 'react-redux';
+import {checkAuth} from '../actions/useractions/authActions';
 // Component
 import Overview from '../components/Overview';
 import Pinboard from '../components/Pinboard';
@@ -27,15 +27,16 @@ class Home extends React.Component {
         const pinboardWidth = (function(){return(isFullScreen?"100%":"50%")})()
         const glanceWidth = (function(){return(isFullScreen?"0%":"25%")})()
         const glanceOpacity = (function(){return(isFullScreen?0:1)})()
+        const delay = (function(){return(isFullScreen?"":"0.4s")})()
 
 
         return (
             <>
-            <div className="mt-16 flex justify-center w-full">
+            <div className="scroller mt-16 flex justify-center w-full overflow-x-hidden">
                 <div className="container w-2/12 m-2 rounded p-3" style={{
                     width:overviewWidth,
                     opacity:overviewOpacity,
-                    transition:'all 0.5s ease-in-out'
+                    transition:`width 0.5s, opacity 0.1s ease-in-out ${delay}`
                 }}>
                     <Overview />
                 </div>
@@ -58,7 +59,7 @@ class Home extends React.Component {
                 <div className="container w-3/12 m-2 mt-6" style={{
                     width:glanceWidth,
                     opacity:glanceOpacity,
-                    transition:'all 0.5s ease-in-out'
+                    transition:`width 0.5s, opacity 0.1s ease-in-out ${delay}`
                 }}>
                     <Glance />
                 </div>

@@ -1,11 +1,10 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
-import Important from '../../mixins/Important';
+// import Important from '../../mixins/Important';
 
 function ContainerHeader(props) {
 
-    const name = props.name
-    const importance = props.importance
+    const container = props.container
     const permission = props.permission
     
     return (
@@ -13,18 +12,11 @@ function ContainerHeader(props) {
         {
             permission ? (
             <div className="w-full flex justify-between items-center px-3 pb-1">
-                <button className="font-semibold flex-grow text-left text-lg">{name}</button>
-                <div className="flex justify-end items-center">
-                    <button className="fas fa-cog px-1"></button>
-                    <button className="px-1"><Important isImportant={importance} /></button>
-                </div>
+                <button className="font-semibold flex-grow text-left text-lg">{container.order}</button>
             </div>
             ) : (
-            <div className="w-full flex justify-between items-center px-3 pb-1">
-                <div className="font-semibold flex-grow text-left text-lg">{name}</div>
-                <div className="flex justify-end items-center">
-                    <div className="px-1"><Important isImportant={importance} /></div>
-                </div>
+            <div className="w-full h-full flex justify-between items-center px-3 pb-1">
+                <div className="font-semibold flex-grow text-left text-lg">{container.order}</div>
             </div>
             )
         }

@@ -1,4 +1,4 @@
-import { GET_GLANCE ,CLEAR_GLANCE } from '../actions/types';
+import { GET_GLANCE ,CLEAR_GLANCE } from '../../actions/types';
 
 
 const initialState = {

@@ -72,6 +72,18 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     permission_classes = (todo_permission.TaskAllowedToWrite,)
 
+    def create(self, request, *args, **kwargs):
+        post_data = request.data
+        new_object=models.Task.objects.create(
+            container=models.Container.objects.get(id=post_data['container_id']),
+            name=post_data['name'],
+            order=post_data['order'],
+            completed=False,
+            importance=False,
+            description=""
+        )
+        return response.Response(data=model_to_dict(new_object),status=status.HTTP_201_CREATED)
+
 
 # Public View
 

@@ -2,7 +2,7 @@
 import React from 'react'
 // Redux
 import { connect } from 'react-redux'
-import {updateProject, getProject} from '../../actions/projectActions';
+import {updateProject, getProject} from '../../actions/todoactions/projectActions';
 // etc
 import { COLOR_FIFTH, COLOR_SECOND, COLOR_SIXTH, COLOR_THIRD } from '../../store/variables'
 import PropTypes from 'prop-types'

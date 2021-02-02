@@ -16,10 +16,10 @@ import Footer from './components/Footer';
 function App() {
   return (
       <HashRouter>
-        <div className="w-full text-gray-800">
+        <div className="scroller w-full text-gray-800">
           <Navigation />
           <Route path='/' exact component={Landing} />
-          <div className="mt-14" style={{minHeight:"100vh"}}>
+          <div className="scroller mt-14" style={{minHeight:"100vh"}}>
             <Route path='/:id/home' exact component={Home} />
             <Route path='/login' exact component={LoginForm} />
             <Route path='/signup' exact component={SignUpForm} />

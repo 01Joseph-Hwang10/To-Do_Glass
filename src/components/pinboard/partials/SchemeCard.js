@@ -2,8 +2,8 @@
 import React from 'react'
 // Redux
 import { connect } from 'react-redux'
-import {updateContainer, deleteContainer} from '../../../actions/containerActions';
-import {getProject} from '../../../actions/projectActions';
+import {updateContainer, deleteContainer} from '../../../actions/todoactions/containerActions';
+import {getProject} from '../../../actions/todoactions/projectActions';
 // etc
 import { COLOR_SIXTH } from '../../../store/variables'
 import PropTypes from 'prop-types'
@@ -20,6 +20,7 @@ function SchemeCard(props) {
     const OnClick = () => {
         const id = container.id
         props.deleteContainer(id)
+        props.getProject(projectId)
     }
 
     return (

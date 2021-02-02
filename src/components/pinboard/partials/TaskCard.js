@@ -1,38 +1,56 @@
+// React
 import React from 'react'
-// import PropTypes from 'prop-types'
+// Redux
+import { connect } from 'react-redux'
+import { updateTask, deleteTask } from "../../../actions/todoactions/taskActions";
+import { getContainer } from "../../../actions/todoactions/containerActions";
+// etc
+import PropTypes from 'prop-types'
+// Components
+import CTCInput from '../../../mixins/input/CTCInput'
+import { selectColor } from '../../../functions/tailwindColorScheme';
 
 function TaskCard(props) {
 
     const task = props.task
+    const permission = props.permission
+    const color = selectColor(props.colorScheme)
+
+    const deleteTask = () => {
+        props.deleteTask(task.id)
+        props.getContainer(task.container_id)
+    }
 
     return (
-        <div className="w-28 h-20 text-white flex flex-col">
-            {props.permission ? (
-            <>
-            <div className="w-full bg-green-100 flex justify-center items-center">
-                <button className="fas fa-grip-lines-vertical text-md w-full rounded text-gray-700"></button>
+        <div className="w-28 h-20 text-gray-900 flex flex-col justify-between items-center" style={{backgroundColor:color}}>
+            <div className="w-full flex justify-center items-start"><button className="w-full fas fa-grip-lines-vertical"></button></div>
+            <div className="w-full text-xl">
+                <CTCInput 
+                id={task.id}
+                name={task.name}
+                permission={permission}
+                dataType={"name"}
+                action={props.updateTask}
+                afterAction={props.getContainer}
+                afterActionInput={task.container_id}
+                />
             </div>
-            <div className="w-full flex flex-col justify-start items-center">
-                <button>{task.name}</button>
+            <div className="flex justify-center items-center">
+                <button className="far fa-times-circle text-lg" onClick={deleteTask}></button>
+                <button className="fas fa-info-circle text-lg mx-px"></button>
+                <button className="far fa-check-circle text-lg"></button>
             </div>
-            </>
-            ) : (
-            <>
-            <div className="w-full bg-green-100 flex justify-center items-center">
-                <i className="fas fa-grip-lines-vertical text-md w-full text-center rounded text-gray-700"></i>
-            </div>
-            <div className="w-full flex flex-col justify-start items-center">
-                <span>{task.name}</span>
-            </div>
-            </>
-            )}
         </div>
     )
 }
 
-// TaskCard.propTypes = {
+const actions = {updateTask,getContainer,deleteTask}
 
-// }
+TaskCard.propTypes = {
+    updateTask:PropTypes.func.isRequired,
+    getContainer:PropTypes.func.isRequired,
+    deleteTask:PropTypes.func.isRequired,
+}
 
-export default TaskCard
+export default connect(null,actions)(TaskCard)
 

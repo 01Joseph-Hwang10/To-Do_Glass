@@ -20,16 +20,20 @@ export const PARTICIPANT = "PARTICIPANT";
 export const NOT_PARTICIPANT = "NOT_PARTICIPANT";
 export const PROJECT_MINE = "PROJECT_MINE";
 export const PROJECT_NOT_MINE = "PROJECT_NOT_MINE";
-// Glance
-export const GET_GLANCE = "GET_GLANCE";
-export const UPDATE_GLANCE = "UPDATE_GLANCE";
-export const CLEAR_GLANCE = "CLEAR_GLANCE";
 // Container
 export const GET_CONTAINER = "GET_CONTAINER";
 export const CREATE_CONTAINER = "CREATE_CONTAINER";
 export const UPDATE_CONTAINER = "UPDATE_CONTAINER";
 export const DELETE_CONTAINER = 'DELETE_CONTAINER';
 export const CLEAR_CONTAINER = "CLEAR_CONTAINER";
+// Task
+export const UPDATE_TASK = "UPDATE_TASK";
+export const CREATE_TASK = "CREATE_TASK";
+export const DELETE_TASK = "DELETE_TASK";
+// Glance
+export const GET_GLANCE = "GET_GLANCE";
+export const UPDATE_GLANCE = "UPDATE_GLANCE";
+export const CLEAR_GLANCE = "CLEAR_GLANCE";
 // Screen
 export const FULL_SCREEN = "FULL_SCREEN";
 export const NOT_FULL_SCREEN = "NOT_FULL_SCREEN";

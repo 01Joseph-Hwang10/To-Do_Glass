@@ -1,4 +1,4 @@
-import { CLEAR_PROFILE, GET_PROFILE, PROFILE_MINE, PROFILE_NOT_MINE } from "../actions/types";
+import { CLEAR_PROFILE, GET_PROFILE, PROFILE_MINE, PROFILE_NOT_MINE } from "../../actions/types";
 
 const initialState = {
     Profile:[],
