@@ -1,12 +1,13 @@
 // Redux
 import { combineReducers } from 'redux';
 import containerReducer from './containerReducer';
-import glanceReducer from './glanceReducer';
 // Reducers
 import navReducer from './navReducer';
 import projectReducer from './projectReducer';
+import screenReducer from './screenReducer';
 import signInReducer from './signInReducer';
 import signUpReducer from './signUpReducer';
+import glanceReducer from './glanceReducer';
 import userInfoReducer from './userInfoReducer';
 
 
@@ -17,5 +18,6 @@ export default combineReducers({
     userInfo:userInfoReducer,
     project:projectReducer,
     container:containerReducer,
-    glance:glanceReducer
+    glance:glanceReducer,
+    screen:screenReducer
 });

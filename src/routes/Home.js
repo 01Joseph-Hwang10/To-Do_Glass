@@ -21,14 +21,28 @@ class Home extends React.Component {
     render() {
 
         const pinboardIsLoaded = Boolean(Object.keys(this.props.Project).length > 0)
+        const isFullScreen = this.props.isFullScreen
+        const overviewWidth = (function(){return(isFullScreen?"0%":"17%")})()
+        const overviewOpacity = (function(){return(isFullScreen?0:1)})()
+        const pinboardWidth = (function(){return(isFullScreen?"100%":"50%")})()
+        const glanceWidth = (function(){return(isFullScreen?"0%":"25%")})()
+        const glanceOpacity = (function(){return(isFullScreen?0:1)})()
+
 
         return (
             <>
             <div className="mt-16 flex justify-center w-full">
-                <div className="container w-2/12 m-2 rounded p-3">
+                <div className="container w-2/12 m-2 rounded p-3" style={{
+                    width:overviewWidth,
+                    opacity:overviewOpacity,
+                    transition:'all 0.5s ease-in-out'
+                }}>
                     <Overview />
                 </div>
-                <div className="container w-6/12 m-2">
+                <div className="container m-2" style={{
+                    width:pinboardWidth,
+                    transition:'all 0.5s ease-in-out'
+                }}>
                     {
                         pinboardIsLoaded ? (
                             <Pinboard />
@@ -41,7 +55,11 @@ class Home extends React.Component {
                         )
                     }
                 </div>
-                <div className="container w-3/12 m-2 mt-6">
+                <div className="container w-3/12 m-2 mt-6" style={{
+                    width:glanceWidth,
+                    opacity:glanceOpacity,
+                    transition:'all 0.5s ease-in-out'
+                }}>
                     <Glance />
                 </div>
             </div>
@@ -53,7 +71,8 @@ class Home extends React.Component {
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.login.isAuthenticated,
-        Project:state.project.Project
+        Project:state.project.Project,
+        isFullScreen:state.screen.isFullScreen
     }
 }
 

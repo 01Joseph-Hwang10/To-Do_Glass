@@ -15,9 +15,9 @@ function GlanceCardHeader(props) {
         const form = e.target
         const input = form.childNodes[0]
         const project_id=input.value
-        this.props.clearProject()
-        this.props.clearContainer()
-        this.props.getProject(project_id)
+        props.clearProject()
+        props.clearContainer()
+        props.getProject(project_id)
     }
 
     return (

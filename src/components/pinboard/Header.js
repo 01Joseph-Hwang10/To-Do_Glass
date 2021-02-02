@@ -6,6 +6,7 @@ import {updateProject} from '../../actions/projectActions';
 import {getProfile} from '../../actions/userInfoActions';
 import HeaderMenu from './partials/HeaderMenu';
 import Avatar from '../../mixins/user/Avatar';
+import SwitchFullScreen from './partials/SwitchFullScreen';
 
 class Header extends React.Component {
 
@@ -31,12 +32,14 @@ class Header extends React.Component {
                 </div>
                 {permission ? (
                     <div className="w-5/12 flex justify-end items-center">
-                        <div className="border p-2 border-blue-50 rounded bg-blue-100 mr-5"><Avatar user={project.created_user} /></div>
+                        <div className="border p-2 border-blue-50 rounded bg-blue-100 mr-3"><Avatar user={project.created_user} /></div>
+                        <SwitchFullScreen />
                         <HeaderMenu />
                     </div>
                 ) : (
                     <div className="w-5/12 flex justify-end items-center">
-                        <div className="border p-2 border-blue-50 rounded bg-blue-100 mr-5"><Avatar user={project.created_user} /></div>
+                        <div className="border p-2 border-blue-50 rounded bg-blue-100 mr-3"><Avatar user={project.created_user} /></div>
+                        <SwitchFullScreen />
                     </div>
                 )}
             </div>
