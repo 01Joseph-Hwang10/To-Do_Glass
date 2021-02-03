@@ -2,8 +2,7 @@
 import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux';
-import {getProfile} from '../actions/useractions/userInfoActions';
-import {checkAuth} from '../actions/useractions/authActions';
+import {getProfile, getUserInfo} from '../actions/useractions/userInfoActions';
 // etc
 import PropTypes from 'prop-types';
 // Components
@@ -13,11 +12,25 @@ import { COLOR_FIFTH, COLOR_FOURTH } from '../store/variables';
 
 class Overview extends Component {
 
-    componentWillMount() {
-        this.props.getProfile()
+    componentDidMount() {
+        const user_id = Number(window.location.hash.replace(/\D/g,''))
+        const my_id = Number(window.localStorage.getItem('user_id'))
+        if(user_id===my_id){
+            this.props.getProfile(user_id)
+        } else {
+            this.props.getUserInfo(user_id)
+        }
     }
 
     render() {
+
+        let isMyProfile = false;
+        let Profile = this.props.Profile
+        const user_id = Number(window.location.hash.replace(/\D/g,''))
+        const my_id = Number(window.localStorage.getItem('user_id'))
+        if(user_id===my_id) isMyProfile = true
+        if(!isMyProfile && this.props.Storage) Profile = this.props.Storage.data
+
         return (
             <section className="w-full">
                 {
@@ -25,12 +38,12 @@ class Overview extends Component {
                         <div className="w-full">
                             <div className="w-full flex justify-center items-center">
                                 <ProfileCard 
-                                Profile={this.props.Profile}
-                                isMyProfile={this.props.isMyProfile}
+                                Profile={Profile}
+                                isMyProfile={isMyProfile}
                                 />
                             </div>
                             <div className="w-full mt-2">
-                                <ProjectSection projects={this.props.Profile.get_my_projects} />
+                                <ProjectSection projects={Profile.get_my_projects} Profile={Profile} isMyProfile={isMyProfile} />
                             </div>
                         </div>
                     ) : (
@@ -71,13 +84,15 @@ class Overview extends Component {
 const mapStateToProps = state => {
     return {
         Profile: state.userInfo.Profile.data,
+        Storage: state.userInfo.Storage,
         isMyProfile: state.userInfo.isMyProfile,
         isAuthenticated: state.login.isAuthenticated
     }
 }
 
 Overview.propTypes = {
-    getProfile:PropTypes.func.isRequired
+    getProfile:PropTypes.func.isRequired,
+    getUserInfo:PropTypes.func.isRequired,
 }
 
-export default connect(mapStateToProps,{getProfile,checkAuth})(Overview);
+export default connect(mapStateToProps,{getProfile,getUserInfo})(Overview);

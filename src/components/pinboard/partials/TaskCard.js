@@ -16,15 +16,15 @@ function TaskCard(props) {
     const permission = props.permission
     const color = selectColor(props.colorScheme)
 
-    const deleteTask = () => {
-        props.deleteTask(task.id)
+    const deleteTask = async () => {
+        await props.deleteTask(task.id)
         props.getContainer(task.container_id)
     }
 
     return (
         <div className="w-28 h-20 text-gray-900 flex flex-col justify-between items-center" style={{backgroundColor:color}}>
             <div className="w-full flex justify-center items-start"><button className="w-full fas fa-grip-lines-vertical"></button></div>
-            <div className="w-full text-xl">
+            <div className="w-full text-xl text-center">
                 <CTCInput 
                 id={task.id}
                 name={task.name}

@@ -37,7 +37,7 @@ class CTCInput extends Component {
         };
 
 
-        const OnSubmit = e => {
+        const OnSubmit = async e => {
             e.preventDefault()
             const form = e.target
             const input = form.childNodes[0]
@@ -51,7 +51,7 @@ class CTCInput extends Component {
             const action = this.props.action
             const id = this.props.id
             const afterActionInput = this.props.afterActionInput
-            action(postData,id)
+            await action(postData,id)
             if(this.props.afterAction) {
                 if(afterActionInput) {
                     this.props.afterAction(afterActionInput)
@@ -69,8 +69,7 @@ class CTCInput extends Component {
                 <div className='w-full h-full bg-transparent'>
                     <button className='w-full h-full font-semibold' style={{display:'block',textAlign:textAlign}} onClick={OnClick}>{this.props.name}</button>
                     <form className='w-full h-full' style={{display:'none'}} onSubmit={OnSubmit}>
-
-                        <input className='w-full h-full bg-transparent p-1 border-b-2 border-gray-600' name={this.props.dataType} placeholder="Project Name"></input>
+                        <input className='w-full h-full bg-transparent p-1 border-b-2 border-gray-600 text-center' name={this.props.dataType} placeholder="Project Name"></input>
                     </form>
                 </div>
             ) : (

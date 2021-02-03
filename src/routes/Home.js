@@ -20,7 +20,7 @@ class Home extends React.Component {
 
     render() {
 
-        const pinboardIsLoaded = Boolean(Object.keys(this.props.Project).length > 0)
+        const pinboardIsLoaded = Boolean(Object.keys(this.props.project).length > 0)
         const isFullScreen = this.props.isFullScreen
         const overviewWidth = (function(){return(isFullScreen?"0%":"17%")})()
         const overviewOpacity = (function(){return(isFullScreen?0:1)})()
@@ -72,7 +72,7 @@ class Home extends React.Component {
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.login.isAuthenticated,
-        Project:state.project.Project,
+        project:state.project,
         isFullScreen:state.screen.isFullScreen
     }
 }

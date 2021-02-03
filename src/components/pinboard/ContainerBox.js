@@ -29,9 +29,15 @@ class ContainerBox extends Component {
                         )
                     })
                 }
-                <div className="w-full border-b-2 flex justify-center items-center py-1">
-                    <button className="fas fa-plus-circle text-xl"></button>
-                </div>
+                {
+                    permission ? (
+                    <div className="w-full border-b-2 flex justify-center items-center py-1">
+                        <button className="fas fa-plus-circle text-xl"></button>
+                    </div>
+                    ) : (
+                        <></>
+                    )
+                }
             </div>
         )
     }

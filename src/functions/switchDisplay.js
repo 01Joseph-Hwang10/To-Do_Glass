@@ -18,7 +18,7 @@ export const switchDisplay = (e) => {
         menu.style.display = "none";
     }
     document.addEventListener("click",(e)=>{
-        if (e.target !== menu && e.target !== button) {
+        if (e.target !== menu && e.target !== button && !menu.contains(e.target)) {
             menu.style.display="none";
         }
     });

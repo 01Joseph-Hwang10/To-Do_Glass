@@ -17,19 +17,22 @@ export const getContainer = (id) => dispatch => {
     })
     }
 
-export const createContainer = (post_data) => dispatch => {
-    axios
+export const createContainer = (post_data) => async dispatch => {
+    let response = await axios
     .post(URL_CONTAINER,post_data,{withCredentials:true})
     .then(response => {
         dispatch({
             type:CREATE_CONTAINER,
             payload:response.data.id
         })
+        return response.data.id
     })
+    return response
 }
 
-export const deleteContainer = (id) => dispatch => {
-    axios
+export const deleteContainer = (id) => async dispatch => {
+    // eslint-disable-next-line
+    let response = await axios
     .delete([URL_CONTAINER,id,'/'].join(''),{withCredentials:true})
     .then(response => {
         dispatch({
@@ -39,8 +42,8 @@ export const deleteContainer = (id) => dispatch => {
     })
 }
 
-export const updateContainer = (post_data,id) => dispatch => {
-    axios
+export const updateContainer = (post_data,id) => async dispatch => {
+    await axios
     .patch([URL_CONTAINER,id,'/'].join(''),post_data,{withCredentials:true})
     .then(response => {
         dispatch({

@@ -1,9 +1,9 @@
-import { CLEAR_PROFILE, GET_PROFILE, PROFILE_MINE, PROFILE_NOT_MINE } from "../../actions/types";
+import { CLEAR_PROFILE, GET_PROFILE, GET_USER_INFO, PROFILE_MINE, PROFILE_NOT_MINE } from "../../actions/types";
 
 const initialState = {
     Profile:[],
+    Storage:[],
     isMyProfile:false,
-    isLoading:true
 };
 
 // eslint-disable-next-line
@@ -13,26 +13,28 @@ export default function(state=initialState,action) {
             return {
                 ...state,
                 isMyProfile:action.payload.isMyProfile,
-                isLoading:false
             }
         case PROFILE_NOT_MINE:
             return {
                 ...state,
                 isMyProfile:action.payload.isMyProfile,
-                isLoading:false
             }
         case GET_PROFILE:
             return {
                 ...state,
                 Profile:action.payload.Profile,
-                isLoading:false
             }
         case CLEAR_PROFILE:
             return {
                 ...state,
                 Profile:action.payload.Profile,
+                UserInfo:action.payload.UserInfo,
                 isMyProfile:action.payload.isMyProfile,
-                isLoading:false
+            }
+        case GET_USER_INFO:
+            return {
+                ...state,
+                Storage:action.payload.UserInfo
             }
         default:
             return state;

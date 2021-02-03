@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux'
 import {createContainer,getContainer} from '../../actions/todoactions/containerActions';
+import {getProject} from '../../actions/todoactions/projectActions'
 // etc
 import { COLOR_FIFTH, COLOR_FIRST, COLOR_SIXTH } from '../../store/variables';
 import PropTypes from 'prop-types'
@@ -21,9 +22,11 @@ class Scheme extends Component {
         const permission = this.props.permission
         const countContainers = Number(project.count_containers)
         
-        const OnSubmit = (e) => {
+        const OnSubmit = async (e) => {
             e.preventDefault()
             const form = e.target
+            const div = e.target.parentNode
+            const button = div.childNodes[0]
             const input = form.childNodes[0]
             const post_data = {
                 name:input.value,
@@ -31,10 +34,12 @@ class Scheme extends Component {
                 user_id:localStorage.getItem('user_id'),
                 order:(countContainers+1),
             }
-            this.props.createContainer(post_data)
-            this.props.getContainer(this.props.createdId)
+            await this.props.createContainer(post_data)
+            this.props.getProject(projectId)
             input.value=""
             input.blur()
+            form.style.display = "none"
+            button.style.display = "block"
         };
 
         return (
@@ -61,7 +66,10 @@ class Scheme extends Component {
                                 <div className="w-full h-full flex flex-col justify-center items-center">
                                     <button className="fas fa-plus-circle text-3xl w-full h-full" style={{display:'block',color:COLOR_FIRST}} onClick={switchHidden}></button>
                                     <form className="w-full h-full flex flex-col justify-around items-center" style={{display:'none'}} onSubmit={OnSubmit}>
-                                        <input placeholder="Name" className="w-11/12 rounded border-2 mb-1 text-sm" style={{backgroundColor:COLOR_FIFTH}}></input>
+                                        <input placeholder="Name" className="w-11/12 rounded border-2 mb-1 text-sm focus:border-gray-600" style={{
+                                            backgroundColor:COLOR_FIFTH,
+                                            transition:"all 0.5s ease-in-out"
+                                        }}></input>
                                         <button className="text-xs bg-pink-100 p-1 px-2 font-semibold rounded">Create</button>
                                     </form>
                                 </div>
@@ -81,7 +89,8 @@ class Scheme extends Component {
 
 Scheme.propTypes = {
     createContainer:PropTypes.func.isRequired,
-    getContainer:PropTypes.func.isRequired
+    getContainer:PropTypes.func.isRequired,
+    getProject:PropTypes.func.isRequired,
 }
 
 
@@ -92,4 +101,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps,{createContainer,getContainer})(Scheme);
+export default connect(mapStateToProps,{createContainer,getContainer,getProject})(Scheme);

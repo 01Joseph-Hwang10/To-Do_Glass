@@ -17,9 +17,9 @@ function SchemeCard(props) {
     const permission = props.permission
     const projectId = container.project_id
 
-    const OnClick = () => {
+    const OnClick = async () => {
         const id = container.id
-        props.deleteContainer(id)
+        await props.deleteContainer(id)
         props.getProject(projectId)
     }
 

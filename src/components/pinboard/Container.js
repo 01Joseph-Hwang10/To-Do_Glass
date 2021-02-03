@@ -23,29 +23,34 @@ class Container extends Component {
 
     render() {
 
-        let container,tasks,permission;
+        let container,tasks,permission,userId;
         container = this.props.container
         if(container) tasks = container.get_tasks
         if(container && !container.description) container.description =  "No Description"
+        if(this.props.Profile.data) userId = this.props.Profile.data.id
         permission = this.props.permission
 
         const colorScheme = selectColorScheme()
         const color=selectColor(colorScheme)
 
-        const createTask = (e) => {
+        const createTask = async (e) => {
             e.preventDefault()
             const form = e.target
+            const div = e.target.parentNode
+            const button = div.childNodes[0]
             const input = form.childNodes[0]
             const order = Number(container.count_tasks) + 1
             const postData = {
                 name:input.value,
-                user_id:this.props.userId,
+                user_id:userId,
                 container_id:container.id,
                 order:order
             }
-            this.props.createTask(postData)
+            await this.props.createTask(postData)
             this.props.getContainer(container.id)
             input.value=""
+            form.style.display='none'
+            button.style.display='block'
         }
 
         return (
@@ -82,7 +87,7 @@ class Container extends Component {
                                             </form>
                                         </div>
                                     ) : (
-                                        <div className="w-1 h-20 my-3"></div>
+                                        <div className="w-1 h-20"></div>
                                     )
                                 }
                                 </>
@@ -109,7 +114,7 @@ Container.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        userId:Number(state.userInfo.Profile.data.id)
+        Profile:state.userInfo.Profile
     }
 }
 

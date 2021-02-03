@@ -16,6 +16,18 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = models.Project.objects.all().order_by('updated')
     serializer_class = ProjectSerializer
     permission_classes = (todo_permission.ProjectAllowedToWrite,)
+    
+    def create(self, request, *args, **kwargs):
+        post_data = request.data
+        user=user_model.User.objects.get(id=post_data['user_id'])
+        new_object=models.Project.objects.create(
+            created_user=user,
+            name=post_data['name'],
+            order=post_data['order'],
+            importance=False,
+            description="",
+        )
+        return response.Response(data=model_to_dict(new_object),status=status.HTTP_201_CREATED)
 
 
 class SortedProjectView(generics.RetrieveAPIView):

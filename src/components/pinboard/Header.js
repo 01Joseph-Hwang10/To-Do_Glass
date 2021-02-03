@@ -11,6 +11,7 @@ import CTCInput from '../../mixins/input/CTCInput';
 import HeaderMenu from './partials/HeaderMenu';
 import Avatar from '../../mixins/user/Avatar';
 import SwitchFullScreen from './partials/SwitchFullScreen';
+import Important from "../../mixins/Important";
 
 class Header extends React.Component {
 
@@ -22,6 +23,9 @@ class Header extends React.Component {
         return (
             <div className="w-full flex justify-between px-3">
                 <div className="w-5/12 flex justify-start items-center ml-1">
+                    <button className="mr-1 py-1 pr-1">
+                        <Important isImportant={project.importance} />
+                    </button>
                     <div className="text-xl">
                         <CTCInput 
                         id={project.id}
@@ -38,7 +42,7 @@ class Header extends React.Component {
                     <div className="w-5/12 flex justify-end items-center">
                         <div className="border p-2 border-blue-50 rounded bg-blue-100 mr-3"><Avatar user={project.created_user} /></div>
                         <SwitchFullScreen />
-                        <HeaderMenu />
+                        <HeaderMenu projectId={project.id} />
                     </div>
                 ) : (
                     <div className="w-5/12 flex justify-end items-center">

@@ -3,8 +3,8 @@ import { URL_TASK } from "../../store/variables"
 import { CREATE_TASK, DELETE_TASK, UPDATE_TASK } from "../types"
 
 
-export const updateTask = (post_data,id) => dispatch => {
-    axios
+export const updateTask = (post_data,id) => async dispatch => {
+    await axios
     .patch([URL_TASK,id,'/'].join(''),post_data,{withCredentials:true})
     .then(response => {
         dispatch({
@@ -13,8 +13,8 @@ export const updateTask = (post_data,id) => dispatch => {
     })
 }
 
-export const createTask = (post_data) => dispatch => {
-    axios
+export const createTask = (post_data) => async dispatch => {
+    await axios
     .post(URL_TASK,post_data,{withCredentials:true})
     .then(response => {
         dispatch({
@@ -23,8 +23,8 @@ export const createTask = (post_data) => dispatch => {
     })
 }
 
-export const deleteTask = (id) => dispatch => {
-    axios
+export const deleteTask = (id) => async dispatch => {
+    await axios
     .delete([URL_TASK,id,'/'].join(''),{withCredentials:true})
     .then(response => {
         dispatch({

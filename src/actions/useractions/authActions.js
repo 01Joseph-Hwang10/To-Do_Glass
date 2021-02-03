@@ -30,7 +30,9 @@ export const postLogin = (post_data) => dispatch => {
         .then(response => {
             if(response.status === 200) {
                 const user_id = response.data.user_id;
-                window.localStorage.setItem('user_id',user_id)
+                if(!window.localStorage.getItem('user_id')) {
+                    window.localStorage.setItem('user_id',user_id)
+                }
                 dispatch({
                     type:LOGIN,
                     payload:true
