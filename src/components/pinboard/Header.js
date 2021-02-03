@@ -6,11 +6,11 @@ import {updateProject} from '../../actions/todoactions/projectActions';
 import {getProfile} from '../../actions/useractions/userInfoActions';
 // etc
 import PropTypes from 'prop-types'
+import SwitchFullScreen from './partials/SwitchFullScreen';
 // Components
 import CTCInput from '../../mixins/input/CTCInput';
 import HeaderMenu from './partials/HeaderMenu';
 import Avatar from '../../mixins/user/Avatar';
-import SwitchFullScreen from './partials/SwitchFullScreen';
 import Important from "../../mixins/Important";
 
 class Header extends React.Component {
@@ -20,10 +20,21 @@ class Header extends React.Component {
         const project = this.props.project
         const permission = this.props.permission
 
+        const updateImportance = async () => {
+            const userId = localStorage.getItem('user_id')
+            const currentState = project.importance
+            const postData = {
+                importance:!currentState,
+                user_id:userId
+            }
+            await this.props.updateProject(postData,project.id)
+            this.props.getProfile(userId)
+        }
+
         return (
             <div className="w-full flex justify-between px-3">
                 <div className="w-5/12 flex justify-start items-center ml-1">
-                    <button className="mr-1 py-1 pr-1">
+                    <button className="mr-1 py-1 pr-1" onClick={updateImportance}>
                         <Important isImportant={project.importance} />
                     </button>
                     <div className="text-xl">

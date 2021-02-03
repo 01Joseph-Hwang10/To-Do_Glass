@@ -7,6 +7,7 @@ import {getProject} from '../../../actions/todoactions/projectActions';
 // etc
 import { COLOR_SIXTH } from '../../../store/variables'
 import PropTypes from 'prop-types'
+import { switchDisplay } from '../../../functions/switchDisplay';
 // Component
 import Important from '../../../mixins/Important'
 import CTCInput from '../../../mixins/input/CTCInput';
@@ -17,9 +18,18 @@ function SchemeCard(props) {
     const permission = props.permission
     const projectId = container.project_id
 
-    const OnClick = async () => {
-        const id = container.id
-        await props.deleteContainer(id)
+    const deleteContainer = async () => {
+        await props.deleteContainer(container.id)
+        props.getProject(projectId)
+    }
+
+    const updateImportance = async () => {
+        const currentState = container.importance
+        const postData = {
+            importance:!currentState,
+            user_id:localStorage.getItem('user_id')
+        }
+        await props.updateContainer(postData,container.id)
         props.getProject(projectId)
     }
 
@@ -28,9 +38,9 @@ function SchemeCard(props) {
             {props.permission ? (
             <>
                 <div className="w-full flex justify-center items-start">
-                    <div className="w-3/12 flex justify-start pl-2"><button className="fas fa-trash-alt text-sm" onClick={OnClick}></button></div>
+                    <div className="w-3/12 flex justify-start pl-2"><button className="fas fa-trash-alt text-sm" onClick={deleteContainer}></button></div>
                     <div className="w-6/12 h-5 bg-pink-200 inset-0 flex justify-center rounded-b"><i className="fas fa-grip-lines-vertical inset-0"></i></div>
-                    <button className="w-3/12 flex justify-end pr-2 text-sm">
+                    <button className="w-3/12 flex justify-end pr-2 text-sm" onClick={updateImportance}>
                         <Important isImportant={container.importance} top={true} />
                     </button>
                 </div>
@@ -46,7 +56,20 @@ function SchemeCard(props) {
                             afterActionInput={projectId}
                             />
                     </button>
-                    <div className="mt-px"><button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold">Detail</button></div>
+                    <div className="relative mt-px">
+                        <button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold" onClick={switchDisplay}>Detail</button>
+                        <div className="absolute w-full bg-gray-200 rounded" style={{display:'none'}}>
+                            <CTCInput 
+                                id={container.id}
+                                name={container.description}
+                                permission={permission}
+                                dataType={"description"}
+                                action={props.updateContainer}
+                                afterAction={props.getProject}
+                                afterActionInput={projectId}
+                                />
+                        </div>
+                    </div>
                 </div>
 
             </>

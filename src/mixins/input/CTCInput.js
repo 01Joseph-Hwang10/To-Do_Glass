@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 class CTCInput extends Component {
 
-    /* parameters
+    /*
+    parameters
     id: item's id, this is also an action's input
     name: item's name or data want to send to backend
     permission: permission you want to assign

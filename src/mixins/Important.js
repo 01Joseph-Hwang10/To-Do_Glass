@@ -12,7 +12,7 @@ function Important(props) {
         {
             isImportant ? (
                 <div style={{display:style,flexDirection:'column',justifyContent:'flex-start',alignItems:'center'}}>
-                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star text-yellow-400 pt-1"></i>
                 </div>
             ) : (
             <div style={{display:'block',flexDirection:'column',justifyContent:'flex-start',alignItems:'center'}}>

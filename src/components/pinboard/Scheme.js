@@ -8,6 +8,7 @@ import {getProject} from '../../actions/todoactions/projectActions'
 import { COLOR_FIFTH, COLOR_FIRST, COLOR_SIXTH } from '../../store/variables';
 import PropTypes from 'prop-types'
 import {switchHidden} from '../../functions/switchDisplay'
+import { sortByOrder } from '../../functions/sortByOrder';
 // Components
 import SchemeCard from './partials/SchemeCard';
 import HorizontalScroll from '../../mixins/scroll/HorizontalScroll';
@@ -17,7 +18,7 @@ class Scheme extends Component {
     render() {
 
         const project = this.props.project
-        const containers = project.get_containers
+        const containers = project.get_containers.sort(sortByOrder)
         const projectId = project.id
         const permission = this.props.permission
         const countContainers = Number(project.count_containers)

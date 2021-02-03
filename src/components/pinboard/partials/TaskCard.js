@@ -6,6 +6,7 @@ import { updateTask, deleteTask } from "../../../actions/todoactions/taskActions
 import { getContainer } from "../../../actions/todoactions/containerActions";
 // etc
 import PropTypes from 'prop-types'
+import { switchDisplay } from '../../../functions/switchDisplay';
 // Components
 import CTCInput from '../../../mixins/input/CTCInput'
 import { selectColor } from '../../../functions/tailwindColorScheme';
@@ -14,10 +15,21 @@ function TaskCard(props) {
 
     const task = props.task
     const permission = props.permission
-    const color = selectColor(props.colorScheme)
+    const color = (function(){return(task.completed?"#9CA3AF":selectColor(props.colorScheme))})()
 
     const deleteTask = async () => {
         await props.deleteTask(task.id)
+        props.getContainer(task.container_id)
+    }
+
+    const updateCompleted = async () => {
+        const userId = localStorage.getItem('user_id')
+        const currentState = task.completed
+        const postData = {
+            completed:!currentState,
+            user_id:userId
+        }
+        await props.updateTask(postData,task.id)
         props.getContainer(task.container_id)
     }
 
@@ -37,8 +49,21 @@ function TaskCard(props) {
             </div>
             <div className="flex justify-center items-center">
                 <button className="far fa-times-circle text-lg" onClick={deleteTask}></button>
-                <button className="fas fa-info-circle text-lg mx-px"></button>
-                <button className="far fa-check-circle text-lg"></button>
+                <div className="relative">
+                    <button className="fas fa-info-circle text-lg mx-px" onClick={switchDisplay}></button>
+                    <div className="absolute w-full text-sm text-center bg-gray-200 rounded" style={{display:'none',minHeight:"20px"}}>
+                        <CTCInput 
+                        id={task.id}
+                        name={task.description}
+                        permission={permission}
+                        dataType={"description"}
+                        action={props.updateTask}
+                        afterAction={props.getContainer}
+                        afterActionInput={task.container_id}
+                        />
+                    </div>
+                </div>
+                <button className="far fa-check-circle text-lg" onClick={updateCompleted}></button>
             </div>
         </div>
     )
