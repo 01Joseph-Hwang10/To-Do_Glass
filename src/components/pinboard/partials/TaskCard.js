@@ -6,7 +6,6 @@ import { updateTask, deleteTask } from "../../../actions/todoactions/taskActions
 import { getContainer } from "../../../actions/todoactions/containerActions";
 // etc
 import PropTypes from 'prop-types'
-import { switchDisplay } from '../../../functions/switchDisplay';
 // Components
 import CTCInput from '../../../mixins/input/CTCInput'
 import { selectColor } from '../../../functions/tailwindColorScheme';
@@ -33,10 +32,41 @@ function TaskCard(props) {
         props.getContainer(task.container_id)
     }
 
+    const displayDescription = (e) => {
+        const button = e.target
+        const parentDiv = button.parentNode.parentNode
+        const handle = parentDiv.childNodes[0]
+        const name = parentDiv.childNodes[1]
+        const buttons = parentDiv.childNodes[2]
+        const description = parentDiv.childNodes[3]
+        const backButton = description.childNodes[0]
+        handle.style.display = "none";
+        name.style.display = "none";
+        buttons.style.display = "none";
+        description.style.display = "flex";
+        document.addEventListener("click",(e)=>{
+            if((e.target === backButton || backButton.contains(e.target)) && e.target !== button) {
+                handle.style.display = "flex";
+                name.style.display = "block";
+                buttons.style.display = "flex";
+                description.style.display = "none";
+            }
+        })
+    }
+
+
     return (
-        <div className="w-28 h-20 text-gray-900 flex flex-col justify-between items-center" style={{backgroundColor:color}}>
-            <div className="w-full flex justify-center items-start"><button className="w-full fas fa-grip-lines-vertical"></button></div>
-            <div className="w-full text-xl text-center">
+        <div className="w-28 h-20 relative text-gray-900 flex flex-col justify-between items-center" style={{backgroundColor:color}}>
+            <div className="w-full justify-center items-start" style={{display:'flex'}}>
+                {
+                    permission ? (
+                        <button className="w-full fas fa-grip-lines-vertical"></button>
+                    ) : (
+                        <span className="text-center fas fa-grip-lines-vertical"></span>
+                    )
+                }
+            </div>
+            <div className="w-full text-xl text-center" style={{display:'block'}}>
                 <CTCInput 
                 id={task.id}
                 name={task.name}
@@ -47,23 +77,30 @@ function TaskCard(props) {
                 afterActionInput={task.container_id}
                 />
             </div>
-            <div className="flex justify-center items-center">
-                <button className="far fa-times-circle text-lg" onClick={deleteTask}></button>
-                <div className="relative">
-                    <button className="fas fa-info-circle text-lg mx-px" onClick={switchDisplay}></button>
-                    <div className="absolute w-full text-sm text-center bg-gray-200 rounded" style={{display:'none',minHeight:"20px"}}>
-                        <CTCInput 
-                        id={task.id}
-                        name={task.description}
-                        permission={permission}
-                        dataType={"description"}
-                        action={props.updateTask}
-                        afterAction={props.getContainer}
-                        afterActionInput={task.container_id}
-                        />
-                    </div>
-                </div>
-                <button className="far fa-check-circle text-lg" onClick={updateCompleted}></button>
+            <div className="justify-center items-center" style={{display:'flex'}}>
+                {
+                    permission ? (
+                    <>
+                        <button className="far fa-times-circle text-lg" onClick={deleteTask}></button>
+                        <button className="infoButton fas fa-info-circle text-lg mx-px" onClick={displayDescription}></button>
+                        <button className="far fa-check-circle text-lg" onClick={updateCompleted}></button>
+                    </>
+                    ) : (
+                        <button className="infoButton fas fa-info-circle text-lg mx-px" onClick={displayDescription}></button>
+                    )
+                }
+            </div>
+            <div className="w-full text-sm text-center bg-transparent rounded flex-col justify-start items-center" style={{display:'none'}}>
+                <div className="w-full flex justify-end items-center px-2 pt-2"><button className="fas fa-times"></button></div>
+                <CTCInput 
+                id={task.id}
+                name={task.description || "No Description"}
+                permission={permission}
+                dataType={"description"}
+                action={props.updateTask}
+                afterAction={props.getContainer}
+                afterActionInput={task.container_id}
+                />
             </div>
         </div>
     )
@@ -79,3 +116,32 @@ TaskCard.propTypes = {
 
 export default connect(null,actions)(TaskCard)
 
+
+// Needa work on it later
+
+// const displayDescription = (e) => {
+//     const button = e.target
+//     const div = e.target.parentNode
+//     const description = div.childNodes[1]
+//     if (description.style.display === "none") {
+//         description.style.display = "block";
+//     } else {
+//         description.style.display = "none";
+//     }
+//     document.addEventListener("click",(e)=>{
+//         if (e.target !== description && e.target !== button && !description.contains(e.target)) {
+//             setTimeout(()=>{description.style.display = "none";},501)
+//         }
+//     });
+//     const descriptionHeight = description.offsetHeight
+//     const container = document.getElementById(["containerScroll",task.container_id].join(''))
+//     const containerHeight = container.offsetHeight
+//     const displayHeight = descriptionHeight+containerHeight
+//     container.style.transition = "all 0.5s linear"
+//     container.style.height = displayHeight + 'px'
+//     document.addEventListener('click',(e)=>{
+//         if(!container.contains(e.target) && e.target !== button && !e.target.classList.contains("infoButton") ) {
+//             container.style.height = containerHeight + 'px'
+//         }
+//     })
+// }

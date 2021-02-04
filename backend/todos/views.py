@@ -66,13 +66,18 @@ class ContainerViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         post_data = request.data
+        description = ""
+        try:
+            description = post_data['description']
+        except Exception:
+            pass
         new_object=models.Container.objects.create(
             project=models.Project.objects.get(id=post_data['project_id']),
             name=post_data['name'],
             order=post_data['order'],
             completed=False,
             importance=False,
-            description=""
+            description=description
         )
         return response.Response(data=model_to_dict(new_object),status=status.HTTP_201_CREATED)
 

@@ -10,7 +10,7 @@ import SignUpForm from './mixins/auth/SignUpForm';
 import Navigation from './components/Navigation';
 import Home from './routes/Home';
 import Footer from './components/Footer';
-
+import updateProfileForm from './mixins/updateProfileForm';
 
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
           <Route path='/' exact component={Landing} />
           <div className="scroller mt-20" style={{minHeight:"100vh"}}>
             <Route path='/:id/home' exact component={Home} />
+            <Route path='/:id/edit_profile' exact component={updateProfileForm} />
             <Route path='/login' exact component={LoginForm} />
             <Route path='/signup' exact component={SignUpForm} />
           </div>

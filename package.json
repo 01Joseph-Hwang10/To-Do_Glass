@@ -14,6 +14,7 @@
     "gulp-csso": "^4.0.1",
     "gulp-postcss": "^9.0.0",
     "gulp-sass": "^4.1.0",
+    "jquery": "^3.5.1",
     "node-sass": "^5.0.0",
     "postcss": "^8.2.4",
     "prop-types": "^15.7.2",

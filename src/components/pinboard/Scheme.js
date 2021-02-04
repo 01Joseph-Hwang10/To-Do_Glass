@@ -67,7 +67,7 @@ class Scheme extends Component {
                                 <div className="w-full h-full flex flex-col justify-center items-center">
                                     <button className="fas fa-plus-circle text-3xl w-full h-full" style={{display:'block',color:COLOR_FIRST}} onClick={switchHidden}></button>
                                     <form className="w-full h-full flex flex-col justify-around items-center" style={{display:'none'}} onSubmit={OnSubmit}>
-                                        <input placeholder="Name" className="w-11/12 rounded border-2 mb-1 text-sm focus:border-gray-600" style={{
+                                        <input required placeholder="Name" className="w-11/12 rounded border-2 mb-1 text-sm focus:border-gray-600" style={{
                                             backgroundColor:COLOR_FIFTH,
                                             transition:"all 0.5s ease-in-out"
                                         }}></input>

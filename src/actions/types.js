@@ -7,6 +7,7 @@ export const ON_LANDING = "ON_LANDING";
 export const NOT_ON_LANDING = "NOT_ON_LANDING";
 // Profile
 export const GET_PROFILE = "GET_PROFILE";
+export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const CLEAR_PROFILE = "CLEAR_PROFILE";
 export const GET_USER_INFO = 'GET_USER_INFO';
 export const CLEAR_USER_INFO = 'CLEAR_USER_INFO';

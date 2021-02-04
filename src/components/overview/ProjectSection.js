@@ -69,7 +69,7 @@ function ProjectSection(props) {
                     <div className="w-full flex justify-center items-center py-px rounded my-2" style={{backgroundColor:COLOR_FOURTH}}>
                         <button onClick={switchHidden} className="w-full fas fa-plus-circle text-lg" style={{color:COLOR_FIRST,display:'block'}}></button>
                         <form className="flex justify-around items-center" style={{display:'none'}} onSubmit={createProject}>
-                            <input placeholder="Name" className="w-7/12 bg-transparent rounded border-b-2 border-gray-400 focus:border-gray-600" style={{transition:"all 0.5s ease-in-out"}}></input>
+                            <input required placeholder="Name" className="w-7/12 bg-transparent rounded border-b-2 border-gray-400 focus:border-gray-600" style={{transition:"all 0.5s ease-in-out"}}></input>
                             <button className="px-2 my-1 rounded bg-gray-300 font-semibold">Create</button>
                         </form>
                     </div>

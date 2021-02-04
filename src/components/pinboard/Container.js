@@ -8,11 +8,11 @@ import { createTask } from "../../actions/todoactions/taskActions";
 import PropTypes from 'prop-types'
 import {switchHidden} from '../../functions/switchDisplay';
 import { selectColor, selectColorScheme } from '../../functions/tailwindColorScheme';
+import { COLOR_FIRST } from '../../store/variables';
 // Components
 import TaskCard from './partials/TaskCard';
 import HorizontalScroll from '../../mixins/scroll/HorizontalScroll';
 import ContainerHeader from './ContainerHeader';
-import { COLOR_FIRST } from '../../store/variables';
 
 
 class Container extends Component {
@@ -53,6 +53,7 @@ class Container extends Component {
             button.style.display='block'
         }
 
+
         return (
             <div className="w-full flex justify-start items-center bg-transparent border-b-2">
                 {container ? (
@@ -60,9 +61,9 @@ class Container extends Component {
                     <div className="w-1/12 flex justify-center items-center">
                         <ContainerHeader container={container} permission={permission} />
                     </div>
-                    <div className="w-11/12 flex flex-col justify-center items-center border-l-2">
+                    <div className="w-11/12 flex flex-col justify-start items-center border-l-2">
                         <div className="w-full mx-2">
-                            <HorizontalScroll card={
+                            <HorizontalScroll id={["containerScroll",container.id].join('')} card={
                                 <>
                                 {
                                 tasks.map(task => {
@@ -82,7 +83,7 @@ class Container extends Component {
                                         <div className="w-28 h-20 flex justify-center items-center" style={{backgroundColor:color}}>
                                             <button className="fas fa-plus-circle text-2xl w-full h-full" style={{display:"block",color:COLOR_FIRST}} onClick={switchHidden}></button>
                                             <form className="w-28 h-20 text-gray-900 flex flex-col justify-around items-center p-1" style={{display:"none"}} onSubmit={createTask}>
-                                                <input className="w-11/12 text-sm text-gray-700 rounded px-1 bg-transparent border-2" placeholder="Name"></input>   
+                                                <input required className="w-11/12 text-sm text-gray-700 rounded px-1 bg-transparent border-2" placeholder="Name"></input>   
                                                 <button className="p-1 px-2 text-xs bg-gray-200 text-gray-700 font-semibold rounded">Create</button>
                                             </form>
                                         </div>

@@ -9,6 +9,7 @@ export const URL_CHECK_SELF_AUTH='/api/users-api/check-self-auth/';
 export const URL_LOGOUT='/api/users-api/logout/';
 // Profile url
 export const URL_PUBLIC_PROFILE=`/api/users-api/public_users/`;
+export const URL_PROFILE=`/api/users-api/users/`;
 // Project url
 export const URL_PUBLIC_PROJECT='/api/todos-api/public_projects/';
 export const URL_PROJECT='/api/todos-api/projects/';

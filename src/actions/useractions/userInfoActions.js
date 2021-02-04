@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { URL_PUBLIC_PROFILE } from '../../store/variables';
-import { GET_PROFILE, CLEAR_PROFILE, PROFILE_MINE, PROFILE_NOT_MINE, GET_USER_INFO } from '../types';
+import { URL_PUBLIC_PROFILE, URL_PROFILE } from '../../store/variables';
+import { GET_PROFILE, CLEAR_PROFILE, PROFILE_MINE, PROFILE_NOT_MINE, GET_USER_INFO, UPDATE_PROFILE } from '../types';
 
 
 // Not Authenticated
@@ -36,6 +36,17 @@ export const getProfile = (user_id) => dispatch => {
         }
     }))
     .catch(error=>console.error(error))
+}
+
+export const updateProfile = (post_data,user_id) => dispatch => {
+    axios
+    .patch([URL_PROFILE,user_id,'/'].join(''),post_data,{withCredentials:true})
+    .then(response => {
+        dispatch({
+            type:UPDATE_PROFILE
+        })
+        window.location.href = `/#/${user_id}/home`
+    })
 }
 
 export const getUserInfo = (user_id) => dispatch => {

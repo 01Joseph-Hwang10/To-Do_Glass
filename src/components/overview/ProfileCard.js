@@ -8,14 +8,16 @@ import { COLOR_FOURTH } from '../../store/variables';
 
 function ProfileCard(props)  {
 
+    const Profile = props.Profile
+
     return (
         <section className="rounded w-full p-2 py-5 flex flex-col justify-center items-center shadow-sm border" style={{backgroundColor:COLOR_FOURTH}}>
             <div className="w-full">
-                <UserInfo Profile={props.Profile} />
+                <UserInfo Profile={Profile} />
             </div>
             <div className="mt-4 w-full">
                 {props.isMyProfile ? (
-                    <UserAction />
+                    <UserAction Profile={Profile} />
                 ) : (
                     <UserInteraction />
                 )}

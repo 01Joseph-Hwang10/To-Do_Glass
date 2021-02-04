@@ -56,12 +56,12 @@ function SchemeCard(props) {
                             afterActionInput={projectId}
                             />
                     </button>
-                    <div className="relative mt-px">
+                    <div className="mt-px">
                         <button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold" onClick={switchDisplay}>Detail</button>
-                        <div className="absolute w-full bg-gray-200 rounded" style={{display:'none'}}>
+                        <div className="absolute w-full right-1 bg-gray-200 rounded z-20" style={{display:'none',minWidth:"30px"}}>
                             <CTCInput 
                                 id={container.id}
-                                name={container.description}
+                                name={container.description || "No Description"}
                                 permission={permission}
                                 dataType={"description"}
                                 action={props.updateContainer}
@@ -84,7 +84,12 @@ function SchemeCard(props) {
                 </div>
                 <div className="w-full h-full flex flex-col justify-around items-center">
                     <div><span className="font-semibold">{container.name}</span></div>
-                    <div className="mt-px"><button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold">Detail</button></div>
+                    <div className="mt-px">
+                        <button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold" onClick={switchDisplay}>Detail</button>
+                        <div className="absolute w-full right-1 bg-gray-200 rounded z-20" style={{display:'none',minWidth:"30px"}}>
+                            <span>{container.description || "No Description"}</span>
+                        </div>
+                    </div>
                 </div>
             </>
             )}

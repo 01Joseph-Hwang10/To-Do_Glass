@@ -34,6 +34,14 @@ button, input {
   }
 }
 
+a {
+  @apply w-full text-center;
+}
+
+#navigation > div > a {
+  @apply w-auto text-left;
+}
+
 
 
 @tailwind utilities;
