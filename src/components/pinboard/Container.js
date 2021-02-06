@@ -47,7 +47,7 @@ class Container extends Component {
                 order:order
             }
             await this.props.createTask(postData)
-            this.props.getContainer(container.id)
+            await this.props.getContainer(container.id)
             input.value=""
             form.style.display='none'
             button.style.display='block'
@@ -55,10 +55,10 @@ class Container extends Component {
 
 
         return (
-            <div className="w-full flex justify-start items-center bg-transparent border-b-2">
+            <div className="w-full flex justify-center items-center bg-transparent border-b-2" style={{height:"100%"}}>
                 {container ? (
                     <>
-                    <div className="w-1/12 flex justify-center items-center">
+                    <div className="w-1/12 flex justify-center items-start" style={{height:"100%"}}>
                         <ContainerHeader container={container} permission={permission} />
                     </div>
                     <div className="w-11/12 flex flex-col justify-start items-center border-l-2">
@@ -81,7 +81,7 @@ class Container extends Component {
                                 {
                                     permission ? (
                                         <div className="w-28 h-20 flex justify-center items-center" style={{backgroundColor:color}}>
-                                            <button className="fas fa-plus-circle text-2xl w-full h-full" style={{display:"block",color:COLOR_FIRST}} onClick={switchHidden}></button>
+                                            <section className="w-28 h-20 flex justify-center items-center" style={{display:'block'}}><button className="w-28 h-20 fas fa-plus-circle text-2xl w-full h-full" style={{color:COLOR_FIRST}} onClick={switchHidden}></button></section>
                                             <form className="w-28 h-20 text-gray-900 flex flex-col justify-around items-center p-1" style={{display:"none"}} onSubmit={createTask}>
                                                 <input required className="w-11/12 text-sm text-gray-700 rounded px-1 bg-transparent border-2" placeholder="Name"></input>   
                                                 <button className="p-1 px-2 text-xs bg-gray-200 text-gray-700 font-semibold rounded">Create</button>

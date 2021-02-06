@@ -36,7 +36,7 @@ class Scheme extends Component {
                 order:(countContainers+1),
             }
             await this.props.createContainer(post_data)
-            this.props.getProject(projectId)
+            await this.props.getProject(projectId)
             input.value=""
             input.blur()
             form.style.display = "none"

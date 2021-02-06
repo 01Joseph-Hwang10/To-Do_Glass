@@ -26,8 +26,8 @@ export const notMyProfile = () => dispatch => {
 }
 
 
-export const getProfile = (user_id) => dispatch => {
-    axios
+export const getProfile = (user_id) => async dispatch => {
+    await axios
     .get([URL_PUBLIC_PROFILE,user_id,'/'].join(''),{withCredentials:true})
     .then(response => dispatch({
         type:GET_PROFILE,
@@ -38,19 +38,18 @@ export const getProfile = (user_id) => dispatch => {
     .catch(error=>console.error(error))
 }
 
-export const updateProfile = (post_data,user_id) => dispatch => {
-    axios
+export const updateProfile = (post_data,user_id) => async dispatch => {
+    await axios
     .patch([URL_PROFILE,user_id,'/'].join(''),post_data,{withCredentials:true})
     .then(response => {
         dispatch({
             type:UPDATE_PROFILE
         })
-        window.location.href = `/#/${user_id}/home`
     })
 }
 
-export const getUserInfo = (user_id) => dispatch => {
-    axios
+export const getUserInfo = (user_id) => async dispatch => {
+    await axios
     .get([URL_PUBLIC_PROFILE,user_id,'/'].join(''),{withCredentials:true})
     .then(response => dispatch({
         type:GET_USER_INFO,

@@ -26,7 +26,7 @@ export const switchDisplay = (e) => {
 
 
 export const switchHidden = (e) => {
-    let button,div,form
+    let button,div,form,insideButton
     if(e.target.parentNode.nodeName==="DIV") {
         button = e.target
         div = e.target.parentNode
@@ -35,16 +35,17 @@ export const switchHidden = (e) => {
         button = e.target.parentNode
         div = e.target.parentNode.parentNode
         form = div.childNodes[1]
+        insideButton = button.childNodes[0]
     }
     if (form.style.display === "none") {
         form.style.display = "flex";
-        button.style.display = "none"
+        button.style.display = "none";
     } else {
         form.style.display = "none";
         button.style.display = "block";
     }
     document.addEventListener("click",(e)=>{
-        if (e.target !== form && e.target !== button && !form.contains(e.target)) {
+        if (e.target !== form && e.target !== button && !form.contains(e.target) && e.target !== insideButton) {
             form.style.display="none";
             button.style.display="block";
         }

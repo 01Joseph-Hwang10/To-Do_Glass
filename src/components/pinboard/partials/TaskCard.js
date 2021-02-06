@@ -18,7 +18,7 @@ function TaskCard(props) {
 
     const deleteTask = async () => {
         await props.deleteTask(task.id)
-        props.getContainer(task.container_id)
+        await props.getContainer(task.container_id)
     }
 
     const updateCompleted = async () => {
@@ -29,7 +29,7 @@ function TaskCard(props) {
             user_id:userId
         }
         await props.updateTask(postData,task.id)
-        props.getContainer(task.container_id)
+        await props.getContainer(task.container_id)
     }
 
     const displayDescription = (e) => {

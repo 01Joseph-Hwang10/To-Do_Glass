@@ -3,8 +3,8 @@ import { URL_GLANCE } from "../../store/variables"
 import { CLEAR_GLANCE, GET_GLANCE } from "../types"
 
 
-export const getGlance = () => dispatch => {
-    axios
+export const getGlance = () => async dispatch => {
+    await axios
     .get(URL_GLANCE,{withCredentials:true})
     .then(response => {
         dispatch({

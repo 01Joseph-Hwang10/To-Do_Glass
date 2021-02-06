@@ -20,7 +20,7 @@ function SchemeCard(props) {
 
     const deleteContainer = async () => {
         await props.deleteContainer(container.id)
-        props.getProject(projectId)
+        await props.getProject(projectId)
     }
 
     const updateImportance = async () => {
@@ -30,7 +30,7 @@ function SchemeCard(props) {
             user_id:localStorage.getItem('user_id')
         }
         await props.updateContainer(postData,container.id)
-        props.getProject(projectId)
+        await props.getProject(projectId)
     }
 
     return (

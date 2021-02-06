@@ -36,7 +36,7 @@ class ContainerBox extends Component {
                 order:(countContainers+1)
             }
             await this.props.createContainer(postData)
-            this.props.getProject(projectId)
+            await this.props.getProject(projectId)
             name.value=""
             description.value=""
             button.style.display ="block"

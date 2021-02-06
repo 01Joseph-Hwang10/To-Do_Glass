@@ -3,7 +3,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 // Redux
 import { connect } from 'react-redux'
-import {updateProfile} from '../actions/useractions/userInfoActions'
+import {updateProfile,getProfile} from '../actions/useractions/userInfoActions'
 // etc
 import { COLOR_FOURTH, COLOR_THIRD } from '../store/variables'
 import PropTypes from 'prop-types'
@@ -19,12 +19,12 @@ function updateProfileForm(props) {
         const avatar = form.childNodes[2]
         const bio = form.childNodes[3]
         const id = profile.id
-        const postData = {user_id:id,first_name:name}
+        const postData = {user_id:id,first_name:name.value}
         if(avatar.files[0]) postData['avatar'] = avatar.files[0]
         if(bio.value) postData['bio'] = bio.value
         await props.updateProfile(postData,id)
+        await props.getProfile(id)
         window.location.href=`/#/${id}/home`
-        window.location.reload()
     }
 
     return (
@@ -42,8 +42,9 @@ function updateProfileForm(props) {
 }
 
 updateProfileForm.propTypes = {
-    updateProfile:PropTypes.func.isRequired
+    updateProfile:PropTypes.func.isRequired,
+    getProfile:PropTypes.func.isRequired
 }
 
-export default connect(null,{updateProfile})(updateProfileForm)
+export default connect(null,{updateProfile,getProfile})(updateProfileForm)
 

@@ -3,8 +3,8 @@ import { URL_PROJECT, URL_PUBLIC_PROJECT } from '../../store/variables';
 import { CLEAR_PROJECT, CREATE_PROJECT, DELETE_PROJECT, GET_PROJECT, UPDATE_PROJECT} from '../types';
 
 
-export const getProject = (project_id) => dispatch => {
-    axios
+export const getProject = (project_id) => async dispatch => {
+    await axios
     .get([URL_PUBLIC_PROJECT,project_id,'/'].join(''),{withCredentials:true})
     .then(response => {
         dispatch({

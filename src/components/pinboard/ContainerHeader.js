@@ -11,12 +11,12 @@ function ContainerHeader(props) {
         <>
         {
             permission ? (
-            <div className="w-full flex justify-between items-center px-3 pb-1">
-                <button className="font-semibold flex-grow text-left text-lg">{container.order}</button>
+            <div className="w-full h-full flex justify-center items-center px-3 pb-1 hover:bg-gray-400">
+                <button className="h-full font-semibold flex-grow text-left text-lg">{container.order}</button>
             </div>
             ) : (
-            <div className="w-full h-full flex justify-between items-center px-3 pb-1">
-                <div className="font-semibold flex-grow text-left text-lg">{container.order}</div>
+            <div className="w-full h-full flex justify-center items-center px-3 pb-1 hover:bg-gray-400">
+                <div className="h-full font-semibold flex-grow text-left text-lg">{container.order}</div>
             </div>
             )
         }
