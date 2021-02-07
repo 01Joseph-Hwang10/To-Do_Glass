@@ -55,13 +55,13 @@ class Container extends Component {
 
 
         return (
-            <div className="w-full flex justify-center items-center bg-transparent border-b-2" style={{height:"100%"}}>
+            <div className="w-full flex justify-center items-center bg-transparent border-b-2 h-full">
                 {container ? (
                     <>
-                    <div className="w-1/12 flex justify-center items-start" style={{height:"100%"}}>
+                    <section className="w-1/12 flex justify-center items-center h-full">
                         <ContainerHeader container={container} permission={permission} />
-                    </div>
-                    <div className="w-11/12 flex flex-col justify-start items-center border-l-2">
+                    </section>
+                    <section className="w-11/12 flex flex-col justify-start items-center border-l-2">
                         <div className="w-full mx-2">
                             <HorizontalScroll id={["containerScroll",container.id].join('')} card={
                                 <>
@@ -95,7 +95,7 @@ class Container extends Component {
                                 }
                                 />
                         </div>
-                    </div>
+                    </section>
                     </>
                 ) : (
                     <div>
