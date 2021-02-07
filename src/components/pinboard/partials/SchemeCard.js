@@ -34,7 +34,7 @@ function SchemeCard(props) {
     }
 
     return (
-        <div className="rounded shadow-lg w-32 h-24 mx-2 flex flex-col justify-between items-center" style={{backgroundColor:COLOR_SIXTH}}>
+        <div className="rounded shadow-lg w-40 h-32 mx-2 flex flex-col justify-between items-center" style={{backgroundColor:COLOR_SIXTH}}>
             {props.permission ? (
             <>
                 <div className="w-full flex justify-center items-start">
@@ -45,7 +45,6 @@ function SchemeCard(props) {
                     </button>
                 </div>
                 <div className="w-full h-full flex flex-col justify-around items-center">
-                    <button className="w-full">
                     <CTCInput 
                             id={container.id}
                             name={container.name}
@@ -55,8 +54,7 @@ function SchemeCard(props) {
                             afterAction={props.getProject}
                             afterActionInput={projectId}
                             />
-                    </button>
-                    <div className="mt-px">
+                    <div className="mt-px" style={{display:'none'}}>
                         <button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold" onClick={switchDisplay}>Detail</button>
                         <div className="absolute w-full right-1 bg-gray-200 rounded z-20" style={{display:'none',minWidth:"30px"}}>
                             <CTCInput 

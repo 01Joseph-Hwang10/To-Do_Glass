@@ -76,9 +76,9 @@ function ProjectDetail(props) {
         <div className="w-full">
             {props.permission ? (
                 <div className="w-full">
-                    <div className="w-full opacity-90 p-2 py-4 mb-1 rounded text-white shadow-inner" style={{backgroundColor:COLOR_SECOND}}>
-                        <div className="readElement" style={{display:'block'}}><span>{description}</span></div>
-                        <input className="formElement bg-transparent outline-none border-none" style={{display:"none"}} placeholder="Write down the description below"></input>
+                    <div className="w-full opacity-90 p-2 py-4 mb-1 rounded text-white shadow-inner" style={{backgroundColor:COLOR_SECOND,transition:"all 0.5s ease-in-out"}}>
+                        <div className="readElement" style={{display:'block'}}><span className="outline-none border-none bg-transparent w-full resize-none">{description}</span></div>
+                        <textarea className="formElement bg-transparent outline-none border-none w-full resize-none" style={{display:"none"}} placeholder="Write down the description below"></textarea>
                     </div>
                     <div className="w-full flex justify-end">
                         <button onClick={showForm} className="readElement px-3 py-1 rounded font-semibold" style={{display:'block',backgroundColor:COLOR_THIRD,color:COLOR_FIFTH}}>Edit</button>

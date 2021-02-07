@@ -13,6 +13,7 @@ import { COLOR_FIRST } from '../../store/variables';
 import TaskCard from './partials/TaskCard';
 import HorizontalScroll from '../../mixins/scroll/HorizontalScroll';
 import ContainerHeader from './ContainerHeader';
+import ContainerDetail from './ContainerDetail';
 
 
 class Container extends Component {
@@ -55,47 +56,52 @@ class Container extends Component {
 
 
         return (
-            <div className="w-full flex justify-center items-center bg-transparent border-b-2 h-full">
+            <div className="container w-full flex flex-col justify-center items-center bg-transparent border-b-2 h-full">
                 {container ? (
                     <>
-                    <section className="w-1/12 flex justify-center items-center h-full">
-                        <ContainerHeader container={container} permission={permission} />
-                    </section>
-                    <section className="w-11/12 flex flex-col justify-start items-center border-l-2">
-                        <div className="w-full mx-2">
-                            <HorizontalScroll id={["containerScroll",container.id].join('')} card={
-                                <>
-                                {
-                                tasks.map(task => {
-                                    return (
-                                        <div className="w-28 h-20 flex flex-col">
-                                            <TaskCard 
-                                            task={task}
-                                            permission={permission}
-                                            colorScheme={colorScheme}
-                                            />
-                                        </div>
+                    <div className="containerDetail w-full flex flex-col" style={{opacity:0,maxHeight:'0',transition:'max-height 1s linear, opacity 0.4s ease-in-out, border-bottom-width 0.1s ease-in-out',borderBottomWidth:'0'}}>
+                        <ContainerDetail container={container} permission={permission} />
+                    </div>
+                    <div className="w-full flex justify-center items-center bg-transparent">
+                        <section className="containerHeader flex justify-center items-center" style={{width:"8.4%",transition:"all 0.4s ease-in-out"}}>
+                            <ContainerHeader container={container} permission={permission} />
+                        </section>
+                        <section className="containerBody flex flex-col justify-start items-center border-l-2" style={{width:"91.6%",transition:"all 0.4s ease-in-out"}}>
+                            <div className="w-full mx-2 border-t-8 border-double border-gray-600">
+                                <HorizontalScroll id={["containerScroll",container.id].join('')} card={
+                                    <>
+                                    {
+                                    tasks.map(task => {
+                                        return (
+                                            <div className="w-28 flex flex-col">
+                                                <TaskCard 
+                                                task={task}
+                                                permission={permission}
+                                                colorScheme={colorScheme}
+                                                />
+                                            </div>
+                                            )
+                                        })
+                                    }
+                                    {
+                                        permission ? (
+                                            <div className="w-28 flex justify-center items-center border-b-4" style={{backgroundColor:color,minHeight:'4.7rem'}}>
+                                                <section className="w-28 flex justify-center items-center" style={{display:'block'}}><button className="w-28 fas fa-plus-circle text-2xl w-full h-full" style={{color:COLOR_FIRST}} onClick={switchHidden}></button></section>
+                                                <form className="w-28 text-gray-900 flex flex-col justify-around items-center p-1 space-y-2" style={{display:"none"}} onSubmit={createTask}>
+                                                    <input required className="w-11/12 text-sm text-gray-700 rounded px-1 bg-transparent border-2" placeholder="Name"></input>   
+                                                    <button className="p-1 px-2 text-xs bg-gray-200 text-gray-700 font-semibold rounded">Create</button>
+                                                </form>
+                                            </div>
+                                        ) : (
+                                            <div className="w-1 h-20"></div>
                                         )
-                                    })
-                                }
-                                {
-                                    permission ? (
-                                        <div className="w-28 h-20 flex justify-center items-center" style={{backgroundColor:color}}>
-                                            <section className="w-28 h-20 flex justify-center items-center" style={{display:'block'}}><button className="w-28 h-20 fas fa-plus-circle text-2xl w-full h-full" style={{color:COLOR_FIRST}} onClick={switchHidden}></button></section>
-                                            <form className="w-28 h-20 text-gray-900 flex flex-col justify-around items-center p-1" style={{display:"none"}} onSubmit={createTask}>
-                                                <input required className="w-11/12 text-sm text-gray-700 rounded px-1 bg-transparent border-2" placeholder="Name"></input>   
-                                                <button className="p-1 px-2 text-xs bg-gray-200 text-gray-700 font-semibold rounded">Create</button>
-                                            </form>
-                                        </div>
-                                    ) : (
-                                        <div className="w-1 h-20"></div>
-                                    )
-                                }
-                                </>
-                                }
-                                />
-                        </div>
-                    </section>
+                                    }
+                                    </>
+                                    }
+                                    />
+                            </div>
+                        </section>
+                    </div>
                     </>
                 ) : (
                     <div>

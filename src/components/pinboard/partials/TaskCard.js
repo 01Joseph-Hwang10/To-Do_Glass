@@ -56,7 +56,7 @@ function TaskCard(props) {
 
 
     return (
-        <div className="w-28 h-20 relative text-gray-900 flex flex-col justify-between items-center" style={{backgroundColor:color}}>
+        <div className="w-28 relative text-gray-900 flex flex-col justify-between items-center border-b-4" style={{backgroundColor:color}}>
             <div className="w-full justify-center items-start" style={{display:'flex'}}>
                 {
                     permission ? (

@@ -21,7 +21,7 @@ class CTCInput extends Component {
         
         const OnClick = e => {
             const button = e.target
-            const currentState = button.innerText
+            const currentState = this.props.name
             const div = e.target.parentNode
             const form = div.childNodes[1]
             const input = form.childNodes[0]
@@ -39,38 +39,46 @@ class CTCInput extends Component {
 
 
         const OnSubmit = async e => {
-            e.preventDefault()
-            const form = e.target
-            const input = form.childNodes[0]
-            const div = e.target.parentNode
-            const button = div.childNodes[0]
-            const inputValue = input.value;
-            const dataType = input.name;
-            const postData = {}
-            postData[dataType] = inputValue
-            postData['user_id'] = localStorage.getItem('user_id')
-            const action = this.props.action
-            const id = this.props.id
-            const afterActionInput = this.props.afterActionInput
-            await action(postData,id)
-            if(this.props.afterAction) {
-                if(afterActionInput) {
-                    this.props.afterAction(afterActionInput)
-                } else {
-                    this.props.afterAction()
+            if(e.keyCode === 13 && e.shiftKey === false) {
+                e.preventDefault()
+                const form = e.target.parentNode
+                const input = form.childNodes[0]
+                const div = form.parentNode
+                const button = div.childNodes[0]
+                const inputValue = input.value;
+                const dataType = input.name;
+                const postData = {}
+                postData[dataType] = inputValue
+                postData['user_id'] = localStorage.getItem('user_id')
+                const action = this.props.action
+                const id = this.props.id
+                const afterActionInput = this.props.afterActionInput
+                await action(postData,id)
+                if(this.props.afterAction) {
+                    if(afterActionInput) {
+                        this.props.afterAction(afterActionInput)
+                    } else {
+                        this.props.afterAction()
+                    }
                 }
+                button.style.display="block"
+                form.style.display="none"
             }
-            button.style.display="block"
-            form.style.display="none"
         };
+
+        const resize = (e) => {
+            const textarea = e.target
+            textarea.style.height = '1px'
+            textarea.style.height = (12+textarea.scrollHeight) +'px'
+        }
 
         return (
             <>
             {this.props.permission ? (
                 <div className='w-full h-full bg-transparent'>
                     <button className='w-full h-full font-semibold' style={{display:'block',textAlign:textAlign}} onClick={OnClick}>{this.props.name}</button>
-                    <form className='w-full h-full' style={{display:'none'}} onSubmit={OnSubmit}>
-                        <input className='w-full h-full bg-transparent p-1 border-b-2 border-gray-600 text-center' name={this.props.dataType} placeholder="Project Name"></input>
+                    <form className='w-full h-full' style={{display:'none'}}>
+                        <textarea onKeyUp={resize} onKeyDownCapture={resize} className='w-full h-full bg-transparent overflow-hidden p-1 border-b-2 border-gray-600 text-center resize-none overflow-auto break-words' name={this.props.dataType} onKeyDown={OnSubmit} placeholder="Project Name"></textarea>
                     </form>
                 </div>
             ) : (
