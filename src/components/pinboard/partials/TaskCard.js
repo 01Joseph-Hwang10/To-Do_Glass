@@ -58,13 +58,7 @@ function TaskCard(props) {
     return (
         <div className="w-28 relative text-gray-900 flex flex-col justify-between items-center border-b-4" style={{backgroundColor:color}}>
             <div className="w-full justify-center items-start" style={{display:'flex'}}>
-                {
-                    permission ? (
-                        <button className="w-full fas fa-grip-lines-vertical"></button>
-                    ) : (
-                        <span className="text-center fas fa-grip-lines-vertical"></span>
-                    )
-                }
+                <span className="text-center fas fa-grip-lines-vertical"></span>
             </div>
             <div className="w-full text-xl text-center" style={{display:'block'}}>
                 <CTCInput 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { capitalize } from '../../functions/stringFunctions';
 // import PropTypes from 'prop-types'
 
 class CTCInput extends Component {
@@ -18,6 +19,7 @@ class CTCInput extends Component {
     render() {
 
         const textAlign = this.props.textAlign || "center"
+        const capitalizedDataType = capitalize(this.props.dataType)
         
         const OnClick = e => {
             const button = e.target
@@ -51,14 +53,15 @@ class CTCInput extends Component {
                 postData[dataType] = inputValue
                 postData['user_id'] = localStorage.getItem('user_id')
                 const action = this.props.action
+                const afterAction = this.props.afterAction
                 const id = this.props.id
                 const afterActionInput = this.props.afterActionInput
                 await action(postData,id)
                 if(this.props.afterAction) {
                     if(afterActionInput) {
-                        this.props.afterAction(afterActionInput)
+                        await afterAction(afterActionInput)
                     } else {
-                        this.props.afterAction()
+                        await afterAction()
                     }
                 }
                 button.style.display="block"
@@ -78,7 +81,7 @@ class CTCInput extends Component {
                 <div className='w-full h-full bg-transparent'>
                     <button className='w-full h-full font-semibold' style={{display:'block',textAlign:textAlign}} onClick={OnClick}>{this.props.name}</button>
                     <form className='w-full h-full' style={{display:'none'}}>
-                        <textarea onKeyUp={resize} onKeyDownCapture={resize} className='w-full h-full bg-transparent overflow-hidden p-1 border-b-2 border-gray-600 text-center resize-none overflow-auto break-words' name={this.props.dataType} onKeyDown={OnSubmit} placeholder="Project Name"></textarea>
+                        <textarea onKeyUp={resize} onKeyDownCapture={resize} className='w-full h-full bg-transparent overflow-hidden p-1 border-b-2 border-gray-600 text-center resize-none overflow-auto break-words' name={this.props.dataType} onKeyDown={OnSubmit} placeholder={capitalizedDataType}></textarea>
                     </form>
                 </div>
             ) : (

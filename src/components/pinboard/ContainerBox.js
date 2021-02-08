@@ -15,10 +15,11 @@ class ContainerBox extends Component {
     render() {
 
         const project = this.props.project
-        const container_ids = project.get_container_ids
+        const containers = this.props.container
+        delete containers.created
+        const container_ids = (function(){return(Object.keys(containers).length>0?Object.keys(containers):project.get_container_ids)})()
         const projectId = project.id
         const countContainers = Number(project.count_containers)
-        const containers = this.props.container
         const permission = this.props.permission
 
         const OnSubmit = async (e) => {
@@ -45,7 +46,7 @@ class ContainerBox extends Component {
 
         return (
             <div className="w-full">
-                <div className="w-full border-b-2"></div>
+                <div className="w-full border-b-2" style={{borderColor:"#E5E7EB"}}></div>
                 {
                     container_ids.map(container_id => {
                         let container;

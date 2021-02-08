@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getContainer } from '../../actions/todoactions/containerActions';
 import { createTask } from "../../actions/todoactions/taskActions";
+// modules
+import { Draggable } from "react-beautiful-dnd";
 // etc
 import PropTypes from 'prop-types'
 import {switchHidden} from '../../functions/switchDisplay';
@@ -54,12 +56,16 @@ class Container extends Component {
             button.style.display='block'
         }
 
+        const handleOnDragEnd = result => {
+            if(!result.destination) return;
+        }
+
 
         return (
-            <div className="container w-full flex flex-col justify-center items-center bg-transparent border-b-2 h-full">
+            <div className="container w-full flex flex-col justify-center items-center bg-transparent h-full" style={{borderWidth:'0px',borderBottomWidth:'2px',borderColor:"#E5E7EB", transition:'all 0.1s ease-in-out',borderRadius:'0'}}>
                 {container ? (
                     <>
-                    <div className="containerDetail w-full flex flex-col" style={{opacity:0,maxHeight:'0',transition:'max-height 1s linear, opacity 0.4s ease-in-out, border-bottom-width 0.1s ease-in-out',borderBottomWidth:'0'}}>
+                    <div className="containerDetail w-full flex flex-col" style={{opacity:0,maxHeight:'0',borderBottomWidth:'0',zIndex:0}}>
                         <ContainerDetail container={container} permission={permission} />
                     </div>
                     <div className="w-full flex justify-center items-center bg-transparent">
@@ -68,18 +74,34 @@ class Container extends Component {
                         </section>
                         <section className="containerBody flex flex-col justify-start items-center border-l-2" style={{width:"91.6%",transition:"all 0.4s ease-in-out"}}>
                             <div className="w-full mx-2 border-t-8 border-double border-gray-600">
-                                <HorizontalScroll id={["containerScroll",container.id].join('')} card={
+                                <HorizontalScroll onDragEnd={handleOnDragEnd} card={
                                     <>
                                     {
-                                    tasks.map(task => {
+                                    tasks.map((task,index) => {
                                         return (
-                                            <div className="w-28 flex flex-col">
-                                                <TaskCard 
-                                                task={task}
-                                                permission={permission}
-                                                colorScheme={colorScheme}
-                                                />
-                                            </div>
+                                                permission ? (
+                                                <Draggable key={task.id} draggableId={['taskCard',task.id].join('')} index={index}>
+                                                    {
+                                                        (provided) => (
+                                                        <div id={['taskCard',task.id].join('')} className="w-28 flex flex-col" {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                                                            <TaskCard 
+                                                            task={task}
+                                                            permission={permission}
+                                                            colorScheme={colorScheme}
+                                                            />
+                                                        </div>
+                                                        )
+                                                    }
+                                                </Draggable>
+                                                ) : (
+                                                <div id={['taskCard',task.id].join('')} className="w-28 flex flex-col">
+                                                    <TaskCard 
+                                                    task={task}
+                                                    permission={permission}
+                                                    colorScheme={colorScheme}
+                                                    />
+                                                </div>
+                                                )
                                             )
                                         })
                                     }

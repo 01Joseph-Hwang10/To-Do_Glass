@@ -15,6 +15,7 @@ function ContainerHeader(props) {
     const container = props.container
     const projectId = container.project
     const name = container.name
+    const description = container.description
     const permission = props.permission
     const isFullScreen = props.isFullScreen
 
@@ -64,15 +65,29 @@ function ContainerHeader(props) {
 
     const openDetail = (e) => {
         const button = e.target
-        const containerDetail = e.target.closest('.containerHeader').parentNode.parentNode.querySelector('.containerDetail')
-        containerDetail.style.maxHeight = '500px'
+        const div = e.target.closest('.containerHeader').parentNode.parentNode
+        div.style.borderWidth = '4px'
+        div.style.borderColor = COLOR_THIRD
+        div.style.borderRadius = '0.375rem'
+        const containerDetail = div.querySelector('.containerDetail')
+        containerDetail.style.transition = 'max-height 0.5s linear, opacity 0.4s ease-in-out, border-bottom-width 0.1s ease-in-out'
+        if(name.length + description.length < 33) containerDetail.style.maxHeight = '200px'
+        if(name.length + description.length >= 33 && name.length + description.length <66) containerDetail.style.maxHeight = '300px'
+        if(name.length + description.length >= 66 && name.length + description.length <100) containerDetail.style.maxHeight = '400px'
+        if(name.length + description.length >= 100) containerDetail.style.maxHeight = '500px'
         containerDetail.style.borderBottomWidth = '2px'
         containerDetail.style.opacity = 1
+        containerDetail.style.zIndex = 20
         document.addEventListener('click', (e) => {
             if(!containerDetail.contains(e.target) && e.target !== button) {
+                div.style.borderWidth = '0px'
+                div.style.borderColor = "#E5E7EB"
+                div.style.borderRadius = '0'
                 containerDetail.style.maxHeight = '0'
                 containerDetail.style.borderBottomWidth = '0'
                 containerDetail.style.opacity = 0
+                containerDetail.style.zIndex = 0
+                setTimeout(()=>{containerDetail.style.transition = 'max-height 0.5s linear, border-bottom-width 0.1s ease-in-out'},510)
             }
         })
     }
