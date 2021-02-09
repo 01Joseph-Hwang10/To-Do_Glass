@@ -70,7 +70,7 @@ function ContainerHeader(props) {
         div.style.borderColor = COLOR_THIRD
         div.style.borderRadius = '0.375rem'
         const containerDetail = div.querySelector('.containerDetail')
-        containerDetail.style.transition = 'max-height 0.5s linear, opacity 0.4s ease-in-out, border-bottom-width 0.1s ease-in-out'
+        containerDetail.style.transition = 'max-height 0.5s ease-in, opacity 0.4s ease-in-out, border-bottom-width 0.1s ease-in-out'
         if(name.length + description.length < 33) containerDetail.style.maxHeight = '200px'
         if(name.length + description.length >= 33 && name.length + description.length <66) containerDetail.style.maxHeight = '300px'
         if(name.length + description.length >= 66 && name.length + description.length <100) containerDetail.style.maxHeight = '400px'

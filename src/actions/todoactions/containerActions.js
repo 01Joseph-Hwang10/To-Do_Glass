@@ -4,7 +4,7 @@ import { CLEAR_CONTAINER, CREATE_CONTAINER, DELETE_CONTAINER, GET_CONTAINER, UPD
 
 
 export const getContainer = (id) => async dispatch => {
-    await axios
+    let response = await axios
     .get([URL_PUBLIC_CONTAINER,id,'/'].join(''),{withCredentials:true})
     .then(response => {
         dispatch({
@@ -14,7 +14,9 @@ export const getContainer = (id) => async dispatch => {
                 container:response.data
             }
         })
+        return response.data
     })
+    return response
     }
 
 export const createContainer = (post_data) => async dispatch => {

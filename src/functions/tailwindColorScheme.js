@@ -1,21 +1,23 @@
 
 
-export const selectColorScheme = (order) => {
-    if(order) {
-        switch (order) {
-            case order % 1:
+export const selectColorScheme = (number) => {
+    const num = Number(number)
+    const modulo = Math.abs(num % 7)
+    if(modulo) {
+        switch (modulo) {
+            case 1:
                 return "red"
-            case order % 2:
+            case 2:
                 return "yellow"
-            case order % 3:
+            case 3:
                 return "green"
-            case order % 4:
+            case 4:
                 return "blue"
-            case order % 5:
+            case 5:
                 return "indigo"
-            case order % 6:
+            case 6:
                 return "purple"
-            case order % 0:
+            case 0:
                 return "pink"
             default:
                 const colorList = [

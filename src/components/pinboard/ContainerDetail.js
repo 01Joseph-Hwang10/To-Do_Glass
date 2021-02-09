@@ -25,7 +25,7 @@ function ContainerDetail(props) {
         containerDetail.style.borderBottomWidth = '0'
         containerDetail.style.opacity = 0
         containerDetail.style.zIndex = 0
-        setTimeout(()=>{containerDetail.style.transition = 'max-height 0.5s linear, border-bottom-width 0.1s ease-in-out'},510)
+        setTimeout(()=>{containerDetail.style.transition = 'max-height 0.5s ease, border-bottom-width 0.1s ease-in-out'},510)
     }
 
     const showForm = (e) => {

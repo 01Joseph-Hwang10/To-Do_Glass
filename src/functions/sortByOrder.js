@@ -14,7 +14,7 @@ export const sortByOrder = (a,b) => {
     return 0
 }
 
-export const dictSortByOrder = (dictionary) => {
+export const dictSortId = (dictionary) => {
 
     let dictArray = []
 
@@ -40,17 +40,12 @@ export const dictSortByOrder = (dictionary) => {
     
     dictArray = dictArray.sort(sortByOrderForDict)
 
-    console.log(dictArray)
-
-    let dict = {}
+    let result = []
 
     for (let i=0; i<dictArray.length; i++) {
         const key = dictArray[i][0]
-        const value = dictArray[i][1]
-        dict[key] = value
+        result.push(key)
     }
 
-    console.log(dict)
-
-    return dict
+    return result
 }

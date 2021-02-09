@@ -69,14 +69,14 @@ function Scheme(props) {
 
     return (
         <div className="w-full rounded shadow-inner py-3 bg-indigo-50">
-            <HorizontalScroll onDragEnd={handleOnDragEnd} card={
+            <HorizontalScroll single={true} onDragEnd={handleOnDragEnd} card={
                 <>
                 <div className="w-1 h-1"><div className="w-1 h-1"></div></div>
                 {
                     containers.map((container,index) => {
                         return (
                             permission ? (
-                            <Draggable key={container.id} draggableId={['schemeCard',container.id].join('')} index={index}>
+                            <Draggable key={['schemeCard',container.id].join('')} draggableId={['schemeCard',container.id].join('')} index={index}>
                                 {
                                     (provided) => (
                                     <div id={['schemeCard',container.id].join('')} className="w-40 h-32 mx-1 mr-3" {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>

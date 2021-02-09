@@ -3,15 +3,19 @@ import React from 'react';
 // Redux
 import { connect } from 'react-redux';
 import {checkAuth} from '../actions/useractions/authActions';
+import { disableFullScreen } from "../actions/screenActions";
+// etc
+import PropTypes from "prop-types";
+// import { COLOR_FOURTH } from '../store/variables';
 // Component
 import Overview from '../components/Overview';
 import Pinboard from '../components/Pinboard';
 import Glance from '../components/Glance';
-// import { COLOR_FOURTH } from '../store/variables';
 
 class Home extends React.Component {
 
     componentDidMount() {
+        this.props.disableFullScreen()
         const CheckAuth = this.props.checkAuth;
         const isAuthenticated = this.props.isAuthenticated
         CheckAuth(isAuthenticated);
@@ -69,6 +73,12 @@ class Home extends React.Component {
     }
 }
 
+Home.propTypes = {
+    checkAuth:PropTypes.func.isRequired,
+    disableFullScreen:PropTypes.func.isRequired
+}
+
+
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.login.isAuthenticated,
@@ -78,4 +88,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps,{checkAuth})(Home);
+export default connect(mapStateToProps,{checkAuth, disableFullScreen})(Home);
