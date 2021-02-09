@@ -6,6 +6,7 @@ import { createContainer } from "../../actions/todoactions/containerActions";
 import { getProject } from "../../actions/todoactions/projectActions";
 // etc
 import { switchHidden } from '../../functions/switchDisplay';
+import { dictSortByOrder } from '../../functions/sortByOrder';
 import PropTypes from 'prop-types'
 // Components
 import Container from './Container';
@@ -17,7 +18,8 @@ class ContainerBox extends Component {
         const project = this.props.project
         const containers = this.props.container
         delete containers.created
-        const container_ids = (function(){return(Object.keys(containers).length>0?Object.keys(containers):project.get_container_ids)})()
+        console.log(Object.keys(dictSortByOrder(containers)))
+        const container_ids = (function(){return(Object.keys(dictSortByOrder(containers)).length>0?Object.keys(containers):project.get_container_ids)})()
         const projectId = project.id
         const countContainers = Number(project.count_containers)
         const permission = this.props.permission
