@@ -6,35 +6,65 @@ from . import models
 class TaskAdmin(admin.ModelAdmin):
 
     list_display = (
-        "container",
         "name",
-        "order",
+        "container",
         "importance",
         "description",
+        "order",
     )
+
+class TaskInline(admin.TabularInline):
+
+    model = models.Task
 
 
 @admin.register(models.Container)
 class ContainerAdmin(admin.ModelAdmin):
 
+    inlines = (TaskInline,)
+
     list_display = (
-        "project",
         "name",
-        "order",
+        "project",
         "importance",
         "description",
         "count_tasks",
+        "order",
     )
+
+class ContainerInline(admin.TabularInline):
+
+    model = models.Container
+
+
+@admin.register(models.Tag)
+class TagAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "name",
+        "tag_for",
+    )
+
+class TagInline(admin.TabularInline):
+
+    model = models.Tag
 
 
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):
 
+    inlines = (TagInline,ContainerInline,)
+
     list_display = (
-        "created_user",
         "name",
-        "order",
+        "created_user",
         "importance",
         "description",
         "count_containers",
+        "order",
     )
+
+class ProjectInline(admin.TabularInline):
+
+    model = models.Project
+

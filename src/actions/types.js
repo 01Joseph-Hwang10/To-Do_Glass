@@ -25,6 +25,9 @@ export const PARTICIPANT = "PARTICIPANT";
 export const NOT_PARTICIPANT = "NOT_PARTICIPANT";
 export const PROJECT_MINE = "PROJECT_MINE";
 export const PROJECT_NOT_MINE = "PROJECT_NOT_MINE";
+// Tag
+export const CREATE_TAG = "CREATE_TAG";
+export const DELETE_TAG = "DELETE_TAG";
 // Container
 export const GET_CONTAINER = "GET_CONTAINER";
 export const CREATE_CONTAINER = "CREATE_CONTAINER";

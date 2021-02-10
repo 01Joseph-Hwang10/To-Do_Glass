@@ -46,7 +46,7 @@ function Container(props) {
     if(props.Profile.data) userId = props.Profile.data.id
 
     const colorScheme = selectColorScheme(props.id)
-    const color=selectColor(colorScheme)
+    const color=selectColor(colorScheme,props.id)
 
     const createTask = async (e) => {
         e.preventDefault()
@@ -140,7 +140,7 @@ function Container(props) {
                                         <div className="w-28 flex justify-center items-center border-b-4" style={{backgroundColor:color,minHeight:'4.7rem'}}>
                                             <section className="w-28 flex justify-center items-center" style={{display:'block'}}><button className="w-28 fas fa-plus-circle text-2xl w-full h-full" style={{color:COLOR_FIRST}} onClick={switchHidden}></button></section>
                                             <form className="w-28 text-gray-900 flex flex-col justify-around items-center p-1 space-y-2" style={{display:"none"}} onSubmit={createTask}>
-                                                <input required className="w-11/12 text-sm text-gray-700 rounded px-1 bg-transparent border-2" placeholder="Name"></input>   
+                                                <input required className="w-11/12 text-sm text-gray-700 rounded px-1 bg-transparent border-2 focus:border-gray-400" placeholder="Name" style={{transition:"all 0.4s ease-in-out"}}></input>   
                                                 <button className="p-1 px-2 text-xs bg-gray-200 text-gray-700 font-semibold rounded">Create</button>
                                             </form>
                                         </div>

@@ -14,6 +14,9 @@ export const URL_PROFILE=`/api/users-api/users/`;
 export const URL_PUBLIC_PROJECT='/api/todos-api/public_projects/';
 export const URL_PROJECT='/api/todos-api/projects/';
 export const URL_GLANCE='/api/todos-api/glance/';
+// Tag url
+export const URL_PUBLIC_TAG='/api/todos-api/public_tags/';
+export const URL_TAG='/api/todos-api/tags/'
 // Container url
 export const URL_PUBLIC_CONTAINER='/api/todos-api/public_containers/';
 export const URL_CONTAINER = '/api/todos-api/containers/';

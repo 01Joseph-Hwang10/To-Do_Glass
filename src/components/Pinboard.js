@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import ContainerBox from './pinboard/ContainerBox';
 import Header from './pinboard/Header';
 import ProjectDetail from './pinboard/ProjectDetail';
+import ProjectTags from './pinboard/ProjectTags';
 import Scheme from './pinboard/Scheme';
 
 class Pinboard extends Component {
@@ -33,8 +34,11 @@ class Pinboard extends Component {
                             <div className="px-5 pt-5 rounded">
                                 <Scheme project={project} permission={participantPermission} />
                             </div>
-                            <div className="px-5 py-3 rounded">
+                            <div className="px-5 pt-3 rounded">
                                 <ProjectDetail project={project} permission={participantPermission} />
+                            </div>
+                            <div className="px-5 pb-3 rounded">
+                                <ProjectTags project={project} permission={participantPermission} />
                             </div>
                             <div className="px-5 rounded">
                                 <ContainerBox project={project} permission={participantPermission} />

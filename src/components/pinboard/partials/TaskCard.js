@@ -14,7 +14,7 @@ function TaskCard(props) {
 
     const task = props.task
     const permission = props.permission
-    const color = (function(){return(task.completed?"#9CA3AF":selectColor(props.colorScheme))})()
+    const color = (function(){return(task.completed?"#9CA3AF":selectColor(props.colorScheme,task.id))})()
 
     const deleteTask = async () => {
         await props.deleteTask(task.id)

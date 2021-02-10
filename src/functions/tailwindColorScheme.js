@@ -34,7 +34,7 @@ export const selectColorScheme = (number) => {
 }
 
 
-export const selectColor = (colorScheme) => {
+export const selectColor = (colorScheme,number) => {
 
     const red = [
         "#FEF2F2",
@@ -120,21 +120,29 @@ export const selectColor = (colorScheme) => {
         "#9D174D",
         "#831843",
     ]
+
+    let index;
+    if(number) {
+        index=Math.abs(number%6)
+    } else {
+        index=Math.floor(Math.random()*6)
+    }
+
     switch (colorScheme) {
         case "red":
-            return red[Math.floor(Math.random()*6)]
+            return red[index]
         case "yellow":
-            return yellow[Math.floor(Math.random()*6)]
+            return yellow[index]
         case "green":
-            return green[Math.floor(Math.random()*6)]
+            return green[index]
         case "blue":
-            return blue[Math.floor(Math.random()*6)]
+            return blue[index]
         case "indigo":
-            return indigo[Math.floor(Math.random()*6)]
+            return indigo[index]
         case "purple":
-            return purple[Math.floor(Math.random()*6)]
+            return purple[index]
         case "pink":
-            return pink[Math.floor(Math.random()*6)]
+            return pink[index]
         default:
             const allColor = red+yellow+green+blue+indigo+purple+pink
             return allColor[Math.floor(Math.random()*allColor.length)]

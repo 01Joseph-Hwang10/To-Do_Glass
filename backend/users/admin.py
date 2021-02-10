@@ -1,18 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from . import models as user_model
-from todos import models as todos_model
+from todos import admin as todo_admin
 
-
-class ProjectInline(admin.TabularInline):
-
-    model = todos_model.Project
 
 
 @admin.register(user_model.User)
 class CustomUserAdmin(UserAdmin):
 
-    inlines = (ProjectInline,)
+    inlines = (todo_admin.ProjectInline,)
 
     fieldsets = UserAdmin.fieldsets + (
         (

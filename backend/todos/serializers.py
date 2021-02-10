@@ -42,7 +42,7 @@ class ProjectSerializer(HyperlinkedModelSerializer):
 
 class TagSerializer(HyperlinkedModelSerializer):
 
-    tag_for = ProjectSerializer()
+    tag_for = IntegerField(source='project.id')
 
     class Meta:
         model = todo_model.Tag
@@ -56,6 +56,7 @@ class TagSerializer(HyperlinkedModelSerializer):
 
 
 class ContainerSerializer(HyperlinkedModelSerializer):
+    
     project = IntegerField(source='project.id')
     id=ReadOnlyField()
     count_tasks = ReadOnlyField(required=False)

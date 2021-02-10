@@ -5,7 +5,7 @@ from rest_framework import viewsets, generics, permissions, viewsets, response, 
 from . import models
 from users import models as user_model
 from users.mixins import get_cookie
-from .serializers import TaskSerializer, ContainerSerializer, ProjectSerializer
+from .serializers import TaskSerializer, ContainerSerializer, ProjectSerializer, TagSerializer
 from . import permissions as todo_permission
 
 # Authenticated View
@@ -28,6 +28,12 @@ class ProjectViewSet(viewsets.ModelViewSet):
             description="",
         )
         return response.Response(data=model_to_dict(new_object),status=status.HTTP_201_CREATED)
+
+class TagViewSet(viewsets.ModelViewSet):
+
+    queryset = models.Tag.objects.all()
+    serializer_class = TagSerializer
+    permission_classes = (todo_permission.ProjectAllowedToWrite,)
 
 
 class SortedProjectView(generics.RetrieveAPIView):
@@ -108,6 +114,12 @@ class PublicProjectViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = models.Project.objects.all().order_by('updated')
     serializer_class = ProjectSerializer
+
+
+class PublicTagViewSet(viewsets.ReadOnlyModelViewSet):
+
+    queryset = models.Tag.objects.all()
+    serializer_class = TagSerializer
 
 
 class PublicContainerViewSet(viewsets.ReadOnlyModelViewSet):
