@@ -31,7 +31,7 @@ export const GET_TAG = "GET_TAG";
 export const CREATE_TAG = "CREATE_TAG";
 export const UPDATE_TAG = "UPDATE_TAG";
 export const DELETE_TAG = "DELETE_TAG";
-export const CLEAR_TAG = "CLEAR_TAG"
+export const CLEAR_TAG = "CLEAR_TAG";
 // Container
 export const GET_CONTAINER = "GET_CONTAINER";
 export const CREATE_CONTAINER = "CREATE_CONTAINER";
