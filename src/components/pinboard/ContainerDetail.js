@@ -92,7 +92,7 @@ function ContainerDetail(props) {
                     {
                         permission ? (
                             <button onClick={updateImportance}>
-                                <Important isImportant={container.importance} />
+                                <Important isImportant={container.importance} permission={permission} />
                             </button>
                         ) : (
                             <div>
@@ -119,7 +119,7 @@ function ContainerDetail(props) {
             </div>
             <div className="w-full px-2 pb-2 flex flex-col rounded" style={{transition:'all 0.2s ease-in-out',backgroundColor:'#EFF6FF'}}>
                 <span className="readElement p-2 w-full" style={{display:'block'}}>{container.description}</span>
-                <textarea className="formElement resize-none bg-transparent p-2 w-full outline-none" style={{display:'none'}}>{container.description}</textarea>
+                <textarea defaultValue={container.description} className="formElement resize-none bg-transparent p-2 w-full outline-none" style={{display:'none'}}></textarea>
                 <div className="w-full flex justify-start items-center px-2 mt-1 space-x-1">
                     <button onClick={showForm} className="readElement px-4 py-px text-white font-semibold rounded" style={{backgroundColor:COLOR_THIRD,display:'block'}}>Edit</button>
                     <button onClick={updateDescription} className="formElement px-4 py-px text-white font-semibold rounded bg-pink-300" style={{display:'none'}}>Save</button>

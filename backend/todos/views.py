@@ -33,7 +33,16 @@ class TagViewSet(viewsets.ModelViewSet):
 
     queryset = models.Tag.objects.all()
     serializer_class = TagSerializer
-    permission_classes = (todo_permission.ProjectAllowedToWrite,)
+    permission_classes = (todo_permission.TagAllowedToWrite,)
+
+    def create(self, request, *args, **kwargs):
+        post_data = request.data
+        tag_for = models.Project.objects.get(id=post_data['tag_for_id'])
+        new_object=models.Tag.objects.create(
+            name=post_data['name'],
+            tag_for=tag_for,
+        )
+        return response.Response(data=model_to_dict(new_object),status=status.HTTP_201_CREATED)
 
 
 class SortedProjectView(generics.RetrieveAPIView):

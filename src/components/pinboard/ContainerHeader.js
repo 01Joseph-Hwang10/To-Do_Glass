@@ -100,7 +100,7 @@ function ContainerHeader(props) {
                 {
                     permission ? (
                     <button className="mr-1" onClick={updateImportance}>
-                        <Important isImportant={container.importance} />
+                        <Important isImportant={container.importance} permission={permission} />
                     </button>
                     ) : (
                     <div className="mr-1">

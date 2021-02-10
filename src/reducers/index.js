@@ -10,6 +10,7 @@ import signUpReducer from './userreducer/signUpReducer';
 import glanceReducer from './todoreducer/glanceReducer';
 import userInfoReducer from './userreducer/userInfoReducer';
 import taskReducer from './todoreducer/taskReducer';
+import tagReducer from './todoreducer/tagReducer';
 
 
 export default combineReducers({
@@ -18,6 +19,7 @@ export default combineReducers({
     onLanding:navReducer,
     userInfo:userInfoReducer,
     project:projectReducer,
+    tag:tagReducer,
     container:containerReducer,
     task:taskReducer,
     glance:glanceReducer,

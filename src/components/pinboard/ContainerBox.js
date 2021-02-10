@@ -56,6 +56,7 @@ function ContainerBox(props) {
                     }
                     return (
                         <Container 
+                        key={container_id}
                         id={container_id} 
                         permission={permission}
                         container={container}

@@ -38,10 +38,10 @@ function SchemeCard(props) {
             {props.permission ? (
             <>
                 <div className="w-full flex justify-center items-start">
-                    <div className="w-3/12 flex justify-start pl-2"><button className="fas fa-trash-alt text-sm" onClick={deleteContainer}></button></div>
+                    <div className="w-3/12 flex justify-start pl-2"><button className="fas fa-trash-alt text-sm hover:bg-gray-300 rounded-3xl px-1 py-px" onClick={deleteContainer}></button></div>
                     <div className="w-6/12 h-5 bg-pink-200 inset-0 flex justify-center rounded-b"><i className="fas fa-grip-lines-vertical inset-0"></i></div>
                     <button className="w-3/12 flex justify-end pr-2 text-sm" onClick={updateImportance}>
-                        <Important isImportant={container.importance} top={true} />
+                        <Important isImportant={container.importance} top={true} permission={permission} />
                     </button>
                 </div>
                 <div className="w-full h-full flex flex-col justify-around items-center">

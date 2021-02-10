@@ -34,9 +34,17 @@ class Header extends React.Component {
         return (
             <div className="w-full flex justify-between px-3">
                 <div className="w-5/12 flex justify-start items-center ml-1">
-                    <button className="mr-1 py-1 pr-1" onClick={updateImportance}>
-                        <Important isImportant={project.importance} />
-                    </button>
+                    {
+                        permission ? (
+                        <button className="mr-1 py-1 pr-1" onClick={updateImportance}>
+                            <Important isImportant={project.importance} permission={permission} />
+                        </button>
+                        ) : (
+                        <div className="mr-1 py-1 pr-1">
+                            <Important isImportant={project.importance} />
+                        </div>
+                        )
+                    }
                     <div className="text-xl">
                         <CTCInput 
                         id={project.id}

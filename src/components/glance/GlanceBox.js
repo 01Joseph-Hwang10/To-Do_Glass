@@ -21,7 +21,7 @@ class GlanceBox extends Component {
                             {
                                 glances.map(glance => {
                                     return (
-                                    <div className="w-full">
+                                    <div key={glance.id} className="w-full">
                                         <GlanceCard glance={glance} />
                                     </div>
                                     )

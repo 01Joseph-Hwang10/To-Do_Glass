@@ -18,7 +18,7 @@ class Navigation extends React.Component {
         this.props.checkPlace()
     }
 
-    componentWillUpdate() {
+    componentDidUpdate() {
         this.props.checkPlace()
     }
 
@@ -43,6 +43,10 @@ class Navigation extends React.Component {
                     <Link to='/'><i className="text-2xl text-white font-bold" style={{fontFamily:"Brush Script MT, Brush Script Std, cursive",color:COLOR_FOURTH}}>FLglance</i></Link>
                 </div>
                 <div className="w-5/12 float-right flex justify-end items-center">
+                    <div className="mx-2 px-2 space-x-2" style={{color:COLOR_FOURTH}}>
+                        <button className="fas fa-clone text-2xl p-2"></button>
+                        <button className="fas fa-users text-2xl p-2"></button>
+                    </div>
                     <div>
                         {
                             user ? (
@@ -56,8 +60,9 @@ class Navigation extends React.Component {
                     </div>
                     <div className="relative flex items-center">
                         <button className="far fa-caret-square-down text-gray-600 text-2xl" style={{color:COLOR_FOURTH}} onClick={switchDisplay}></button>
-                        <div className="absolute bg-white w-20 right-1 top-7 border p-2 rounded" style={{display:'none'}}>
-                            <button onClick={Logout}>Log out</button>
+                        <div className="absolute bg-white w-20 right-1 top-7 border rounded space-y-2" style={{display:'none'}}>
+                            <button className="w-full py-2" onClick={Logout}>Log out</button>
+                            <button className="border-t-2 w-full py-2">Profile</button>
                         </div>
                     </div>
                 </div>

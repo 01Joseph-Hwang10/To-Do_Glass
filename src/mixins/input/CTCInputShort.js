@@ -72,7 +72,7 @@ class CTCInputShort extends Component {
             <>
             {this.props.permission ? (
                 <div className='w-full h-full bg-transparent'>
-                    <button className='w-full h-full font-semibold' style={{display:'block',textAlign:textAlign}} onClick={OnClick}>{this.props.name}</button>
+                    <button className='w-full h-full font-semibold border-2 border-transparent hover:border-gray-300 rounded-lg' style={{display:'block',textAlign:textAlign}} onClick={OnClick}>{this.props.name}</button>
                     <form className='w-full h-full' style={{display:'none'}} onSubmit={OnSubmit}>
                         <input className='w-full h-full bg-transparent p-1 border-b-2 border-gray-600' name={this.props.dataType} placeholder={capitalizedDataType}></input>
                     </form>

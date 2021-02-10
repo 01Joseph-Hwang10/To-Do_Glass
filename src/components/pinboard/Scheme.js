@@ -68,7 +68,7 @@ function Scheme(props) {
 
 
     return (
-        <div className="w-full rounded shadow-inner py-3 bg-indigo-50">
+        <div className="w-full rounded shadow-inner py-3 bg-indigo-50" style={{minHeight:"120px"}}>
             <HorizontalScroll single={true} onDragEnd={handleOnDragEnd} card={
                 <>
                 <div className="w-1 h-1"><div className="w-1 h-1"></div></div>

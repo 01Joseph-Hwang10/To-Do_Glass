@@ -22,6 +22,25 @@ class ProjectAllowedToWrite(permissions.IsAuthenticated):
         )
         return isAuthenticated
 
+class TagAllowedToWrite(permissions.IsAuthenticated):
+
+    def has_permission(self, request, view):
+        isAuthenticated = bool(
+            request.user and
+            request.user.is_authenticated
+            )
+        return isAuthenticated
+
+    def has_object_permission(self, request, view, obj):
+        cookie=get_cookie(request)
+        user_id = int(cookie['user_id'])
+        isAuthenticated = bool(
+            # Needa Implement this!!
+            # user_id == int(request.data['user_id']) and
+            user_id == int(obj.tag_for.created_user.id)
+        )
+        return isAuthenticated
+
 class ContainerAllowedToWrite(permissions.IsAuthenticated):
     
     def has_permission(self, request, view):

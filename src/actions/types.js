@@ -8,6 +8,7 @@ export const NOT_ON_LANDING = "NOT_ON_LANDING";
 // Profile
 export const GET_PROFILE = "GET_PROFILE";
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+export const UPDATE_FOLLOW = "UPDATE_FOLLOW";
 export const CLEAR_PROFILE = "CLEAR_PROFILE";
 export const GET_USER_INFO = 'GET_USER_INFO';
 export const CLEAR_USER_INFO = 'CLEAR_USER_INFO';
@@ -26,8 +27,11 @@ export const NOT_PARTICIPANT = "NOT_PARTICIPANT";
 export const PROJECT_MINE = "PROJECT_MINE";
 export const PROJECT_NOT_MINE = "PROJECT_NOT_MINE";
 // Tag
+export const GET_TAG = "GET_TAG";
 export const CREATE_TAG = "CREATE_TAG";
+export const UPDATE_TAG = "UPDATE_TAG";
 export const DELETE_TAG = "DELETE_TAG";
+export const CLEAR_TAG = "CLEAR_TAG"
 // Container
 export const GET_CONTAINER = "GET_CONTAINER";
 export const CREATE_CONTAINER = "CREATE_CONTAINER";

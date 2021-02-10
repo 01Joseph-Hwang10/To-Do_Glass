@@ -1,4 +1,13 @@
-import { CLEAR_PROFILE, GET_PROFILE, GET_USER_INFO, PROFILE_MINE, PROFILE_NOT_MINE, UPDATE_PROFILE } from "../../actions/types";
+import { 
+    CLEAR_PROFILE, 
+    GET_PROFILE, 
+    GET_USER_INFO, 
+    PROFILE_MINE, 
+    PROFILE_NOT_MINE, 
+    UPDATE_FOLLOW, 
+    UPDATE_PROFILE 
+} from "../../actions/types";
+
 
 const initialState = {
     Profile:[],
@@ -28,6 +37,19 @@ export default function(state=initialState,action) {
             return {
                 ...state
             }
+        case UPDATE_FOLLOW: {
+            const profile = state.Profile
+            const payload = action.payload
+            if(payload.isFollowing) profile.data.following.push(payload.following)
+            if(!payload.isFollowing) {
+                const index = profile.data.following.indexOf(payload.following)
+                profile.data.following.splice(index,1)
+            }
+            return {
+                ...state,
+                Profile:profile
+            }
+        }
         case CLEAR_PROFILE:
             return {
                 ...state,

@@ -53,7 +53,7 @@ function ProjectSection(props) {
                 {
                     myProjects.map(project => {
                         return (
-                        <form className="w-full" onSubmit={getProject}>
+                        <form key={project.id} className="w-full" onSubmit={getProject}>
                             <input className="hidden" value={project.id} readOnly></input>
                             <button className="w-full">
                                 <ProjectCard 
