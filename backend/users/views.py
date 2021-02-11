@@ -132,6 +132,8 @@ class UserViewSet(viewsets.ModelViewSet):
         except Exception: # Else
             kwargs['partial'] = True
             return self.update(request, *args, **kwargs)
+    
+
 
 
 

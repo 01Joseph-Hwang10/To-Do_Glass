@@ -11,6 +11,7 @@ import glanceReducer from './todoreducer/glanceReducer';
 import userInfoReducer from './userreducer/userInfoReducer';
 import taskReducer from './todoreducer/taskReducer';
 import tagReducer from './todoreducer/tagReducer';
+import followManageReducer from './socialreducer/followManageReducer';
 
 
 export default combineReducers({
@@ -23,5 +24,6 @@ export default combineReducers({
     container:containerReducer,
     task:taskReducer,
     glance:glanceReducer,
-    screen:screenReducer
+    screen:screenReducer,
+    follow:followManageReducer,
 });

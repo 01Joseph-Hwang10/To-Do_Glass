@@ -14,6 +14,17 @@ export const getGlance = () => async dispatch => {
     })
 }
 
+export const searchGlance = (postData) => async dispatch => {
+    await axios
+    .patch(URL_GLANCE,postData,{withCredentials:true})
+    .then(response => {
+        dispatch({
+            type:GET_GLANCE,
+            payload:response.data
+        })
+    })
+}
+
 export const clearGlance = () => dispatch => {
     dispatch({
         type:CLEAR_GLANCE

@@ -50,13 +50,13 @@ class ProjectTags extends React.Component {
     
         return (
             <div key={project.id} className="flex justify-start items-start">
-                <div className="mr-2"><span className="text-xl font-semibold" style={{color:COLOR_FIRST}}>Tags: </span></div>
+                <div className={['mb-1 mr-2',(function(){return(permission?"":"mt-2")})()].join(' ')}><span className="text-xl font-semibold" style={{color:COLOR_FIRST}}>Tags: </span></div>
                     <div className="flex justify-start items-center flex-wrap space-x-2">
                     {
                         tags.map(tag => {
                             if(tag && tag.id){
                                 return (
-                                    <div key={tag.id} className="mb-1">
+                                    <div key={tag.id} className={['mb-1',(function(){return(permission?"":"mt-2")})()].join(' ')}>
                                         <Tag tag={tag} permission={permission} update={updateComponent} />
                                     </div>
                                 )

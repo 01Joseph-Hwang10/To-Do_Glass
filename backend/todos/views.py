@@ -45,7 +45,7 @@ class TagViewSet(viewsets.ModelViewSet):
         return response.Response(data=model_to_dict(new_object),status=status.HTTP_201_CREATED)
 
 
-class SortedProjectView(generics.RetrieveAPIView):
+class SortedProjectView(generics.RetrieveUpdateAPIView):
 
     queryset = models.Project.objects.all().order_by('updated')
     serializer_class = ProjectSerializer
@@ -54,15 +54,26 @@ class SortedProjectView(generics.RetrieveAPIView):
         cookie=get_cookie(request)
         user_id=int(cookie['user_id'])
         user=user_model.User.objects.get(id=user_id)
-        instance = models.Project.objects.filter(~Q(created_user=user))[:5]
+        instance = models.Project.objects.filter(~Q(created_user=user))[:10]
         response_data = []
         for i in instance:
             serializer = self.get_serializer(i)
             response_data.append(serializer.data)
         return response.Response(data=response_data,status=status.HTTP_200_OK)
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
+    def update(self, request, *args, **kwargs):
+        input_value = request.data['input']
+        tags = models.Tag.objects.filter(name__icontains=input_value)
+        instance = models.Project.objects.filter(
+            Q(name__icontains=input_value) | Q(description__icontains=input_value) |
+            Q(tags__in=tags) | Q(created_user__first_name__icontains=input_value)
+            )[:10]
+        response_data = []
+        for i in instance:
+            serializer = self.get_serializer(i)
+            response_data.append(serializer.data)
+        cleaned_data = list({v['id']:v for v in response_data}.values())
+        return response.Response(data=cleaned_data,status=status.HTTP_200_OK)
 
 
 class ContainerViewSet(viewsets.ModelViewSet):

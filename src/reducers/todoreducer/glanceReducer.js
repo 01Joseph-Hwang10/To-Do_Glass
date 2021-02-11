@@ -2,7 +2,7 @@ import { GET_GLANCE ,CLEAR_GLANCE } from '../../actions/types';
 
 
 const initialState = {
-    Glance:{}
+    Glance:[]
 }
 
 // eslint-disable-next-line
@@ -16,7 +16,7 @@ export default function(state=initialState,action) {
         case CLEAR_GLANCE:
             return {
                 ...state,
-                Glance:{}
+                Glance:[]
             }
         default:
             return state

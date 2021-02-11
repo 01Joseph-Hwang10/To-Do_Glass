@@ -75,17 +75,19 @@ class Home extends React.Component {
 
 Home.propTypes = {
     checkAuth:PropTypes.func.isRequired,
-    disableFullScreen:PropTypes.func.isRequired
+    disableFullScreen:PropTypes.func.isRequired,
 }
 
 
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.login.isAuthenticated,
-        project:state.project,
+        project:state.project.Project,
         isFullScreen:state.screen.isFullScreen
     }
 }
 
+const actions = {checkAuth, disableFullScreen}
 
-export default connect(mapStateToProps,{checkAuth, disableFullScreen})(Home);
+
+export default connect(mapStateToProps,actions)(Home);

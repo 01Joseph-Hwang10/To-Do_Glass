@@ -1,11 +1,16 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
+import { clearProject } from "../../actions/todoactions/projectActions";
+import { clearContainer } from "../../actions/todoactions/containerActions";
+import { connect } from 'react-redux';
 
 function Avatar(props) {
 
     const user = props.user
 
     const OnClick = () => {
+        props.clearProject()
+        props.clearContainer()
         window.location.href = `/#/${user.id}/home`
         window.location.reload()
     }
@@ -20,9 +25,10 @@ function Avatar(props) {
     )
 }
 
-// Avatar.propTypes = {
+Avatar.propTypes = {
+    clearProject:PropTypes.func.isRequired,
+    clearContainer:PropTypes.func.isRequired
+}
 
-// }
-
-export default Avatar
+export default connect(null,{clearProject,clearContainer})(Avatar)
 

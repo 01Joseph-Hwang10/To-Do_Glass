@@ -5,6 +5,7 @@ import {
     PROFILE_MINE, 
     PROFILE_NOT_MINE, 
     UPDATE_FOLLOW, 
+    UPDATE_FOLLOWING_INFO, 
     UPDATE_PROFILE 
 } from "../../actions/types";
 
@@ -37,6 +38,19 @@ export default function(state=initialState,action) {
             return {
                 ...state
             }
+        case UPDATE_FOLLOWING_INFO:{
+            const {id,bool} = action.payload
+            let profile = state.Profile
+            if(bool) {
+                profile.data.following.push(id)
+            } else {
+                profile.data.following.splice(profile.data.following.indexOf(id),1)
+            }
+            return {
+                ...state,
+                Profile:profile
+            }
+        }
         case UPDATE_FOLLOW: {
             const profile = state.Profile
             const payload = action.payload
