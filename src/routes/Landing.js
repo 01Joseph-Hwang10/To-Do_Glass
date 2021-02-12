@@ -4,8 +4,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 import useScroll from '../hooks/useScroll';
+// CSS
+import "../static/css/Landing.css";
 // etc
 import { COLOR_FIFTH, COLOR_FIRST, COLOR_FOURTH } from "../store/variables";
+import demo1 from "../static/images/demo1.PNG";
 
 function Landing(props) {
 
@@ -33,16 +36,18 @@ function Landing(props) {
                 <div className="w-full flex justify-around items-center" style={{backgroundColor:COLOR_FIRST}}>
                     <div className="flex flex-col justify-center items-start space-y-2 mt-32 mb-32">
                         <div className="flex flex-col justify-center items-start">
-                            <span className="text-4xl text-white font-bold text-left">Start your project</span>
+                            <span className="text-4xl text-white font-bold text-left">Start the project</span>
                             <span className="text-4xl text-white font-bold text-left">Share the workflow</span>
                         </div>
-                        <div>
-                            <span className="text-gray-300 font-semibold text-left">FLglance assists you to inspire, plan, and organize the project</span>
+                        <div className="flex flex-col">
+                            <span className="text-gray-300 font-semibold text-left">Plan, Organize, Manage the project</span>
+                            <span className="text-gray-300 font-semibold text-left">Share your workflow, and inspired by the other's</span>
                         </div>
                         <div className="flex justify-start items-center pt-1">
                             <button className="py-1 px-8 bg-green-400 rounded text-white font-semibold ring-2">Sign Up</button>
                         </div>
                     </div>
+                    <div className="mt-32 mb-32"></div>
                 </div>
             </div>
         )

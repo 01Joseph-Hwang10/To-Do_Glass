@@ -1,5 +1,5 @@
 // React
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 // Redux
 import { connect } from 'react-redux'
 import {createContainer,getContainer,updateContainer} from '../../../actions/todoactions/containerActions';
@@ -18,12 +18,23 @@ import HorizontalScroll from '../../../mixins/scroll/HorizontalScroll';
 function Scheme(props) {
 
     const project = props.project
-    const initialContainers = project.get_containers.sort(sortByOrder)
+    let initialContainers
+    try {
+        initialContainers = props.container
+        delete initialContainers.created
+        initialContainers = Object.values(initialContainers).sort(sortByOrder)
+    } catch (error) {
+        initialContainers = project.get_containers.sort(sortByOrder)
+    }
     const projectId = project.id
     const permission = props.permission
     const countContainers = Number(project.count_containers)
 
     const [containers, updateContainers] = useState(initialContainers)
+    useEffect(()=>{
+        updateContainers(initialContainers)
+    // eslint-disable-next-line
+    },[props.container])
     
     const handleOnDragEnd = async result => {
         if(!result.destination) return;
@@ -139,7 +150,8 @@ const actions = {createContainer,updateContainer,getContainer,getProject}
 
 const mapStateToProps = state => {
     return {
-        createdId: state.container.created
+        createdId: state.container.created,
+        container: state.container
     }
 }
 

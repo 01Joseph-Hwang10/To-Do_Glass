@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { URL_PROJECT, URL_PUBLIC_PROJECT } from '../../store/variables';
-import { CLEAR_PROJECT, CREATE_PROJECT, DELETE_PROJECT, GET_PROJECT, UPDATE_PROJECT} from '../types';
+import { CLEAR_PROJECT, CREATE_PROJECT, DELETE_PROJECT, GET_PROJECT, UPDATE_PROJECT,UPDATE_PROJECT_DESCRIPTION} from '../types';
 
 
 export const getProject = (project_id) => async dispatch => {
@@ -48,17 +48,16 @@ export const deleteProject = (project_id) => async dispatch => {
     })
 }
 
-// export const updateDescription = (post_data, project_id) => dispatch => {
-//     axios
-//     .patch([URL_PROJECT,project_id,'/'].join(''),post_data,{withCredentials:true})
-//     .then(response => {
-//         console.log(response.data)
-//         dispatch({
-//             type:UPDATE_PROJECT_DESCRIPTION,
-//             payload:post_data.description
-//         })
-//     })
-// }
+export const updateDescription = (post_data, project_id) => dispatch => {
+    axios
+    .patch([URL_PROJECT,project_id,'/'].join(''),post_data,{withCredentials:true})
+    .then(response => {
+        dispatch({
+            type:UPDATE_PROJECT_DESCRIPTION,
+            payload:post_data.description
+        })
+    })
+}
 
 // export const updateProjectName = (post_data, project_id) => dispatch => {
 //     axios

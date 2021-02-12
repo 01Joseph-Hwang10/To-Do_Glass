@@ -33,7 +33,7 @@ class Navigation extends React.Component {
         let user;
         let userInfo = this.props.Profile.data
         if(userInfo) {
-            userInfo['id'] = userInfo.url.split('/').filter(Boolean).reverse()[0]
+            userInfo['id'] = localStorage.getItem('user_id') || userInfo.url.split('/').filter(Boolean).reverse()[0]
             user = userInfo
         }
 

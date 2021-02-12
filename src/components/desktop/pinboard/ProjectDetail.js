@@ -2,7 +2,9 @@
 import React from 'react'
 // Redux
 import { connect } from 'react-redux'
-import {updateProject, getProject} from '../../../actions/todoactions/projectActions';
+import {updateProject, getProject,updateDescription} from '../../../actions/todoactions/projectActions';
+// Module
+import TextareaAutosize from "react-textarea-autosize";
 // etc
 import { COLOR_FIFTH, COLOR_SECOND, COLOR_SIXTH, COLOR_THIRD } from '../../../store/variables'
 import PropTypes from 'prop-types'
@@ -48,7 +50,7 @@ function ProjectDetail(props) {
         input.blur()
     }
 
-    const submitForm = () => {
+    const submitForm = async () => {
         const descriptionBody = document.getElementsByClassName("readElement")[0]
         const editButton = document.getElementsByClassName("readElement")[1]
         const input = document.getElementsByClassName("formElement")[0]
@@ -59,9 +61,9 @@ function ProjectDetail(props) {
             description:input.value,
             user_id:localStorage.getItem('user_id')
         }
-        props.updateProject(post_data,projectId)
-        // Make updateDescription and updateProjectName soon!!!
-        props.getProject(projectId)
+        await props.updateProject(post_data,projectId)
+        props.updateDescription(post_data,projectId)
+        window.location.reload()
         descriptionBody.style.display = "block"
         editButton.style.display = "block"
         input.style.display = "none"
@@ -71,14 +73,25 @@ function ProjectDetail(props) {
         input.blur()
     }
 
+    const resize = (e) => {
+        const textarea = e.target
+        textarea.style.height = '1px'
+        textarea.style.height = (12+textarea.scrollHeight) +'px'
+    }
 
     return (
-        <div className="w-full">
+        <div className="projectDetail w-full pb-2">
             {props.permission ? (
                 <div className="w-full">
                     <div className="w-full opacity-90 p-2 py-4 mb-1 rounded text-white shadow-inner" style={{backgroundColor:COLOR_SECOND,transition:"all 0.5s ease-in-out"}}>
-                        <div className="readElement" style={{display:'block'}}><span className="outline-none border-none bg-transparent w-full resize-none">{description}</span></div>
-                        <textarea className="formElement bg-transparent outline-none border-none w-full resize-none" style={{display:"none"}} placeholder="Write down the description below"></textarea>
+                        <div className="readElement" style={{display:'block'}}>
+                            {/* <textarea readOnly className="outline-none border-none bg-transparent w-full resize-none" style={{display:'block'}} defaultValue={description}></textarea> */}
+                            <TextareaAutosize 
+                            defaultValue={description}
+                            style={{display:'block',width:'100%',resize:'none',backgroundColor:'transparent',outline:'2px solid transparent',outlineOffset:'2px',borderStyle:'none'}}
+                            />
+                        </div>
+                        <textarea onKeyUp={resize} onKeyDown={resize} className="formElement bg-transparent outline-none border-none w-full resize-none whitespace-pre-line" style={{display:"none"}} placeholder="Write down the description below"></textarea>
                     </div>
                     <div className="w-full flex justify-end">
                         <button onClick={showForm} className="readElement px-3 py-1 rounded font-semibold" style={{display:'block',backgroundColor:COLOR_THIRD,color:COLOR_FIFTH}}>Edit</button>
@@ -99,8 +112,9 @@ function ProjectDetail(props) {
 
 ProjectDetail.propTypes = {
     updateProject:PropTypes.func.isRequired,
-    getProject:PropTypes.func.isRequired
+    getProject:PropTypes.func.isRequired,
+    updateDescription:PropTypes.func.isRequired
 }
 
-export default connect(null,{updateProject, getProject})(ProjectDetail)
+export default connect(null,{updateProject, getProject,updateDescription})(ProjectDetail)
 

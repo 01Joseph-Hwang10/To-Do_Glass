@@ -1,8 +1,8 @@
 // React
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // Redux
 import { connect } from 'react-redux'
-import {updateContainer, deleteContainer} from '../../../../actions/todoactions/containerActions';
+import {updateContainer, deleteContainer,updateImportance} from '../../../../actions/todoactions/containerActions';
 import {getProject} from '../../../../actions/todoactions/projectActions';
 // etc
 import { COLOR_SIXTH } from '../../../../store/variables'
@@ -16,11 +16,20 @@ function SchemeCard(props) {
 
     const container = props.container
     const permission = props.permission
-    const projectId = container.project_id
+    // const projectId = container.project_id
+
+    const [importance,setImportance] = useState(container.importance)
+    useEffect(()=>{
+        if(container.importance) {
+            setImportance(true)
+        } else {
+            setImportance(false)
+        }
+    },[importance,container.importance])
+
 
     const deleteContainer = async () => {
         await props.deleteContainer(container.id)
-        await props.getProject(projectId)
     }
 
     const updateImportance = async () => {
@@ -30,7 +39,7 @@ function SchemeCard(props) {
             user_id:localStorage.getItem('user_id')
         }
         await props.updateContainer(postData,container.id)
-        await props.getProject(projectId)
+        setImportance(!currentState)
     }
 
     return (
@@ -41,7 +50,7 @@ function SchemeCard(props) {
                     <div className="w-3/12 flex justify-start pl-2"><button className="fas fa-trash-alt text-sm hover:bg-gray-300 rounded-3xl px-1 py-px" onClick={deleteContainer}></button></div>
                     <div className="w-6/12 h-5 bg-pink-200 inset-0 flex justify-center rounded-b"><i className="fas fa-grip-lines-vertical inset-0"></i></div>
                     <button className="w-3/12 flex justify-end pr-2 text-sm" onClick={updateImportance}>
-                        <Important isImportant={container.importance} top={true} permission={permission} />
+                        <Important isImportant={importance} top={true} permission={permission} />
                     </button>
                 </div>
                 <div className="w-full h-full flex flex-col justify-around items-center">
@@ -51,8 +60,8 @@ function SchemeCard(props) {
                             permission={permission}
                             dataType={"name"}
                             action={props.updateContainer}
-                            afterAction={props.getProject}
-                            afterActionInput={projectId}
+                            // afterAction={props.getProject}
+                            // afterActionInput={projectId}
                             />
                     <div className="mt-px" style={{display:'none'}}>
                         <button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold" onClick={switchDisplay}>Detail</button>
@@ -63,8 +72,8 @@ function SchemeCard(props) {
                                 permission={permission}
                                 dataType={"description"}
                                 action={props.updateContainer}
-                                afterAction={props.getProject}
-                                afterActionInput={projectId}
+                                // afterAction={props.getProject}
+                                // afterActionInput={projectId}
                                 />
                         </div>
                     </div>
@@ -95,12 +104,13 @@ function SchemeCard(props) {
     )
 }
 
-const actions = {updateContainer, getProject, deleteContainer}
+const actions = {updateContainer, getProject, deleteContainer,updateImportance}
 
 SchemeCard.propTypes = {
     updateContainer:PropTypes.func.isRequired,
     getProject:PropTypes.func.isRequired,
     deleteContainer:PropTypes.func.isRequired,
+    updateImportance:PropTypes.func.isRequired,
 }
 
 export default connect(null,actions)(SchemeCard);

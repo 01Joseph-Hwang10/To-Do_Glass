@@ -69,9 +69,9 @@ function ContainerBox(props) {
                 <div className="w-full border-b-2 flex justify-center items-center py-1">
                     <button className="w-full fas fa-plus-circle text-xl z-30" onClick={switchHidden} style={{display:'block'}}></button>
                     <form className="w-full px-2 flex justify-center items-center" onSubmit={OnSubmit} style={{display:'none'}}>
-                        <input required className="w-3/12 mx-1 bg-transparent border-2 rounded focus:border-gray-600" style={{transition:"all 0.3s ease-in-out"}} placeholder="Name"></input>
-                        <input className="w-6/12 mx-1 bg-transparent border-2 rounded focus:border-gray-600" style={{transition:"all 0.3s ease-in-out"}} placeholder="Description"></input>
-                        <button className="w-2/12 mx-1 bg-gray-300 rounded py-px px-2">Create</button>
+                        <input required className="w-3/12 mx-1 bg-transparent border-2 rounded focus:border-gray-600 z-30" style={{transition:"all 0.3s ease-in-out"}} placeholder="Name"></input>
+                        <input className="w-6/12 mx-1 bg-transparent border-2 rounded focus:border-gray-600 z-30" style={{transition:"all 0.3s ease-in-out"}} placeholder="Description"></input>
+                        <button className="w-2/12 mx-1 bg-gray-300 rounded py-px px-2 z-30">Create</button>
                     </form>
                 </div>
                 ) : (

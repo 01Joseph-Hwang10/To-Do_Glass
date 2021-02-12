@@ -28,7 +28,7 @@ class Home extends React.Component {
         const isFullScreen = this.props.isFullScreen
         const overviewWidth = (function(){return(isFullScreen?"0%":"17%")})()
         const overviewOpacity = (function(){return(isFullScreen?0:1)})()
-        const pinboardWidth = (function(){return(isFullScreen?"100%":"50%")})()
+        const pinboardWidth = (function(){return(isFullScreen?"90%":"50%")})()
         const glanceWidth = (function(){return(isFullScreen?"0%":"25%")})()
         const glanceOpacity = (function(){return(isFullScreen?0:1)})()
         const delay = (function(){return(isFullScreen?"":"0.4s")})()

@@ -33,7 +33,7 @@ class Header extends React.Component {
 
         return (
             <div className="w-full flex justify-between px-3">
-                <div className="w-5/12 flex justify-start items-center ml-1">
+                <div className="flex-grow flex justify-start items-center ml-1">
                     {
                         permission ? (
                         <button className="mr-1 py-1 pr-1" onClick={updateImportance}>
@@ -52,7 +52,7 @@ class Header extends React.Component {
                         permission={permission}
                         dataType={"name"}
                         action={this.props.updateProject}
-                        afterAction={this.props.getProfile}
+                        // afterAction={this.props.getProfile}
                         textAlign={"left"}
                         />
                     </div>

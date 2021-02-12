@@ -1,4 +1,4 @@
-import { CLEAR_CONTAINER, CREATE_CONTAINER, DELETE_CONTAINER, GET_CONTAINER, UPDATE_CONTAINER } from "../../actions/types";
+import { CLEAR_CONTAINER, CREATE_CONTAINER, DELETE_CONTAINER, GET_CONTAINER, PUSH_CONTAINER, UPDATE_CONTAINER, UPDATE_IMPORTANCE } from "../../actions/types";
 
 
 const initialState = {
@@ -25,10 +25,31 @@ export default function(state=initialState, action) {
                 [containerId]:container
             }
         }
-        case CREATE_CONTAINER: {
+        case UPDATE_IMPORTANCE:{
+            const id =action.payload
+            const currentState = state[id].importance
+            let data = state[id]
+            data.importance = !currentState
             return {
                 ...state,
-                created:action.payload
+                [id]:data
+            }
+        }
+        case CREATE_CONTAINER: {
+            const id = action.payload.id
+            const data = action.payload
+            return {
+                ...state,
+                created:action.payload,
+                [id]:data
+            }
+        }
+        case PUSH_CONTAINER: {
+            const id = action.payload.id
+            const data = action.payload.data
+            return {
+                ...state,
+                [id]:data
             }
         }
         case DELETE_CONTAINER: {

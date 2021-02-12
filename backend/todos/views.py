@@ -27,7 +27,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
             importance=False,
             description="",
         )
-        return response.Response(data=model_to_dict(new_object),status=status.HTTP_201_CREATED)
+        serializer = self.get_serializer(new_object)
+        return response.Response(data=serializer.data,status=status.HTTP_201_CREATED)
 
 class TagViewSet(viewsets.ModelViewSet):
 
@@ -105,7 +106,8 @@ class ContainerViewSet(viewsets.ModelViewSet):
             importance=False,
             description=description
         )
-        return response.Response(data=model_to_dict(new_object),status=status.HTTP_201_CREATED)
+        serializer=self.get_serializer(new_object)
+        return response.Response(data=serializer.data,status=status.HTTP_201_CREATED)
 
 
 
@@ -125,7 +127,8 @@ class TaskViewSet(viewsets.ModelViewSet):
             importance=False,
             description=""
         )
-        return response.Response(data=model_to_dict(new_object),status=status.HTTP_201_CREATED)
+        serializer=self.get_serializer(new_object)
+        return response.Response(data=serializer.data,status=status.HTTP_201_CREATED)
 
 
 # Public View

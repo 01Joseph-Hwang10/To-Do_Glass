@@ -1,6 +1,6 @@
 import axios from "axios"
 import { URL_CONTAINER, URL_PUBLIC_CONTAINER } from "../../store/variables"
-import { CLEAR_CONTAINER, CREATE_CONTAINER, DELETE_CONTAINER, GET_CONTAINER, UPDATE_CONTAINER } from "../types"
+import { CLEAR_CONTAINER, CREATE_CONTAINER, DELETE_CONTAINER, GET_CONTAINER, PUSH_CONTAINER, UPDATE_CONTAINER, UPDATE_IMPORTANCE } from "../types"
 
 
 export const getContainer = (id) => async dispatch => {
@@ -25,11 +25,24 @@ export const createContainer = (post_data) => async dispatch => {
     .then(response => {
         dispatch({
             type:CREATE_CONTAINER,
-            payload:response.data.id
+            payload:response.data
         })
         return response.data.id
     })
     return response
+}
+
+export const pushContainer = (postData) => dispatch => {
+    const data = postData
+    const id = data.id
+    dispatch({
+        type:PUSH_CONTAINER,
+        payload:{
+            id,
+            data
+        }
+    })
+    
 }
 
 export const deleteContainer = (id) => async dispatch => {
@@ -55,6 +68,13 @@ export const updateContainer = (post_data,id) => async dispatch => {
                 container:response.data
             }
         })
+    })
+}
+
+export const updateImportance = (id) => dispatch => {
+    dispatch({
+        type:UPDATE_IMPORTANCE,
+        payload:id
     })
 }
 

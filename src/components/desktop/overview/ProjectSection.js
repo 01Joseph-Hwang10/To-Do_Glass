@@ -16,15 +16,18 @@ function ProjectSection(props) {
 
     const Profile = props.Profile
     const isMyProfile = props.isMyProfile
-    const myProjects = props.projects;
-    const projectsCount = Number(Profile.get_my_projects.length)
+    let projectsCount = 0, myProjects=[];
+    if(Profile && Profile.get_my_projects) {
+        projectsCount = Number(Profile.get_my_projects.length)
+        myProjects = props.projects
+    }
     const userId = localStorage.getItem('user_id')
 
     const getProject = async (e) => {
         e.preventDefault();
+        props.clearContainer()
+        props.clearProject()
         const project_id = e.target.childNodes[0].value;
-        props.clearProject();
-        props.clearContainer();
         await props.getProject(project_id);
     };
 
@@ -40,6 +43,8 @@ function ProjectSection(props) {
             order:projectsCount+1
         }
         const id = await props.createProject(postData)
+        props.clearProject();
+        props.clearContainer();
         await props.getProject(id)
         await props.getProfile(userId)
         input.value = ""
