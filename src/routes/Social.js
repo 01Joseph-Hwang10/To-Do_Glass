@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Follow from '../components/Follow'
+import Follow from '../components/desktop/Follow'
 // import PropTypes from 'prop-types'
 
 class Social extends Component {

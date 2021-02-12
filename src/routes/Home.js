@@ -8,9 +8,9 @@ import { disableFullScreen } from "../actions/screenActions";
 import PropTypes from "prop-types";
 // import { COLOR_FOURTH } from '../store/variables';
 // Component
-import Overview from '../components/Overview';
-import Pinboard from '../components/Pinboard';
-import Glance from '../components/Glance';
+import Overview from '../components/desktop/Overview';
+import Pinboard from '../components/desktop/Pinboard';
+import Glance from '../components/desktop/Glance';
 
 class Home extends React.Component {
 

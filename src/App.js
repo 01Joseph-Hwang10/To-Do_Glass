@@ -7,9 +7,9 @@ import './static/css/styles.css';
 import Landing from './routes/Landing';
 import LoginForm from './mixins/auth/LoginForm';
 import SignUpForm from './mixins/auth/SignUpForm';
-import Navigation from './components/Navigation';
+import Navigation from './components/desktop/Navigation';
 import Home from './routes/Home';
-import Footer from './components/Footer';
+import Footer from './components/desktop/Footer';
 import updateProfileForm from './mixins/updateProfileForm';
 import Social from './routes/Social';
 
