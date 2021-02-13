@@ -156,8 +156,9 @@ function Container(props) {
                 </div>
                 </>
             ) : (
-                <div>
-                    <span>Loading</span>
+                <div className="relative container w-full flex flex-col justify-center items-center bg-transparent h-full p-2" style={{borderWidth:'0px',borderBottomWidth:'2px',borderColor:"#E5E7EB", transition:'all 0.1s ease-in-out',borderRadius:'0'}}>
+                    <span className="absolute z-10 font-semibold text-2xl">Loading...</span>
+                    <div className="w-full bg-gray-200 rounded-lg animate-pulse flex justify-center items-center py-12"></div>
                 </div>
             )}
         </div>

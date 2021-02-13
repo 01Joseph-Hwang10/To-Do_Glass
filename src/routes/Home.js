@@ -54,7 +54,7 @@ class Home extends React.Component {
                         ) : (
                             <div className="w-full">
                                 <div className="flex justify-center items-center w-full bg-gray-100 rounded shadow-inner" style={{height:"500px"}}>
-                                    <span>No Projects are opened</span>
+                                    <span>Currently No Projects Are Loaded</span>
                                 </div>
                             </div>
                         )
