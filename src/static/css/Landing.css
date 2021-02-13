@@ -1,0 +1,22 @@
+.introduction {
+    height: 500px;
+}
+
+
+
+@media screen and (min-width:1536px) {
+    .introduction {
+        height: 800px;
+    }
+}
+
+h1 {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
+h2 {
+    -webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: white;
+}
+

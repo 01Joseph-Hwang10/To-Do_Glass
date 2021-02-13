@@ -30,6 +30,11 @@ export const COLOR_FIRST = "#0f3057"
 export const COLOR_SECOND = "#00587a"
 export const COLOR_THIRD = "#008891"
 export const COLOR_FOURTH = "#e7e7de"
+// Set 1 Alt
+// export const COLOR_FIRST = "#aee1e1"
+// export const COLOR_SECOND = "#d3e0dc"
+// export const COLOR_THIRD = "#ece2e1"
+// export const COLOR_FOURTH = "#fcd1d1"
 // Set 2
 export const COLOR_FIFTH = "#F8F8FF"
 // Set 3

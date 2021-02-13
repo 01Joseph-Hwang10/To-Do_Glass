@@ -2,7 +2,7 @@
 
 export const selectColorScheme = (number) => {
     const num = Number(number)
-    const modulo = Math.abs(num % 7)
+    const modulo = Math.abs(num % 6)
     if(modulo) {
         switch (modulo) {
             case 1:
@@ -11,11 +11,11 @@ export const selectColorScheme = (number) => {
                 return "yellow"
             case 3:
                 return "green"
+            // case 4:
+            //     return "blue"
             case 4:
-                return "blue"
-            case 5:
                 return "indigo"
-            case 6:
+            case 5:
                 return "purple"
             case 0:
                 return "pink"
@@ -135,8 +135,8 @@ export const selectColor = (colorScheme,number) => {
             return yellow[index]
         case "green":
             return green[index]
-        case "blue":
-            return blue[index]
+        // case "blue":
+        //     return yellow[index]
         case "indigo":
             return indigo[index]
         case "purple":
