@@ -76,14 +76,15 @@ export default function ContainerSecond() {
 
     return (
 
-    <div className="containerSecond w-full flex flex-col lg:flex-row-reverse justify-around items-center space-y-10 lg:space-y-0">
+    <div className="containerSecond w-full flex flex-col lg:flex-row-reverse justify-around items-center space-y-10 lg:space-y-0 py-16 border-b-2">
 
-        <div className="descriptionSecond flex flex-col justify-center items-start space-y-2 p-8 py-10 bg-gradient-to-b from-red-100 to-pink-50 rounded shadow-md">
+        <div className="descriptionSecond flex flex-col justify-center items-start space-y-2 p-8 py-10 bg-gradient-to-b from-red-100 to-pink-50 rounded shadow-md 2xl:p-16">
             <div className="flex flex-col justify-center items-start"><span className="text-3xl font-semibold">Construct the Scheme</span></div>
             <div className="flex flex-col justify-center items-start">
                 <span className="text-gray-700">Set up the frame of the project</span>
                 <span className="text-gray-700">Inspired by PERT chart, it gives you the big picture of project</span>
                 <span className="text-gray-700">Just name and create, construct the plan for the project</span>
+                <span className="text-green-500 text-xl font-semibold">Cilck <i className='fas fa-plus-circle text-gray-700'></i> and have a try!!</span>
             </div>
         </div>
 

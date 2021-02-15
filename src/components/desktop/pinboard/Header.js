@@ -28,7 +28,7 @@ class Header extends React.Component {
                 user_id:userId
             }
             await this.props.updateProject(postData,project.id)
-            this.props.getProfile(userId)
+            // await this.props.getProfile(userId)
         }
 
         return (

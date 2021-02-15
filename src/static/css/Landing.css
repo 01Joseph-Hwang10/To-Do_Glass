@@ -20,3 +20,27 @@ h2 {
     -webkit-text-stroke-color: white;
 }
 
+
+
+
+.containerFirst, 
+.containerSecond, 
+.containerThird, 
+.containerFourth {
+    transition:background-color 0.2s ease-in-out;
+}
+
+.containerFirst:hover, 
+.containerSecond:hover, 
+.containerThird:hover, 
+.containerFourth:hover {
+    background-color: #b8bccc;
+}
+
+
+.descriptionFirst,
+.descriptionSecond,
+.descriptionThird,
+.descriptionFourth {
+    border-radius: 0.5rem;
+}

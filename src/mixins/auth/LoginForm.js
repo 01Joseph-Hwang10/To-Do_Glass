@@ -30,9 +30,9 @@ class LoginForm extends React.Component {
         };
     
         return (
-            <div className="flex flex-col">
+            <div className="flex flex-col" style={{minHeight:'100vh'}}>
                 <div className="my-5 mb-12 mx-auto w-1/2 text-center"><Link to='/'><i className="text-6xl text-center font-bold" style={{fontFamily:"Brush Script MT, Brush Script Std, cursive",color:COLOR_SECOND}}>FLglance<sup className="text-green-400 text-sm align-top">βeta</sup></i></Link></div>
-                <div className="mx-auto w-1/2 2xl:w-1/3 rounded-lg p-2 flex flex-col items-center justify-center" style={{backgroundColor:COLOR_FOURTH}}>
+                <div className="mx-auto w-1/2 2xl:w-1/3 rounded-lg p-2 flex flex-col items-center justify-center shadow-md" style={{backgroundColor:COLOR_FOURTH}}>
                     <div className="flex flex-col w-11/12 items-center justify-center">
                         <form className="emailLogin w-full mx-auto space-y-2 py-5 flex flex-col justify-center items-center" onSubmit={onSubmit}>
                             <input className="emailLogin__email w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="email" placeholder="email"></input>

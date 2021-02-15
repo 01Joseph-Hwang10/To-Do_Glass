@@ -18,7 +18,7 @@ export default function Introduction() {
                 <h2 className="text-gray-800 2xl:text-2xl font-semibold text-left">Share your workflow, and inspired by the other's</h2>
             </div>
             <div className="flex justify-start items-center pt-1">
-                <div className="py-1 px-8 bg-green-400 rounded text-white 2xl:text-xl font-semibold ring-2"><Link to='/signup'>Start Project</Link></div>
+                <div className="py-1 px-8 bg-green-400 rounded text-white 2xl:text-xl font-bold ring-2"><Link to='/signup'>Start Project</Link></div>
             </div>
         </div>
         <div className="mt-32 mb-32"></div>

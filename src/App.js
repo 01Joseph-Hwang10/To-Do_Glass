@@ -1,6 +1,9 @@
 // React
 import React from 'react';
 import { HashRouter, Route } from "react-router-dom";
+// Redux
+import { connect } from 'react-redux';
+
 // CSS
 import './static/css/styles.css';
 // Routes
@@ -14,23 +17,36 @@ import updateProfileForm from './mixins/updateProfileForm';
 import Social from './routes/Social';
 
 
-function App() {
+function App(props) {
+
+  const onLanding = props.onLanding
+  const minHeight = (function(){return(onLanding?"auto":"100vh")})()
+  const marginTop = (function(){return(onLanding?"-5rem":"auto")})()
+
   return (
       <HashRouter>
-        <div className="scroller w-full text-gray-800">
-          <Navigation />
+        <div className="w-full text-gray-800">
           <Route path='/' exact component={Landing} />
-          <div className="scroller mt-20" style={{minHeight:"100vh"}}>
+          <Navigation />
+          <div className="mt-20" style={{minHeight:minHeight}}>
             <Route path='/:id/home' exact component={Home} />
             <Route path='/:id/social' exact component={Social} />
             <Route path='/:id/edit_profile' exact component={updateProfileForm} />
             <Route path='/login' exact component={LoginForm} />
             <Route path='/signup' exact component={SignUpForm} />
           </div>
-          <Footer />
+          <div style={{marginTop:marginTop}}>
+            <Footer />
+          </div>
         </div>
       </HashRouter>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    onLanding:state.onLanding.onLanding
+  }
+}
+
+export default connect(mapStateToProps,null)(App);
