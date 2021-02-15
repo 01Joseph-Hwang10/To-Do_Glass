@@ -32,7 +32,7 @@ function Landing(props) {
                 
                 <div className="my-10 w-full"></div>
 
-                <div className='description w-10/12 2xl:w-8/12'>
+                <div className='description w-full 2xl:w-8/12'>
 
                     <ContainerFirst />
 

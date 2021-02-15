@@ -21,13 +21,13 @@ export const selectColorScheme = (number) => {
                 return "pink"
             default:
                 const colorList = [
-                "red","yellow","green","blue","indigo","purple","pink",
+                "red","yellow","green","indigo","purple","pink",
                 ]
                 return colorList[Math.floor(Math.random()*colorList.length)]
         }
     } else {
         const colorList = [
-            "red","yellow","green","blue","indigo","purple","pink",
+            "red","yellow","green","indigo","purple","pink",
             ]
             return colorList[Math.floor(Math.random()*colorList.length)]
     }
@@ -72,18 +72,18 @@ export const selectColor = (colorScheme,number) => {
         "#065F46",
         "#064E3B",
     ]
-    const blue = [
-        "#EFF6FF",
-        "#DBEAFE",
-        "#BFDBFE",
-        "#93C5FD",
-        "#60A5FA",
-        "#3B82F6",
-        "#2563EB",
-        "#1D4ED8",
-        "#1E40AF",
-        "#1E3A8A",
-    ]
+    // const blue = [
+    //     "#EFF6FF",
+    //     "#DBEAFE",
+    //     "#BFDBFE",
+    //     "#93C5FD",
+    //     "#60A5FA",
+    //     "#3B82F6",
+    //     "#2563EB",
+    //     "#1D4ED8",
+    //     "#1E40AF",
+    //     "#1E3A8A",
+    // ]
     const indigo = [
         "#EEF2FF",
         "#E0E7FF",
@@ -144,7 +144,7 @@ export const selectColor = (colorScheme,number) => {
         case "pink":
             return pink[index]
         default:
-            const allColor = red+yellow+green+blue+indigo+purple+pink
+            const allColor = red.slice(0,4)+yellow.slice(0,4)+green.slice(0,4)+indigo.slice(0,4)+purple.slice(0,4)+pink.slice(0,4)
             return allColor[Math.floor(Math.random()*allColor.length)]
     }
 }

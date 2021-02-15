@@ -1,7 +1,5 @@
 // React
 import React from 'react'
-// Module
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 // etc
 import { alertCheckOut } from '../../../functions/alertFunctions';
 import { switchHidden } from '../../../functions/switchDisplay';
@@ -78,7 +76,16 @@ export default function ContainerSecond() {
 
     return (
 
-    <div className="containerSecond w-full flex justify-around items-center">
+    <div className="containerSecond w-full flex flex-col lg:flex-row-reverse justify-around items-center space-y-10 lg:space-y-0">
+
+        <div className="descriptionSecond flex flex-col justify-center items-start space-y-2 p-8 py-10 bg-gradient-to-b from-red-100 to-pink-50 rounded shadow-md">
+            <div className="flex flex-col justify-center items-start"><span className="text-3xl font-semibold">Construct the Scheme</span></div>
+            <div className="flex flex-col justify-center items-start">
+                <span className="text-gray-700">Set up the frame of the project</span>
+                <span className="text-gray-700">Inspired by PERT chart, it gives you the big picture of project</span>
+                <span className="text-gray-700">Just name and create, construct the plan for the project</span>
+            </div>
+        </div>
 
         <div className="figSecond">
 
@@ -92,11 +99,11 @@ export default function ContainerSecond() {
                         <div className="container__example rounded w-32 h-24 flex flex-col justify-start items-center shadow-md" style={{backgroundColor:COLOR_SIXTH}}>
                             <div className="w-full flex items-start justify-center">
                                 <div className="w-3/12 flex justify-center items-center"><button onClick={alertCheckOut} className="fas fa-trash p-1 rounded-3xl hover:bg-gray-300" style={{transition:'all .1 ease-in-out'}}></button></div>
-                                <div className="w-6/12 bg-pink-200 rounded-b flex justify-center items-start"><i className="fas fa-grip-lines-vertical text-center"></i></div>
+                                <div className="w-6/12 bg-pink-200 rounded-b flex justify-center items-start"><button onMouseDown={alertCheckOut} className="fas fa-grip-lines-vertical text-center"></button></div>
                                 <div className="w-3/12 flex justify-center items-center"><button onClick={alertCheckOut} className="rounded-3xl hover:bg-gray-300" style={{transition:'all .1 ease-in-out'}}><Important isImportant={false} /></button></div>
                             </div>
-                            <div className="w-full flex justify-center items-center">
-                                <button onClick={figSecondShowForm} style={{display:'block'}} className="text-center font-semibold border-2 border-transparent hover:border-gray-300 rounded">Important Task</button>
+                            <div className="w-full h-full flex justify-center items-center">
+                                <button onClick={figSecondShowForm} style={{display:'block'}} className="w-full h-full text-center font-semibold border-2 border-transparent hover:border-gray-300 rounded">Important Tasks</button>
                                 <form onSubmit={figSecondChangeName} style={{display:'none'}} className="w-full flex justify-center">
                                     <input required className="outline-none w-11/12 bg-transparent mx-auto text-center"></input>
                                 </form>
@@ -106,11 +113,11 @@ export default function ContainerSecond() {
                         <div className="container__willCreate rounded w-32 h-24 flex flex-col justify-start items-center shadow-md" style={{backgroundColor:COLOR_SIXTH,display:'none'}}>
                             <div className="w-full flex items-start justify-center">
                                 <div className="w-3/12 flex justify-center items-center"><button onClick={alertCheckOut} className="fas fa-trash p-1 rounded-3xl hover:bg-gray-300" style={{transition:'all .1 ease-in-out'}}></button></div>
-                                <div className="w-6/12 bg-pink-200 rounded-b flex justify-center items-start"><i className="fas fa-grip-lines-vertical text-center"></i></div>
+                                <div className="w-6/12 bg-pink-200 rounded-b flex justify-center items-start"><button onMouseDown={alertCheckOut} className="fas fa-grip-lines-vertical text-center"></button></div>
                                 <div className="w-3/12 flex justify-center items-center"><button onClick={alertCheckOut} className="rounded-3xl hover:bg-gray-300" style={{transition:'all .1 ease-in-out'}}><Important isImportant={false} /></button></div>
                             </div>
-                            <div className="w-full flex justify-center items-center">
-                                <button onClick={figSecondShowForm} style={{display:'block'}} className="container__willCreate__name text-center font-semibold border-2 border-transparent hover:border-gray-300 rounded"></button>
+                            <div className="w-full h-full flex justify-center items-center">
+                                <button onClick={figSecondShowForm} style={{display:'block'}} className="container__willCreate__name w-full h-full text-center font-semibold border-2 border-transparent hover:border-gray-300 rounded"></button>
                                 <form onSubmit={figSecondChangeName} style={{display:'none'}} className="w-full flex justify-center">
                                     <input required className="outline-none w-11/12 bg-transparent mx-auto text-center"></input>
                                 </form>
@@ -139,9 +146,9 @@ export default function ContainerSecond() {
                             <span className="text-center">1</span>
                         </div>
                         <div className="w-11/12 flex justify-start items-start" style={{borderColor:COLOR_FIRST}}>
-                            <div className="flex flex-col justify-start items-center w-16 h-12" style={{backgroundColor:selectColor(selectColorScheme())}}><i className="fas fa-grip-lines-vertical"></i></div>
-                            <div className="flex flex-col justify-start items-center w-16 h-16" style={{backgroundColor:selectColor(selectColorScheme())}}><i className="fas fa-grip-lines-vertical"></i></div>
-                            <div className="flex flex-col justify-start items-center w-16 h-10" style={{backgroundColor:selectColor(selectColorScheme())}}><i className="fas fa-grip-lines-vertical"></i></div>
+                            <button onMouseDown={alertCheckOut} className="flex flex-col justify-start items-center w-16 h-12 border border-b-2" style={{backgroundColor:selectColor(selectColorScheme())}}><i className="fas fa-grip-lines-vertical"></i></button>
+                            <button onMouseDown={alertCheckOut} className="flex flex-col justify-start items-center w-16 h-16 border border-b-2" style={{backgroundColor:selectColor(selectColorScheme())}}><i className="fas fa-grip-lines-vertical"></i></button>
+                            <button onMouseDown={alertCheckOut} className="flex flex-col justify-start items-center w-16 h-10 border border-b-2" style={{backgroundColor:selectColor(selectColorScheme())}}><i className="fas fa-grip-lines-vertical"></i></button>
                         </div>
                     </div>
 
@@ -150,7 +157,7 @@ export default function ContainerSecond() {
                             <span className="text-center">2</span>
                         </div>
                         <div className="w-11/12 flex justify-start items-start" style={{borderColor:COLOR_FIRST}}>
-                            <div className="flex flex-col justify-start items-center w-16 h-10" style={{backgroundColor:selectColor(selectColorScheme())}}><i className="fas fa-grip-lines-vertical"></i></div>
+                            <button onMouseDown={alertCheckOut} className="flex flex-col justify-start items-center w-16 h-10 border border-b-2" style={{backgroundColor:selectColor(selectColorScheme())}}><i className="fas fa-grip-lines-vertical"></i></button>
                         </div>
                     </div>
 
@@ -159,15 +166,6 @@ export default function ContainerSecond() {
 
             </div>
 
-        </div>
-
-        <div className="descriptionSecond flex flex-col justify-center items-start space-y-2 p-8 py-10 bg-gradient-to-b from-red-100 to-pink-50 rounded shadow-md">
-            <div className="flex flex-col justify-center items-start"><span className="text-3xl font-semibold">Construct the Scheme</span></div>
-            <div className="flex flex-col justify-center items-start">
-                <span className="text-gray-700">Set up the frame of the project</span>
-                <span className="text-gray-700">Inspired by PERT chart, it gives you the big picture of project</span>
-                <span className="text-gray-700">Again, Just name and create, and you're right to go</span>
-            </div>
         </div>
 
     </div>

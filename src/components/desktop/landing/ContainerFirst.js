@@ -78,14 +78,14 @@ export default function ContainerFirst() {
 
     return (
 
-        <div className="containerFirst w-full flex justify-around items-center">
+        <div className="containerFirst w-full flex flex-col lg:flex-row justify-around items-center space-y-10 lg:space-x-2">
 
             <div className="descriptionFirst flex flex-col justify-center items-start space-y-2 bg-gradient-to-b from-blue-100 to-blue-50 p-8 py-10 2xl:p-16 rounded-lg shadow-md">
-                <div className="flex flex-col justify-center items-start"><span className="text-3xl font-semibold">Start the project</span></div>
+                <div className="flex flex-col justify-center items-start"><span className="text-3xl font-semibold">Start the Project</span></div>
                 <div className="flex flex-col justify-center items-start">
-                    <span className="text-gray-700">Flglance provides the powerful tools</span>
-                    <span className="text-gray-700">For your project planning and workflow managing</span>
-                    <span className="text-gray-700">Just name and create, and begin the journey</span>
+                    <span className="text-gray-700">Just name and create, and start out the project</span>
+                    <span className="text-gray-700">Flglance provides convenient features for task managing</span>
+                    <span className="text-gray-700">Check out below for furthermore like Scheme, TaskHolder, Glance</span>
                 </div>
             </div>
 
