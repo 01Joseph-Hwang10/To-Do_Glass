@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { URL_PROJECT, URL_PUBLIC_PROJECT } from '../../store/variables';
-import { CLEAR_PROJECT, CREATE_PROJECT, DELETE_PROJECT, GET_PROJECT, UPDATE_PROJECT,UPDATE_PROJECT_DESCRIPTION} from '../types';
+import { CLEAR_PROJECT, CREATE_PROJECT, DELETE_PROJECT, GET_PROJECT, UPDATE_PROJECT,UPDATE_PROJECT_DESCRIPTION, UPDATE_PROJECT_NAME} from '../types';
 
 
 export const getProject = (project_id) => async dispatch => {
@@ -22,6 +22,13 @@ export const updateProject = (post_data, project_id) => async dispatch => {
             type:UPDATE_PROJECT,
             payload:response.data
         })
+    })
+}
+
+export const updateProjectName = (postData) => async dispatch => {
+    dispatch({
+        type:UPDATE_PROJECT_NAME,
+        payload:postData
     })
 }
 

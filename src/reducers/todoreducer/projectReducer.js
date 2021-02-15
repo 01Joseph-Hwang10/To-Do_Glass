@@ -71,12 +71,6 @@ export default function(state=initialState,action) {
                 Project:project
             }
         }
-        // case UPDATE_PROJECT_NAME: {
-        //     state.Project.name = action.payload
-        //     return {
-        //         ...state
-        //     }
-        // }
         default:
             return state;
     }

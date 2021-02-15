@@ -6,6 +6,7 @@ import {enableFullScreen,disableFullScreen} from '../../../../actions/screenActi
 function SwitchFullScreen(props) {
 
     const isFullScreen = props.isFullScreen
+    const screenSize = props.screenSize
 
     const enableFullScreen = () => {
         props.enableFullScreen()
@@ -18,10 +19,18 @@ function SwitchFullScreen(props) {
     return (
         <>
             {
-                isFullScreen ? (
-                    <button className="fas fa-compress-alt text-lg p-1 py-2" onClick={disableFullScreen}></button>
+                screenSize && screenSize >= 1024 ? (
+                    <>
+                        {
+                            isFullScreen ? (
+                                <button className="fas fa-compress-alt text-lg p-1 py-2" onClick={disableFullScreen}></button>
+                            ) : (
+                                <button className="fas fa-expand-alt text-lg p-1 py-2" onClick={enableFullScreen}></button>
+                            )
+                        }
+                    </>
                 ) : (
-                    <button className="fas fa-expand-alt text-lg p-1 py-2" onClick={enableFullScreen}></button>
+                    <></>
                 )
             }
         </>
@@ -35,7 +44,8 @@ SwitchFullScreen.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        isFullScreen:state.screen.isFullScreen
+        isFullScreen:state.screen.isFullScreen,
+        screenSize:state.screen.screenSize
     }
 }
 

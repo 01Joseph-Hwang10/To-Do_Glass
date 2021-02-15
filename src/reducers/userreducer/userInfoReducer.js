@@ -6,7 +6,8 @@ import {
     PROFILE_NOT_MINE, 
     UPDATE_FOLLOW, 
     UPDATE_FOLLOWING_INFO, 
-    UPDATE_PROFILE 
+    UPDATE_PROFILE,
+    UPDATE_PROJECT_NAME 
 } from "../../actions/types";
 
 
@@ -59,6 +60,18 @@ export default function(state=initialState,action) {
                 const index = profile.data.following.indexOf(payload.following)
                 profile.data.following.splice(index,1)
             }
+            return {
+                ...state,
+                Profile:profile
+            }
+        }
+        case UPDATE_PROJECT_NAME: {
+            let profile = state.Profile
+            const postData = action.payload
+            const id = Number(postData.projectId)
+            const name = postData.name
+            const index = profile.data.get_my_projects.indexOf(profile.data.get_my_projects.filter(x=>Number(x.id)===id)[0])
+            profile.data.get_my_projects[index].name = name
             return {
                 ...state,
                 Profile:profile

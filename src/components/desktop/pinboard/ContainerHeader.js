@@ -81,6 +81,7 @@ function ContainerHeader(props) {
         document.addEventListener('click', (e) => {
             if(!containerDetail.contains(e.target) && e.target !== button) {
                 div.style.borderWidth = '0px'
+                div.style.borderBottomWidth = '2px'
                 div.style.borderColor = "#E5E7EB"
                 div.style.borderRadius = '0'
                 containerDetail.style.maxHeight = '0'

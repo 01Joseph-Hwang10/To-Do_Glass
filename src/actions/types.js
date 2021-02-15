@@ -58,3 +58,7 @@ export const CLEAR_GLANCE = "CLEAR_GLANCE";
 // Screen
 export const FULL_SCREEN = "FULL_SCREEN";
 export const NOT_FULL_SCREEN = "NOT_FULL_SCREEN";
+export const SET_SCREEN_SIZE = "SET_SCREEN_SIZE";
+export const OPEN_OVERVIEW = "OPEN_OVERVIEW";
+export const OPEN_GLANCE = "OPEN_GLANCE";
+export const FOCUS_PINBOARD = "FOCUS_PINBOARD";

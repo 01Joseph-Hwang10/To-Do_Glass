@@ -3,10 +3,10 @@ import React from 'react';
 // Redux
 import { connect } from 'react-redux';
 import {checkAuth} from '../actions/useractions/authActions';
-import { disableFullScreen } from "../actions/screenActions";
+import { disableFullScreen, focusPinboard, openGlance, openOverview, setScreenSize } from "../actions/screenActions";
 // etc
 import PropTypes from "prop-types";
-// import { COLOR_FOURTH } from '../store/variables';
+import { COLOR_FIFTH, COLOR_FIRST } from '../store/variables';
 // Component
 import Overview from '../components/desktop/Overview';
 import Pinboard from '../components/desktop/Pinboard';
@@ -20,24 +20,46 @@ class Home extends React.Component {
         const isAuthenticated = this.props.isAuthenticated
         CheckAuth(isAuthenticated);
         setInterval(function(){CheckAuth(isAuthenticated); }, (1000*60*4+1000*50) )
+        const setScreenSize = this.props.setScreenSize
+        window.onresize = function() {
+            setScreenSize(window.innerWidth)
+        }
     }
 
     render() {
 
         const pinboardIsLoaded = Boolean(Object.keys(this.props.project).length > 0)
         const isFullScreen = this.props.isFullScreen
-        const overviewWidth = (function(){return(isFullScreen?"0%":"17%")})()
-        const overviewOpacity = (function(){return(isFullScreen?0:1)})()
-        const pinboardWidth = (function(){return(isFullScreen?"90%":"50%")})()
-        const glanceWidth = (function(){return(isFullScreen?"0%":"25%")})()
-        const glanceOpacity = (function(){return(isFullScreen?0:1)})()
-        const delay = (function(){return(isFullScreen?"":"0.4s")})()
+        const screenSize = this.props.screenSize
 
+        const overviewOpened = this.props.overviewOpened
+        const glanceOpened = this.props.glanceOpened
+
+        let overviewWidth, overviewOpacity, pinboardWidth, glanceWidth, glanceOpacity,delay
+        if(screenSize >= 1024) {
+            overviewWidth = (function(){return(isFullScreen?"0%":"17%")})()
+            overviewOpacity = (function(){return(isFullScreen?0:1)})()
+            pinboardWidth = (function(){return(isFullScreen?"90%":"50%")})()
+            glanceWidth = (function(){return(isFullScreen?"0%":"25%")})()
+            glanceOpacity = (function(){return(isFullScreen?0:1)})()
+            delay = (function(){return(isFullScreen?"":"0.4s")})()
+        } else {
+            overviewWidth = (function(){return(overviewOpened?"30%":'0%')})()
+            overviewOpacity = (function(){return(overviewOpened?1:0)})()
+            pinboardWidth = (function(){
+                if(overviewOpened) return '60%'
+                if(glanceOpened) return '50%'
+                return '90%'
+            })()
+            glanceWidth = (function(){return(glanceOpened?'40%':'0%')})()
+            glanceOpacity = (function(){return(glanceOpened?1:0)})()
+            delay = ""
+        }
 
         return (
             <>
             <div className="scroller mt-16 flex justify-center w-full overflow-x-hidden">
-                <div className="container w-2/12 m-2 rounded p-3" style={{
+                <div className="container m-2 rounded p-3" style={{
                     width:overviewWidth,
                     opacity:overviewOpacity,
                     transition:`width 0.5s, opacity 0.1s ease-in-out ${delay}`
@@ -60,13 +82,26 @@ class Home extends React.Component {
                         )
                     }
                 </div>
-                <div className="container w-3/12 m-2 mt-6" style={{
+                <div className="container m-2 mt-6" style={{
                     width:glanceWidth,
                     opacity:glanceOpacity,
                     transition:`width 0.5s, opacity 0.1s ease-in-out ${delay}`
                 }}>
                     <Glance />
                 </div>
+                {
+                    screenSize >= 1024 ? (
+                        <></>
+                    ) : (
+                        <div className="fixed bottom-0 w-full z-50 flex justify-center items-center">
+                            <div className="rounded-t-lg p-4 border-2 border-b-none flex justify-center items-center space-x-10" style={{backgroundColor:COLOR_FIFTH}}>
+                                <button onClick={openOverview} style={{color:(function(){return(overviewOpened?'orange':COLOR_FIRST)})()}} className="p-1 text-6xl fas fa-user z-50"></button>
+                                <button onClick={focusPinboard} style={{color:(function(){return(!overviewOpened && !glanceOpened?'orange':COLOR_FIRST)})()}} className="p-1 text-6xl fas fa-clipboard z-50"></button>
+                                <button onClick={openGlance} style={{color:(function(){return(glanceOpened?'orange':COLOR_FIRST)})()}} className="p-1 text-6xl fas fa-search z-50"></button>
+                            </div>
+                        </div>
+                    )
+                }
             </div>
             </>
         );
@@ -76,6 +111,7 @@ class Home extends React.Component {
 Home.propTypes = {
     checkAuth:PropTypes.func.isRequired,
     disableFullScreen:PropTypes.func.isRequired,
+    setScreenSize:PropTypes.func.isRequired
 }
 
 
@@ -83,11 +119,14 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.login.isAuthenticated,
         project:state.project.Project,
-        isFullScreen:state.screen.isFullScreen
+        isFullScreen:state.screen.isFullScreen,
+        screenSize:state.screen.screenSize,
+        overviewOpened:state.screen.overviewOpened,
+        glanceOpened:state.screen.glanceOpened
     }
 }
 
-const actions = {checkAuth, disableFullScreen}
+const actions = {checkAuth, disableFullScreen, setScreenSize}
 
 
 export default connect(mapStateToProps,actions)(Home);
