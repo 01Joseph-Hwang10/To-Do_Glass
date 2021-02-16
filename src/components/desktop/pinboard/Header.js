@@ -17,6 +17,7 @@ function Header(props) {
 
     const project = props.project
     const permission = props.permission
+    const isPrivate = project.isPrivate
 
     const updateImportance = async () => {
         const userId = localStorage.getItem('user_id')
@@ -32,6 +33,13 @@ function Header(props) {
     return (
         <div className="w-full flex justify-between px-3">
             <div className="flex-grow flex justify-start items-center ml-1">
+                {
+                    isPrivate ? (
+                        <div className="mr-1"><i className="fas fa-lock"></i></div>
+                    ) : (
+                        <></>
+                    )
+                }
                 {
                     permission ? (
                     <button className="mr-1 py-1 pr-1" onClick={updateImportance}>
@@ -60,7 +68,7 @@ function Header(props) {
                 <div className="w-5/12 flex justify-end items-center">
                     <div className="border p-2 border-blue-50 rounded bg-blue-100 mr-3"><Avatar user={project.created_user} /></div>
                     <SwitchFullScreen />
-                    <HeaderMenu projectId={project.id} />
+                    <HeaderMenu isPrivate={isPrivate} projectId={project.id} />
                 </div>
             ) : (
                 <div className="w-5/12 flex justify-end items-center">

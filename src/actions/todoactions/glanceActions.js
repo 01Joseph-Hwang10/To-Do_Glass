@@ -9,20 +9,31 @@ export const getGlance = () => async dispatch => {
     .then(response => {
         dispatch({
             type:GET_GLANCE,
-            payload:response.data
+            payload:{
+                data:response.data,
+                keyword:"",
+                searchContinue:0
+            }
         })
     })
 }
 
 export const searchGlance = (postData) => async dispatch => {
-    await axios
+    const response = await axios
     .patch(URL_GLANCE,postData,{withCredentials:true})
     .then(response => {
         dispatch({
             type:GET_GLANCE,
-            payload:response.data
+            payload:{
+                data:response.data,
+                keyword:postData.input,
+                searchContinue:postData.searchContinue
+            }
         })
+        console.log(response.data)
+        return response.data.length
     })
+    return Number(response)
 }
 
 export const clearGlance = () => dispatch => {

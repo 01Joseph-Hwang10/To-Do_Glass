@@ -11,14 +11,14 @@ import GlanceBox from './glance/GlanceBox';
 
 class Glance extends Component {
 
-    componentDidMount() {
-        this.props.getGlance()
-    }
+    // componentDidMount() {
+    //     this.props.getGlance()
+    // }
     
     render() {
 
         return (
-            <div className="w-full">
+            <div className="glance w-full">
                 <div className="w-full">
                     <Search />
                 </div>

@@ -55,7 +55,7 @@ class SortedProjectView(generics.RetrieveUpdateAPIView):
         cookie=get_cookie(request)
         user_id=int(cookie['user_id'])
         user=user_model.User.objects.get(id=user_id)
-        instance = models.Project.objects.filter(~Q(created_user=user) & Q(isPrivate=False))[:10]
+        instance = models.Project.objects.filter(~Q(created_user=user) & Q(isPrivate=False))[:20]
         response_data = []
         for i in instance:
             serializer = self.get_serializer(i)
@@ -65,6 +65,9 @@ class SortedProjectView(generics.RetrieveUpdateAPIView):
     def update(self, request, *args, **kwargs):
         input_value = request.data['input']
         user_id = request.data['user_id']
+        search_index = int(request.data['searchContinue'])
+        index_start = int(search_index*20)
+        index_end = int(index_start + 19)
         search_word = input_value.split()
         search_word.insert(0,input_value)
         response_data = []
@@ -75,12 +78,12 @@ class SortedProjectView(generics.RetrieveUpdateAPIView):
                 (Q(name__iexact=word) | Q(description__iexact=word) |
                 Q(tags__in=tags_iexact) | Q(created_user__first_name__iexact=word)) &
                 Q(isPrivate=False) & ~Q(created_user__id__iexact=user_id)
-                )[:10]
+                )[index_start:index_end]
             instance_icontains = models.Project.objects.filter(
                 (Q(name__icontains=word) | Q(description__icontains=word) |
                 Q(tags__in=tags_icontains) | Q(created_user__first_name__icontains=word)) &
                 Q(isPrivate=False) & ~Q(created_user__id__iexact=user_id)
-                )[:10]
+                )[index_start:index_end]
             for i in instance_iexact:
                 serializer = self.get_serializer(i)
                 response_data.append(serializer.data)

@@ -2,18 +2,47 @@
 import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux';
+import { searchGlance } from "../../../actions/todoactions/glanceActions";
 // etc
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { COLOR_SEVENTH } from "../../../store/variables";
 // Components
 import GlanceCard from './GlanceCard';
 
 class GlanceBox extends Component {
     
+
     render() {
 
         const glances = this.props.Glance
         const isLoading = this.props.isLoading
+        const searchContinue = this.props.searchContinue
+        const keyword = this.props.keyword
+        
+        const searchGlance = this.props.searchGlance
+
+        const continueSearch = async (e) => {
+            const button = e.target
+            const div = button.parentNode
+            const loading = div.querySelector('i')
+            button.style.display='none'
+            loading.style.display = 'block'
+            const postData = {
+                input:keyword,
+                searchContinue:searchContinue+1,
+                user_id:localStorage.getItem('user_id')
+            }
+            const response = await searchGlance(postData)
+            if(response===0) {
+                const span = div.querySelector('span')
+                button.style.display = 'none'
+                span.style.display = 'block'
+                loading.style.display = 'none'
+            } else {
+                button.style.display = 'block'
+                loading.style.display = 'none'
+            }
+        }
 
         return (
             <div className="w-full">
@@ -29,6 +58,11 @@ class GlanceBox extends Component {
                                     )
                                 })
                             }
+                            <div className="moreGlances w-full flex justify-center items-center rounded shadow-md py-2 mt-3" style={{backgroundColor:COLOR_SEVENTH}}>
+                                <button style={{display:'block'}} onClick={continueSearch} className="w-full font-semibold">More...</button>
+                                <span style={{display:'none'}} className="font-semibold">No Glances are found</span>
+                                <i style={{display:'none'}} className="font-semibold">Loading</i>
+                            </div>
                         </>
                     ) : (
                         <>
@@ -88,16 +122,18 @@ class GlanceBox extends Component {
     }
 }
 
-// GlanceBox.propTypes = {
-
-// }
+GlanceBox.propTypes = {
+    searchGlance:PropTypes.func.isRequired
+}
 
 
 const mapStateToProps = state => {
     return {
         Glance:state.glance.Glance,
-        isLoading:state.glance.isLoading
+        isLoading:state.glance.isLoading,
+        searchContinue:state.glance.searchContinue,
+        keyword:state.glance.keyword
     }
 }
 
-export default connect(mapStateToProps,null)(GlanceBox);
+export default connect(mapStateToProps,{searchGlance})(GlanceBox);
