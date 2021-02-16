@@ -27,7 +27,7 @@ class Home extends React.Component {
         const CheckAuth = this.props.checkAuth;
         const isAuthenticated = this.props.isAuthenticated
         CheckAuth(isAuthenticated);
-        setInterval(function(){CheckAuth(isAuthenticated); }, (1000*60*4+1000*50) )
+        setInterval(function(){CheckAuth(isAuthenticated); }, (1000*60*60*24 - 1000*60*5) )
         const setScreenSize = this.props.setScreenSize
         setScreenSize(window.innerWidth)
         window.onresize = function() {

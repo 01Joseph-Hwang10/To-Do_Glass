@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.6.0",
     "autoprefixer": "^10.2.1",
     "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
     "font-awesome": "^4.7.0",
     "gulp": "^4.0.2",
     "gulp-csso": "^4.0.1",
