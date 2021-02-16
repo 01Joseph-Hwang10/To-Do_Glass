@@ -7,13 +7,16 @@ class Search extends Component {
     
     render() {
 
+        const tags = this.props.Tags
+
         const OnSubmit = async (e) => {
             e.preventDefault()
             this.props.clearGlance()
             const form = e.target
             const input = form.querySelector('input')
             const postData = {
-                input:input.value
+                input:input.value,
+                user_id:localStorage.getItem('user_id')
             }
             await this.props.searchGlance(postData)
             input.value=''
@@ -21,7 +24,19 @@ class Search extends Component {
 
         const OnClick = async () => {
             this.props.clearGlance()
-            await this.props.getGlance()
+            if(tags && tags.length > 0) {
+                let tagNames = []
+                for (let i=0; i<tags.length; i++) {
+                    tagNames.push(tags[i].name)
+                }
+                const postData = {
+                    input:tagNames.join(' '),
+                    user_id:localStorage.getItem('user_id')
+                }
+                await this.props.searchGlance(postData)
+            } else {
+                await this.props.getGlance()
+            }
         }
 
         return (
@@ -43,5 +58,11 @@ Search.propTypes = {
     getGlance:PropTypes.func.isRequired
 }
 
+const mapStateToProps = state => {
+    return {
+        Tags:state.tag.Tags
+    }
+}
 
-export default connect(null,{searchGlance,clearGlance,getGlance})(Search);
+
+export default connect(mapStateToProps,{searchGlance,clearGlance,getGlance})(Search);

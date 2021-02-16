@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import {updateContainer, deleteContainer,updateImportance} from '../../../../actions/todoactions/containerActions';
 import {getProject} from '../../../../actions/todoactions/projectActions';
 // etc
-import { COLOR_SIXTH } from '../../../../store/variables'
+import { COLOR_FIRST, COLOR_SIXTH } from '../../../../store/variables'
 import PropTypes from 'prop-types'
 import { switchDisplay } from '../../../../functions/switchDisplay';
 // Component
@@ -48,7 +48,7 @@ function SchemeCard(props) {
             <>
                 <div className="w-full flex justify-center items-start">
                     <div className="w-3/12 flex justify-start pl-2"><button className="fas fa-trash-alt text-sm hover:bg-gray-300 rounded-3xl px-1 py-px" onClick={deleteContainer}></button></div>
-                    <div className="w-6/12 h-5 bg-pink-200 inset-0 flex justify-center rounded-b"><i className="fas fa-grip-lines-vertical inset-0"></i></div>
+                    <div className="w-6/12 h-8 bg-pink-200 inset-0 flex justify-center rounded-b"><i className="fas fa-grip-lines-vertical inset-0 text-2xl" style={{color:COLOR_FIRST}}></i></div>
                     <button className="w-3/12 flex justify-end pr-2 text-sm" onClick={updateImportance}>
                         <Important isImportant={importance} top={true} permission={permission} />
                     </button>

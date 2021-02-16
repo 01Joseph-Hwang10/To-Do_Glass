@@ -2,6 +2,7 @@
 import React from 'react'
 // modules
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { connect } from 'react-redux';
 // etc
 import { COLOR_FIRST } from '../../store/variables';
 // import PropTypes from 'prop-types'
@@ -27,10 +28,12 @@ function HorizontalScroll(props) {
         });
     };
 
+    const scrollButtonVisible = props.scrollButtonVisible
+
     return (
         <div className="relative w-full">
-            <button onClick={scrollLeft} className='fas fa-chevron-circle-left absolute left-2 text-3xl z-20' style={{top:"30%",color:COLOR_FIRST}}></button>
-            <button onClick={scrollRight} className='fas fa-chevron-circle-right absolute right-2 text-3xl z-20' style={{top:"30%",color:COLOR_FIRST}}></button>
+            <button onClick={scrollLeft} className='fas fa-chevron-circle-left absolute left-2 text-3xl z-20' style={{top:"30%",color:COLOR_FIRST,display:(function(){return(scrollButtonVisible?'block':'none')})()}}></button>
+            <button onClick={scrollRight} className='fas fa-chevron-circle-right absolute right-2 text-3xl z-20' style={{top:"30%",color:COLOR_FIRST,display:(function(){return(scrollButtonVisible?'block':'none')})()}}></button>
             <DragDropContext onDragEnd={props.onDragEnd}>
                 <Droppable droppableId="card" direction="horizontal">
                     {
@@ -51,5 +54,11 @@ function HorizontalScroll(props) {
 
 // }
 
-export default HorizontalScroll
+const mapStateToProps = state => {
+    return {
+        scrollButtonVisible:state.screen.scrollButtonVisible
+    }
+}
+
+export default connect(mapStateToProps,null)(HorizontalScroll)
 

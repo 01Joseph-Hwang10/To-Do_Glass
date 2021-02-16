@@ -1,7 +1,6 @@
-import datetime, json
 from django.db.models import Q
 from django.forms.models import model_to_dict
-from rest_framework import viewsets, generics, permissions, viewsets, response, status
+from rest_framework import viewsets, generics, viewsets, response, status
 from . import models
 from users import models as user_model
 from users.mixins import get_cookie
@@ -26,6 +25,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
             order=post_data['order'],
             importance=False,
             description="",
+            isPrivate=False
         )
         serializer = self.get_serializer(new_object)
         return response.Response(data=serializer.data,status=status.HTTP_201_CREATED)
@@ -55,7 +55,7 @@ class SortedProjectView(generics.RetrieveUpdateAPIView):
         cookie=get_cookie(request)
         user_id=int(cookie['user_id'])
         user=user_model.User.objects.get(id=user_id)
-        instance = models.Project.objects.filter(~Q(created_user=user))[:10]
+        instance = models.Project.objects.filter(~Q(created_user=user) & Q(isPrivate=False))[:10]
         response_data = []
         for i in instance:
             serializer = self.get_serializer(i)
@@ -64,15 +64,29 @@ class SortedProjectView(generics.RetrieveUpdateAPIView):
 
     def update(self, request, *args, **kwargs):
         input_value = request.data['input']
-        tags = models.Tag.objects.filter(name__icontains=input_value)
-        instance = models.Project.objects.filter(
-            Q(name__icontains=input_value) | Q(description__icontains=input_value) |
-            Q(tags__in=tags) | Q(created_user__first_name__icontains=input_value)
-            )[:10]
+        user_id = request.data['user_id']
+        search_word = input_value.split()
+        search_word.insert(0,input_value)
         response_data = []
-        for i in instance:
-            serializer = self.get_serializer(i)
-            response_data.append(serializer.data)
+        for word in input_value.split():
+            tags_iexact = models.Tag.objects.filter(name__iexact=word)
+            tags_icontains = models.Tag.objects.filter(name__icontains=word)
+            instance_iexact = models.Project.objects.filter(
+                (Q(name__iexact=word) | Q(description__iexact=word) |
+                Q(tags__in=tags_iexact) | Q(created_user__first_name__iexact=word)) &
+                Q(isPrivate=False) & ~Q(created_user__id__iexact=user_id)
+                )[:10]
+            instance_icontains = models.Project.objects.filter(
+                (Q(name__icontains=word) | Q(description__icontains=word) |
+                Q(tags__in=tags_icontains) | Q(created_user__first_name__icontains=word)) &
+                Q(isPrivate=False) & ~Q(created_user__id__iexact=user_id)
+                )[:10]
+            for i in instance_iexact:
+                serializer = self.get_serializer(i)
+                response_data.append(serializer.data)
+            for i in instance_icontains:
+                serializer = self.get_serializer(i)
+                response_data.append(serializer.data)
         cleaned_data = list({v['id']:v for v in response_data}.values())
         return response.Response(data=cleaned_data,status=status.HTTP_200_OK)
 

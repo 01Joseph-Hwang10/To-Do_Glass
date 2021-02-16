@@ -5,7 +5,10 @@ import { COLOR_FIRST } from "../../../store/variables";
 import bg5 from '../../../static/images/bg5.jpg'
 // import bg2 from '../../../static/images/bg2.jpg'
 
-export default function Introduction() {
+export default function Introduction(props) {
+
+    const screenSize = props.screenSize
+
     return (
     <div className="introduction w-full flex justify-around items-center bg-center bg-cover flex-wrap border-b-2 pt-0 mt-0" style={{backgroundColor:COLOR_FIRST,backgroundImage:`url(${bg5})`}}>
         <div className="welcomeCopy flex flex-col justify-center items-start space-y-2 mt-32 mb-32">
@@ -21,7 +24,13 @@ export default function Introduction() {
                 <div className="py-1 px-8 bg-green-400 rounded text-white 2xl:text-xl font-bold ring-2"><Link to='/signup'>Start Project</Link></div>
             </div>
         </div>
-        <div className="mt-32 mb-32"></div>
+        {
+            screenSize>=640 ? (
+                <div className="mt-32 mb-32"></div>
+            ) : (
+                <></>
+            )
+        }
     </div>
     )
 }

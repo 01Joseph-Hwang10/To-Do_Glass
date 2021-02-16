@@ -1,10 +1,13 @@
 // React
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 // Redux
 import { connect } from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import { setScreenSize } from "../actions/screenActions";
 // CSS
 import "../static/css/Landing.css";
+// etc
+import PropTypes from "prop-types";
 // Components
 import LandingNav from '../components/desktop/landing/LandingNav';
 import Introduction from '../components/desktop/landing/Introduction';
@@ -18,9 +21,16 @@ class Landing extends React.Component {
 
     componentDidMount() {
         window.scrollTo(0,0)
+        const setScreenSize = this.props.setScreenSize
+        setScreenSize(window.innerWidth)
+        window.onresize = function() {
+            setScreenSize(window.innerWidth)
+        }
     }
 
     render() {
+
+        const screenSize = this.props.screenSize
 
         if(this.props.isAuthenticated) {
         
@@ -33,19 +43,19 @@ class Landing extends React.Component {
             return (
                 <div id="landing" className="flex flex-col items-center justify-start">
     
-                    <LandingNav />
+                    <LandingNav screenSize={screenSize} />
     
-                    <Introduction />
+                    <Introduction screenSize={screenSize} />
     
                     <div className='description w-full 2xl:w-11/12 border-t-2'>
     
-                        <ContainerFirst />
+                        <ContainerFirst screenSize={screenSize} />
     
-                        <ContainerSecond />
+                        <ContainerSecond screenSize={screenSize} />
     
-                        <ContainerThird />
+                        <ContainerThird screenSize={screenSize} />
     
-                        <ContainerFourth />
+                        <ContainerFourth screenSize={screenSize} />
     
                     </div>
     
@@ -58,11 +68,18 @@ class Landing extends React.Component {
 
 }
 
+
+Landing.propTypes = {
+    setScreenSize:PropTypes.func.isRequired
+}
+
+
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.login.isAuthenticated
+        isAuthenticated: state.login.isAuthenticated,
+        screenSize:state.screen.screenSize
     }
 }
 
 
-export default connect(mapStateToProps, null)(Landing);
+export default connect(mapStateToProps, {setScreenSize})(Landing);

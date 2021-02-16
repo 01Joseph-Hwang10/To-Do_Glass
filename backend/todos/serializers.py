@@ -1,8 +1,7 @@
-from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
-from rest_framework.serializers import PrimaryKeyRelatedField, HyperlinkedIdentityField, HyperlinkedRelatedField
-from rest_framework.serializers import ReadOnlyField, ImageField, ListField, IntegerField
+from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework.serializers import ReadOnlyField, ListField, IntegerField
 from . import models as todo_model
-from users import models as user_model
 from users import serializers as user_serializer
 
 

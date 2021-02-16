@@ -3,7 +3,15 @@ import React from 'react';
 // Redux
 import { connect } from 'react-redux';
 import {checkAuth} from '../actions/useractions/authActions';
-import { disableFullScreen, focusPinboard, openGlance, openOverview, setScreenSize } from "../actions/screenActions";
+import { 
+    disableFullScreen, 
+    focusPinboard, 
+    openGlance, 
+    openOverview, 
+    setScreenSize,
+    showScrollButton,
+    hideScrollButton 
+} from "../actions/screenActions";
 // etc
 import PropTypes from "prop-types";
 import { COLOR_FIFTH, COLOR_FIRST } from '../store/variables';
@@ -21,9 +29,11 @@ class Home extends React.Component {
         CheckAuth(isAuthenticated);
         setInterval(function(){CheckAuth(isAuthenticated); }, (1000*60*4+1000*50) )
         const setScreenSize = this.props.setScreenSize
+        setScreenSize(window.innerWidth)
         window.onresize = function() {
             setScreenSize(window.innerWidth)
         }
+        if(window.innerWidth < 1024) this.props.hideScrollButton()
     }
 
     render() {
@@ -34,8 +44,12 @@ class Home extends React.Component {
 
         const overviewOpened = this.props.overviewOpened
         const glanceOpened = this.props.glanceOpened
+        const scrollButtonVisible = this.props.scrollButtonVisible
 
-        let overviewWidth, overviewOpacity, pinboardWidth, glanceWidth, glanceOpacity,delay
+        const showScrollButton = this.props.showScrollButton
+        const hideScrollButton = this.props.hideScrollButton
+
+        let overviewWidth, overviewOpacity, pinboardWidth, glanceWidth, glanceOpacity,delay,overviewDelay,glanceDelay
         if(screenSize >= 1024) {
             overviewWidth = (function(){return(isFullScreen?"0%":"17%")})()
             overviewOpacity = (function(){return(isFullScreen?0:1)})()
@@ -43,6 +57,9 @@ class Home extends React.Component {
             glanceWidth = (function(){return(isFullScreen?"0%":"25%")})()
             glanceOpacity = (function(){return(isFullScreen?0:1)})()
             delay = (function(){return(isFullScreen?"":"0.4s")})()
+            overviewDelay = delay
+            glanceDelay = delay
+            showScrollButton()
         } else {
             overviewWidth = (function(){return(overviewOpened?"30%":'0%')})()
             overviewOpacity = (function(){return(overviewOpened?1:0)})()
@@ -53,7 +70,36 @@ class Home extends React.Component {
             })()
             glanceWidth = (function(){return(glanceOpened?'40%':'0%')})()
             glanceOpacity = (function(){return(glanceOpened?1:0)})()
-            delay = ""
+            overviewDelay = (function(){return(overviewOpened?'0.4s':'')})()
+            glanceDelay = (function(){return(glanceOpened?'0.4s':'')})()
+        }
+
+        const switchScrollVisible = () => {
+            if (scrollButtonVisible) {
+                hideScrollButton()
+            } else {
+                showScrollButton()
+            }
+        }
+
+        const openOverview = this.props.openOverview
+        const focusPinboard = this.props.focusPinboard
+        const openGlance = this.props.openGlance
+
+        const switchOverview = () => {
+            if(!overviewOpened) {
+                openOverview()
+            } else {
+                focusPinboard()
+            }
+        }
+
+        const switchGlance = () => {
+            if(!glanceOpened) {
+                openGlance()
+            } else {
+                focusPinboard()
+            }
         }
 
         return (
@@ -62,7 +108,7 @@ class Home extends React.Component {
                 <div className="container m-2 rounded p-3" style={{
                     width:overviewWidth,
                     opacity:overviewOpacity,
-                    transition:`width 0.5s, opacity 0.1s ease-in-out ${delay}`
+                    transition:`width 0.5s, opacity 0.1s ease-in-out ${overviewDelay}`
                 }}>
                     <Overview />
                 </div>
@@ -85,7 +131,7 @@ class Home extends React.Component {
                 <div className="container m-2 mt-6" style={{
                     width:glanceWidth,
                     opacity:glanceOpacity,
-                    transition:`width 0.5s, opacity 0.1s ease-in-out ${delay}`
+                    transition:`width 0.5s, opacity 0.1s ease-in-out ${glanceDelay}`
                 }}>
                     <Glance />
                 </div>
@@ -94,10 +140,11 @@ class Home extends React.Component {
                         <></>
                     ) : (
                         <div className="fixed bottom-0 w-full z-50 flex justify-center items-center">
-                            <div className="rounded-t-lg p-4 border-2 border-b-none flex justify-center items-center space-x-10" style={{backgroundColor:COLOR_FIFTH}}>
-                                <button onClick={openOverview} style={{color:(function(){return(overviewOpened?'orange':COLOR_FIRST)})()}} className="p-1 text-6xl fas fa-user z-50"></button>
-                                <button onClick={focusPinboard} style={{color:(function(){return(!overviewOpened && !glanceOpened?'orange':COLOR_FIRST)})()}} className="p-1 text-6xl fas fa-clipboard z-50"></button>
-                                <button onClick={openGlance} style={{color:(function(){return(glanceOpened?'orange':COLOR_FIRST)})()}} className="p-1 text-6xl fas fa-search z-50"></button>
+                            <div className="rounded-t-lg p-4 pb-0 pt-1 border-2 border-b-none flex justify-center items-center space-x-5 shadow-md" style={{backgroundColor:COLOR_FIFTH}}>
+                                <button onClick={switchOverview} style={{color:(function(){return(overviewOpened?'orange':COLOR_FIRST)})(),transition:'all 0.1s ease-in-out'}} className="p-1 text-4xl fas fa-user z-50"></button>
+                                <button onClick={this.props.focusPinboard} style={{color:(function(){return(!overviewOpened && !glanceOpened?'orange':COLOR_FIRST)})(),transition:'all 0.1s ease-in-out'}} className="p-1 text-4xl fas fa-clipboard z-50"></button>
+                                <button onClick={switchGlance} style={{color:(function(){return(glanceOpened?'orange':COLOR_FIRST)})(),transition:'all 0.1s ease-in-out'}} className="p-1 text-4xl fas fa-search z-50"></button>
+                                <button onClick={switchScrollVisible} style={{color:(function(){return(scrollButtonVisible?"orange":COLOR_FIRST)})(),transition:'all 0.1s ease-in-out'}} className="fas fa-chevron-circle-right text-4xl z-50 p-1 border-l-2 pl-4"></button>
                             </div>
                         </div>
                     )
@@ -111,7 +158,12 @@ class Home extends React.Component {
 Home.propTypes = {
     checkAuth:PropTypes.func.isRequired,
     disableFullScreen:PropTypes.func.isRequired,
-    setScreenSize:PropTypes.func.isRequired
+    setScreenSize:PropTypes.func.isRequired,
+    openOverview:PropTypes.func.isRequired,
+    openGlance:PropTypes.func.isRequired,
+    focusPinboard:PropTypes.func.isRequired,
+    showScrollButton:PropTypes.func.isRequired,
+    hideScrollButton:PropTypes.func.isRequired,
 }
 
 
@@ -122,11 +174,21 @@ const mapStateToProps = state => {
         isFullScreen:state.screen.isFullScreen,
         screenSize:state.screen.screenSize,
         overviewOpened:state.screen.overviewOpened,
-        glanceOpened:state.screen.glanceOpened
+        glanceOpened:state.screen.glanceOpened,
+        scrollButtonVisible:state.screen.scrollButtonVisible
     }
 }
 
-const actions = {checkAuth, disableFullScreen, setScreenSize}
+const actions = {
+    checkAuth,
+    disableFullScreen,
+    setScreenSize,
+    openOverview,
+    openGlance,
+    focusPinboard,
+    showScrollButton,
+    hideScrollButton,
+}
 
 
 export default connect(mapStateToProps,actions)(Home);

@@ -1,4 +1,4 @@
-import { FOCUS_PINBOARD, FULL_SCREEN, NOT_FULL_SCREEN, OPEN_GLANCE, OPEN_OVERVIEW, SET_SCREEN_SIZE } from "./types"
+import { FOCUS_PINBOARD, FULL_SCREEN, NOT_FULL_SCREEN, OPEN_GLANCE, OPEN_OVERVIEW, SCROLL_BUTTON_INVISIBLE, SCROLL_BUTTON_VISIBLE, SET_SCREEN_SIZE } from "./types"
 
 
 export const enableFullScreen = () => dispatch => {
@@ -35,5 +35,17 @@ export const openGlance = () => dispatch => {
 export const focusPinboard = () => dispatch => {
     dispatch({
         type:FOCUS_PINBOARD
+    })
+}
+
+export const showScrollButton = () => dispatch => {
+    dispatch({
+        type:SCROLL_BUTTON_VISIBLE
+    })
+}
+
+export const hideScrollButton = () => dispatch => {
+    dispatch({
+        type:SCROLL_BUTTON_INVISIBLE
     })
 }

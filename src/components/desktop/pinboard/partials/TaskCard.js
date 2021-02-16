@@ -56,9 +56,9 @@ function TaskCard(props) {
 
 
     return (
-        <div className="w-28 relative text-gray-900 flex flex-col justify-between items-center border-b-4" style={{backgroundColor:color}}>
-            <div className="w-full justify-center items-start" style={{display:'flex'}}>
-                <span className="text-center fas fa-grip-lines-vertical"></span>
+        <div className="w-28 relative text-gray-900 flex flex-col justify-start items-center border-b-4" style={{backgroundColor:color}}>
+            <div className="w-full justify-center items-start h-8" style={{display:'flex'}}>
+                <span className="text-center fas fa-grip-lines-vertical text-xl"></span>
             </div>
             <div className="w-full text-xl text-center" style={{display:'block'}}>
                 <CTCInput 

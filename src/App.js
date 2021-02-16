@@ -21,31 +21,47 @@ function App(props) {
 
   const onLanding = props.onLanding
   const minHeight = (function(){return(onLanding?"auto":"100vh")})()
-  const marginTop = (function(){return(onLanding?"-5rem":"auto")})()
+  const screenSize = Number(props.screenSize)
 
   return (
       <HashRouter>
-        <div className="w-full text-gray-800">
-          <Route path='/' exact component={Landing} />
-          <Navigation />
-          <div className="mt-20" style={{minHeight:minHeight}}>
-            <Route path='/:id/home' exact component={Home} />
-            <Route path='/:id/social' exact component={Social} />
-            <Route path='/:id/edit_profile' exact component={updateProfileForm} />
-            <Route path='/login' exact component={LoginForm} />
-            <Route path='/signup' exact component={SignUpForm} />
+        {
+          screenSize >= 640 ? (
+          <div className="w-full text-gray-800">
+            <Route path='/' exact component={Landing} />
+            <Navigation />
+            <div className="mt-20" style={{minHeight:minHeight}}>
+              <Route path='/:id/home' exact component={Home} />
+              <Route path='/:id/social' exact component={Social} />
+              <Route path='/:id/edit_profile' exact component={updateProfileForm} />
+              <Route path='/login' exact component={LoginForm} />
+              <Route path='/signup' exact component={SignUpForm} />
+            </div>
+            <div>
+              <Footer />
+            </div>
           </div>
-          <div style={{marginTop:marginTop}}>
-            <Footer />
-          </div>
-        </div>
+          ) : (
+            <div className="w-full text-gray-800">
+              <Route path='/' exact component={Landing} />
+              <div className="mt-20">
+                <Route path='/login' exact component={LoginForm} />
+                <Route path='/signup' exact component={SignUpForm} />
+              </div>
+              <div>
+                <Footer />
+              </div>
+            </div>
+          )
+        }
       </HashRouter>
   );
 }
 
 const mapStateToProps = state => {
   return {
-    onLanding:state.onLanding.onLanding
+    onLanding:state.onLanding.onLanding,
+    screenSize:state.screen.screenSize
   }
 }
 
