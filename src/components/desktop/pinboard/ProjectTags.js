@@ -29,6 +29,11 @@ class ProjectTags extends React.Component {
         const createTag = async (e) => {
             e.preventDefault()
             const form = e.target
+            const formDiv = form.parentNode
+            const span = formDiv.querySelector('span')
+            form.style.display="none"
+            span.style.display='block'
+
             const input = form.querySelector('input')
             const postData = {
                 name:input.value,
@@ -39,7 +44,7 @@ class ProjectTags extends React.Component {
             this.forceUpdate()
             const div = form.parentNode
             const button = div.querySelector('button')
-            form.style.display="none"
+            span.style.display='none'
             button.style.display="block"
             input.value=""
         }
@@ -72,6 +77,7 @@ class ProjectTags extends React.Component {
                                 <form onSubmit={createTag} className="flex justify-center items-center" style={{display:'none'}}>
                                     <input required className="w-32 h-6 outline-none bg-transparent" placeholder="Tag"></input>
                                 </form>
+                                <span className="text-sm" style={{display:'none'}}></span>
                             </div>
                         ) : (
                             <></>

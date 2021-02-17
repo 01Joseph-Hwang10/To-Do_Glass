@@ -60,8 +60,13 @@ function Scheme(props) {
     const OnSubmit = async (e) => {
         e.preventDefault()
         const form = e.target
-        const div = e.target.parentNode
-        const button = div.childNodes[0]
+        const formDiv = form.closest('.formDiv')
+        const innerDiv = formDiv.querySelector('.formDiv__innerDiv')
+        const creating = formDiv.querySelector('.formDiv__creating')
+        innerDiv.style.display = 'none'
+        creating.style.display = 'block'
+
+        const button = innerDiv.childNodes[0]
         const input = form.childNodes[0]
         const post_data = {
             name:input.value,
@@ -73,6 +78,8 @@ function Scheme(props) {
         await props.getProject(projectId)
         input.value=""
         input.blur()
+        innerDiv.style.display = 'flex'
+        creating.style.display = 'none'
         form.style.display = "none"
         button.style.display = "block"
     };
@@ -113,8 +120,8 @@ function Scheme(props) {
                 {
                     permission ? (
                     <div className="w-40 h-32 mx-1">
-                        <div className="flex flex-col justify-start items-center rounded shadow-lg w-40 h-32 mx-2 py-1" style={{backgroundColor:COLOR_SIXTH}}>
-                            <div className="w-full h-full flex flex-col justify-center items-center">
+                        <div className="formDiv flex flex-col justify-start items-center rounded shadow-lg w-40 h-32 mx-2 py-1" style={{backgroundColor:COLOR_SIXTH}}>
+                            <div className="formDiv__innerDiv w-full h-full flex flex-col justify-center items-center" style={{display:'flex'}}>
                                 <button className="fas fa-plus-circle text-3xl w-full h-full" style={{display:'block',color:COLOR_FIRST}} onClick={switchHidden}></button>
                                 <form className="w-full h-full flex flex-col justify-around items-center" style={{display:'none'}} onSubmit={OnSubmit}>
                                     <input required placeholder="Name" className="w-11/12 rounded border-2 mb-1 text-sm focus:border-gray-600" style={{
@@ -124,6 +131,7 @@ function Scheme(props) {
                                     <button className="text-xs bg-pink-100 p-1 px-2 font-semibold rounded">Create</button>
                                 </form>
                             </div>
+                            <span className="formDiv__creating font-semibold text-center" style={{display:'none'}}>Creating...</span>
                         </div>
                     </div>
                     ) : (

@@ -20,11 +20,13 @@ from django.urls.conf import include
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin_url = os.environ.get('BACKEND_ADMIN')
+
 urlpatterns = [
-    path("".join([os.environ['BACKEND_ADMIN'],'/']), admin.site.urls),
-    path("".join([os.environ['BACKEND_API'],'/api-auth/']),include('rest_framework.urls', namespace='rest_framework')),
-    path("".join([os.environ['BACKEND_API'],'/users-api/']), include("users.urls", namespace="users")),
-    path("".join([os.environ['BACKEND_API'],'/todos-api/']), include("todos.urls", namespace="todos")),
+    path(f"{admin_url}/", admin.site.urls),
+    path('api/api-auth/',include('rest_framework.urls', namespace='rest_framework')),
+    path('api/users-api/', include("users.urls", namespace="users")),
+    path('api/todos-api/', include("todos.urls", namespace="todos")),
 ]
 
 if settings.DEBUG: 

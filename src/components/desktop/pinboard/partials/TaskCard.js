@@ -16,7 +16,12 @@ function TaskCard(props) {
     const permission = props.permission
     const color = (function(){return(task.completed?"#9CA3AF":selectColor(props.colorScheme,task.id))})()
 
-    const deleteTask = async () => {
+    const deleteTask = async (e) => {
+        const div = e.target.closest('.taskCard')
+        const deleting = div.querySelector('.deleting')
+        const contentBody = div.querySelector('.contentBody')
+        deleting.style.display='flex'
+        contentBody.style.display='none'
         await props.deleteTask(task.id)
         await props.getContainer(task.container_id)
     }
@@ -56,11 +61,11 @@ function TaskCard(props) {
 
 
     return (
-        <div className="w-28 relative text-gray-900 flex flex-col justify-start items-center border-b-4" style={{backgroundColor:color}}>
+        <div className="taskCard w-28 relative text-gray-900 flex flex-col justify-start items-center border-b-4" style={{backgroundColor:color}}>
             <div className="w-full justify-center items-start h-8" style={{display:'flex'}}>
                 <span className="text-center fas fa-grip-lines-vertical text-xl"></span>
             </div>
-            <div className="w-full text-xl text-center" style={{display:'block'}}>
+            <div className="contentBody w-full text-xl text-center" style={{display:'block'}}>
                 <CTCInput 
                 id={task.id}
                 name={task.name}
@@ -70,6 +75,9 @@ function TaskCard(props) {
                 afterAction={props.getContainer}
                 afterActionInput={task.container_id}
                 />
+            </div>
+            <div className="deleting w-full text-xl text-center flex justify-center items-center" style={{display:'none'}}>
+                <span className="font-semibold">Deleting...</span>
             </div>
             <div className="justify-center items-center" style={{display:'flex'}}>
                 {

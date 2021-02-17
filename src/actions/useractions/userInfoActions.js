@@ -39,13 +39,34 @@ export const getProfile = (user_id) => async dispatch => {
 }
 
 export const updateProfile = (post_data,user_id) => async dispatch => {
-    await axios
-    .patch([URL_PROFILE,user_id,'/'].join(''),post_data,{withCredentials:true})
-    .then(response => {
-        dispatch({
-            type:UPDATE_PROFILE
+    if(post_data.avatar) {
+        const formData = new FormData();
+        const imagefile = post_data.avatar
+        formData.append('avatar',imagefile)
+        formData.append('first_name',post_data.first_name)
+        if(post_data.bio) formData.append('bio',post_data.bio)
+        formData.append('user_id',post_data.user_id)
+        await axios
+        .patch([URL_PROFILE,user_id,'/'].join(''),formData,{
+            withCredentials:true,
+            headers:{
+                'Content-Type':'multipart/form-data'
+            }
         })
-    })
+        .then(response => {
+            dispatch({
+                type:UPDATE_PROFILE
+            })
+        })
+    } else {
+        await axios
+        .patch([URL_PROFILE,user_id,'/'].join(''),post_data,{withCredentials:true})
+        .then(response => {
+            dispatch({
+                type:UPDATE_PROFILE
+            })
+        })
+    }
 }
 
 export const getUserInfo = (user_id) => async dispatch => {

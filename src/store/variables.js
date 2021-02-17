@@ -1,33 +1,28 @@
-import dotenv from "dotenv";
-dotenv.config()
-
 // Base url
 export const URL_PROXY = "http://localhost:8000";
 export const URL_CLIENT = "http://localhost:3000";
 // Auth url
-const BACKEND_API = process.env.BACKEND_API
-console.log(process.env)
-export const URL_SIGN_UP = `/${BACKEND_API}/users-api/sign-up/`;
-export const URL_TOKEN = `/${BACKEND_API}/users-api/token/`;
-export const URL_TOKEN_REFRESH=`/${BACKEND_API}/users-api/token/refresh/`;
-export const URL_CHECK_SELF_AUTH=`/${BACKEND_API}/users-api/check-self-auth/`;
-export const URL_LOGOUT=`/${BACKEND_API}/users-api/logout/`;
+export const URL_SIGN_UP = `/api/users-api/sign-up/`;
+export const URL_TOKEN = `/api/users-api/token/`;
+export const URL_TOKEN_REFRESH=`/api/users-api/token/refresh/`;
+export const URL_CHECK_SELF_AUTH=`/api/users-api/check-self-auth/`;
+export const URL_LOGOUT=`/api/users-api/logout/`;
 // Profile url
-export const URL_PUBLIC_PROFILE=`/${BACKEND_API}/users-api/public_users/`;
-export const URL_PROFILE=`/${BACKEND_API}/users-api/users/`;
+export const URL_PUBLIC_PROFILE=`/api/users-api/public_users/`;
+export const URL_PROFILE=`/api/users-api/users/`;
 // Project url
-export const URL_PUBLIC_PROJECT=`/${BACKEND_API}/todos-api/public_projects/`;
-export const URL_PROJECT=`/${BACKEND_API}/todos-api/projects/`;
-export const URL_GLANCE=`/${BACKEND_API}/todos-api/glance/`;
+export const URL_PUBLIC_PROJECT=`/api/todos-api/public_projects/`;
+export const URL_PROJECT=`/api/todos-api/projects/`;
+export const URL_GLANCE=`/api/todos-api/glance/`;
 // Tag url
-export const URL_PUBLIC_TAG=`/${BACKEND_API}/todos-api/public_tags/`;
-export const URL_TAG=`/${BACKEND_API}/todos-api/tags`;
+export const URL_PUBLIC_TAG=`/api/todos-api/public_tags/`;
+export const URL_TAG=`/api/todos-api/tags/`;
 // Container url
-export const URL_PUBLIC_CONTAINER=`/${BACKEND_API}/todos-api/public_containers/`;
-export const URL_CONTAINER = `/${BACKEND_API}/todos-api/containers/`;
+export const URL_PUBLIC_CONTAINER=`/api/todos-api/public_containers/`;
+export const URL_CONTAINER = `/api/todos-api/containers/`;
 // Task url
-export const URL_PUBLIC_TASK=`/${BACKEND_API}/todos-api/public_tasks/`;
-export const URL_TASK=`/${BACKEND_API}/todos-api/tasks/`;
+export const URL_PUBLIC_TASK=`/api/todos-api/public_tasks/`;
+export const URL_TASK=`/api/todos-api/tasks/`;
 
 // Colors
 // Set 1

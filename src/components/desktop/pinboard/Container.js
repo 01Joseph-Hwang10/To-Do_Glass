@@ -52,7 +52,11 @@ function Container(props) {
         e.preventDefault()
         const form = e.target
         const div = e.target.parentNode
-        const button = div.childNodes[0]
+        const span = div.querySelector('span')
+        form.style.display='none'
+        span.style.display='block'
+
+        const button = div.querySelector('section')
         const input = form.childNodes[0]
         const order = Number(container.count_tasks) + 1
         const postData = {
@@ -64,7 +68,7 @@ function Container(props) {
         await props.createTask(postData)
         await props.getContainer(container.id)
         input.value=""
-        form.style.display='none'
+        span.style.display='none'
         button.style.display='block'
     }
 
@@ -143,6 +147,7 @@ function Container(props) {
                                                 <input required className="w-11/12 text-sm text-gray-700 rounded px-1 bg-transparent border-2 focus:border-gray-400" placeholder="Name" style={{transition:"all 0.4s ease-in-out"}}></input>   
                                                 <button className="p-1 px-2 text-xs bg-gray-200 text-gray-700 font-semibold rounded">Create</button>
                                             </form>
+                                            <span className="font-semibold text-center" style={{display:'none'}}>Creating...</span>
                                         </div>
                                     ) : (
                                         <div className="w-1 h-20"></div>

@@ -28,7 +28,7 @@ function updateProfileForm(props) {
     }
 
     return (
-        <div className="rounded w-1/2 flex flex-col justify-center items-center mx-auto p-3" style={{backgroundColor:COLOR_FOURTH}}>
+        <div className="rounded w-3/4 lg:w-1/2 flex flex-col justify-center items-center mx-auto p-3" style={{backgroundColor:COLOR_FOURTH}}>
             <form className="w-7/12 flex flex-col justify-center items-center" onSubmit={OnSubmit}>
                 <div className="p-2"><span className="text-gray-700 font-semibold text-2xl">Edit Profile</span></div>
                 <input required defaultValue={profile.first_name} className="mb-2 border-2 rounded w-full h-10 p-2" type="text" placeholder="Name"></input>

@@ -28,7 +28,12 @@ function SchemeCard(props) {
     },[importance,container.importance])
 
 
-    const deleteContainer = async () => {
+    const deleteContainer = async (e) => {
+        const div = e.target.closest('.schemeCard')
+        const contentBody = div.querySelector('.contentBody')
+        const deleting = div.querySelector('.deleting')
+        contentBody.style.display = 'none'
+        deleting.style.display = 'flex'
         await props.deleteContainer(container.id)
     }
 
@@ -43,7 +48,7 @@ function SchemeCard(props) {
     }
 
     return (
-        <div className="rounded shadow-lg w-40 h-32 mx-2 flex flex-col justify-between items-center" style={{backgroundColor:COLOR_SIXTH}}>
+        <div className="schemeCard rounded shadow-lg w-40 h-32 mx-2 flex flex-col justify-start items-center" style={{backgroundColor:COLOR_SIXTH}}>
             {props.permission ? (
             <>
                 <div className="w-full flex justify-center items-start">
@@ -53,7 +58,7 @@ function SchemeCard(props) {
                         <Important isImportant={importance} top={true} permission={permission} />
                     </button>
                 </div>
-                <div className="w-full h-full flex flex-col justify-around items-center">
+                <div className="contentBody w-full h-full flex flex-col justify-around items-center" style={{display:'flex'}}>
                     <CTCInput 
                             id={container.id}
                             name={container.name}
@@ -77,6 +82,9 @@ function SchemeCard(props) {
                                 />
                         </div>
                     </div>
+                </div>
+                <div className='deleting w-full h-full flex justify-center items-center' style={{display:'none'}}>
+                    <span className="text-center font-semibold">Deleting...</span>
                 </div>
 
             </>

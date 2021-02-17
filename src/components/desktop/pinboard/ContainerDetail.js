@@ -113,7 +113,7 @@ function ContainerDetail(props) {
                     </div>
                 </div>
                 <div className="flex justify-end items-center space-x-1" style={{minWidth:'100px'}}>
-                    <button className="fas fa-cog"></button>
+                    {/* <button className="fas fa-cog"></button> */}
                     <button onClick={hideDetail} className="fas fa-times"></button>
                 </div>
             </div>

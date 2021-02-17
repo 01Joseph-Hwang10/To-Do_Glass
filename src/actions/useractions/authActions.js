@@ -25,11 +25,11 @@ export const postSignUp = (post_data) => dispatch => {
 
 export const postLogin = (post_data) => dispatch => {
     try {
-        axios
+        let response = axios
         .post(URL_TOKEN,post_data,{withCredentials:true})
         .then(response => {
-            if(response.status === 401) alert("Authorization Failed")
-            if(response.status === 200) {
+            if(Number(response.status) === 401) window.alert("Authorization Failed")
+            if(Number(response.status) === 200) {
                 const user_id = response.data.user_id;
                 if(!window.localStorage.getItem('user_id')) {
                     window.localStorage.setItem('user_id',user_id)
@@ -41,7 +41,9 @@ export const postLogin = (post_data) => dispatch => {
                 window.location.href="/#/";
                 // window.location.reload()
             } 
+            return response.status
                 });
+                return Number(response)
     } catch (error) {
         console.log(error);
         alert("Login error");

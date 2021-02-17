@@ -30,14 +30,14 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
         auth_response = response.Response(data={"user_id":user_id}, status=status.HTTP_200_OK)
 
-        max_age_5min = 5*60
+        max_age_1day = 24*60*60
         # It's too long!!
-        max_age_10years = 10*365*24*60*60
+        max_age_54weeks = 54*7*24*60*60
 
         # Need to add Secure options!!
-        auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_5min,httponly=True)
-        auth_response.set_cookie("refresh_token",value=serializer.validated_data['refresh'],max_age=max_age_10years,httponly=True)
-        auth_response.set_cookie("user_id",value=user_id,max_age=max_age_10years,httponly=True)
+        auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_1day,httponly=True)
+        auth_response.set_cookie("refresh_token",value=serializer.validated_data['refresh'],max_age=max_age_54weeks,httponly=True)
+        auth_response.set_cookie("user_id",value=user_id,max_age=max_age_54weeks,httponly=True)
 
         return auth_response
 
@@ -58,10 +58,10 @@ class CustomTokenRefreshView(TokenRefreshView):
         auth_response = response.Response(serializer.validated_data, status=status.HTTP_200_OK)
             
         # max_age = 365 * 24 * 60 * 60
-        max_age_5min = 5*60
+        max_age_1day = 24*60*60
 
         # Need to add Secure options!!
-        auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_5min,httponly=True)
+        auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_1day,httponly=True)
 
         return auth_response
 
@@ -70,7 +70,6 @@ class LogoutView(generics.RetrieveAPIView):
 
     queryset = user_model.User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    # permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
         auth_response = response.Response(status=status.HTTP_200_OK)
@@ -130,6 +129,7 @@ class UserViewSet(viewsets.ModelViewSet):
                 following_user.save()
             return response.Response(data="Saved successfully")
         except Exception: # Else
+            print(request.data)
             kwargs['partial'] = True
             return self.update(request, *args, **kwargs)
     

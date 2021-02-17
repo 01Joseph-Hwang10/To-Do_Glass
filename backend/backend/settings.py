@@ -182,14 +182,17 @@ REST_FRAMEWORK = {
     ),
 }
 
-DEFAULTS = {
+SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    'REFRESH_TOKEN_LIFETIME': timedelta(weeks=540),
+    'REFRESH_TOKEN_LIFETIME': timedelta(weeks=54),
 
     'AUTH_HEADER_TYPES': ('Bearer',),
+
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
+
     'TOKEN_TYPE_CLAIM': 'token_type',
+
     'JTI_CLAIM': 'jti',
 }
 

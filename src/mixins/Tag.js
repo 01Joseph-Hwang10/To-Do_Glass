@@ -14,15 +14,21 @@ class Tag extends React.Component {
         let bgColor="bg-blue-200"
         if(this.props.bgColor) bgColor = this.props.bgColor
     
-        const OnClick = async () => {
+        const OnClick = async (e) => {
+            const tagDiv = e.target.closest('.tagDiv')
+            const contentBody = tagDiv.querySelector('.contentBody')
+            const deleting = tagDiv.querySelector('.deleting')
+            contentBody.style.display='none'
+            deleting.style.display='block'
+
             const id = tag.id
             await this.props.deleteTag(id)
             if(this.props.update) this.props.update()
         }
         
         return (
-            <div className={["flex items-center justify-center py-1 px-2 rounded-2xl",bgColor].join(' ')}>
-                <span>{tag.name}</span>
+            <div className={["tagDiv flex items-center justify-center py-1 px-2 rounded-2xl",bgColor].join(' ')}>
+                <span className="contentBody" style={{display:'block'}}>{tag.name}</span>
                 {
                     permission ? (
                         <button onClick={OnClick} className="fas fa-times ml-2"></button>
@@ -30,6 +36,7 @@ class Tag extends React.Component {
                         <></>
                     )
                 }
+                <span className="deleting text-sm" style={{display:'none'}}>Deleting...</span>
             </div>
         )
     }

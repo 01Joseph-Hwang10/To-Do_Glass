@@ -25,7 +25,7 @@ class CTCInputShort extends Component {
             const button = e.target
             const currentState = this.props.name
             const div = e.target.parentNode
-            const form = div.childNodes[1]
+            const form = div.querySelector('form')
             const input = form.childNodes[0]
             input.value = currentState
             button.style.display="none"
@@ -43,9 +43,13 @@ class CTCInputShort extends Component {
         const OnSubmit = async e => {
             e.preventDefault()
             const form = e.target
-            const input = form.childNodes[0]
             const div = form.parentNode
-            const button = div.childNodes[0]
+            const span = div.querySelector('span')
+            form.style.display="none"
+            span.style.display='block'
+            
+            const input = form.childNodes[0]
+            const button = div.querySelector('button')
             const inputValue = input.value;
             const dataType = input.name;
             const postData = {}
@@ -63,8 +67,8 @@ class CTCInputShort extends Component {
                     await afterAction()
                 }
             }
+            span.style.display='none'
             button.style.display="block"
-            form.style.display="none"
         };
 
 
@@ -76,6 +80,7 @@ class CTCInputShort extends Component {
                     <form className='w-full h-full' style={{display:'none'}} onSubmit={OnSubmit}>
                         <input className='w-full h-full bg-transparent p-1 border-b-2 border-gray-600' name={this.props.dataType} placeholder={capitalizedDataType}></input>
                     </form>
+                    <span className="text-center font-semibold" style={{display:'none'}}>Loading...</span>
                 </div>
             ) : (
                 <div className="w-full h-full">

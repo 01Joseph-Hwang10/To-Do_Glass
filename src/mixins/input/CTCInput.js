@@ -25,7 +25,7 @@ class CTCInput extends Component {
             const button = e.target
             const currentState = this.props.name
             const div = e.target.parentNode
-            const form = div.childNodes[1]
+            const form = div.querySelector('form')
             const input = form.childNodes[0]
             input.value = currentState
             button.style.display="none"
@@ -44,9 +44,13 @@ class CTCInput extends Component {
             if(e.keyCode === 13 && e.shiftKey === false) {
                 e.preventDefault()
                 const form = e.target.parentNode
-                const input = form.childNodes[0]
                 const div = form.parentNode
-                const button = div.childNodes[0]
+                const span = div.querySelector('span')
+                form.style.display="none"
+                span.style.display='block'
+
+                const input = form.childNodes[0]
+                const button = div.querySelector('button')
                 const inputValue = input.value;
                 const dataType = input.name;
                 const postData = {}
@@ -64,8 +68,8 @@ class CTCInput extends Component {
                         await afterAction()
                     }
                 }
+                span.style.display='none'
                 button.style.display="block"
-                form.style.display="none"
             }
         };
 
@@ -83,6 +87,7 @@ class CTCInput extends Component {
                     <form className='w-full h-full' style={{display:'none'}}>
                         <textarea onKeyUp={resize} onKeyDownCapture={resize} className='w-full h-full bg-transparent p-1 border-b-2 border-gray-600 text-center resize-none overflow-auto break-words' name={this.props.dataType} onKeyDown={OnSubmit} placeholder={capitalizedDataType}></textarea>
                     </form>
+                    <span className="text-center font-semibold" style={{display:'none'}}>Loading...</span>
                 </div>
             ) : (
                 <div className="w-full h-full">
