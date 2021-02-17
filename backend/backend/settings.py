@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
 
 
 # Application definition
@@ -198,9 +198,5 @@ SIMPLE_JWT = {
 
 # Django Cors
 
-CORS_ORIGIN_WHITELIST = (
-    'https://localhost:3000',
-    'https://127.0.0.1:3000',
-    'https://172.19.102.56:3000'
-)
+CORS_ORIGIN_WHITELIST = os.environ.get("CORS_ORIGIN_WHITELIST").split(" ")
 
