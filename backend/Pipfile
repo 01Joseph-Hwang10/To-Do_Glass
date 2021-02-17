@@ -12,6 +12,7 @@ django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 django = "==3.1.5"
 django-dotenv = "*"
+gunicorn = "*"
 
 [dev-packages]
 
