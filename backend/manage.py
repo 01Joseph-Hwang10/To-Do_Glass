@@ -3,8 +3,6 @@
 import os
 import sys
 
-import dotenv
-
 # docker stop $(docker ps -a -q)
 # docker rm $(docker ps -a -q)
 
@@ -12,7 +10,6 @@ import dotenv
 
 
 def main():
-    dotenv.read_dotenv()
 
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
