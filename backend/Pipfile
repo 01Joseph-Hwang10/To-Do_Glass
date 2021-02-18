@@ -15,6 +15,8 @@ django-dotenv = "*"
 gunicorn = "*"
 psycopg2 = "*"
 psycopg2-binary = "*"
+boto3 = "*"
+django-storages = "*"
 
 [dev-packages]
 

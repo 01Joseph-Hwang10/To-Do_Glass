@@ -6,7 +6,7 @@ services:
       context: ./backend
       args:
         DJANGO_ALLOWED_HOSTS: 'ec2-13-124-154-216.ap-northeast-2.compute.amazonaws.com api'
-        SECRET_KEY: 'ek3u^o%t$ei@d43j_z&(8bme&lp24cbf^qr(6&(b=9vx-(l9rv'
+        DJANGO_SECRET_KEY: 'ek3u^o%t$ei@d43j_z&(8bme&lp24cbf^qr(6&(b=9vx-(l9rv'
         DJANGO_CORS_ORIGIN_WHITELIST: 'http://ec2-13-124-154-216.ap-northeast-2.compute.amazonaws.com'
         BACKEND_ADMIN: '36JV9e3gtgrLYJTD'
         RDS_HOSTNAME: 'flglancedbinstance.cnccbx1rihhz.ap-northeast-2.rds.amazonaws.com'
@@ -14,6 +14,9 @@ services:
         RDS_DB_NAME: 'postgres'
         RDS_USERNAME: 'postgres'
         RDS_PASSWORD: '8*7Ld.?{<vw>`L'
+        S3_ACCESS_KEY_ID: 'AKIA3Q7SB7PEC5SQGO4E'
+        S3_SECRET_ACCESS_KEY: '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'
+        S3_BUCKET_NAME: 'flglance-storage-bucket'
     command: gunicorn backend.wsgi --bind 0.0.0.0:8000
     ports:
       - "8000:8000"
