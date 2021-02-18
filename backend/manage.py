@@ -8,6 +8,8 @@ import sys
 
 # docker rmi $(docker images -q)
 
+# sudo kill -9 $(sudo lsof -t -i:80)
+
 
 def main():
 
