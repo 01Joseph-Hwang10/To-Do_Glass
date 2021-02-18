@@ -39,4 +39,4 @@ RUN pip3 install -r requirements.txt
 COPY . /backend/
 RUN python manage.py makemigrations
 RUN python manage.py migrate
-RUN python manage.py collectstatic
+RUN python manage.py collectstatic --no-input
