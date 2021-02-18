@@ -24,9 +24,12 @@ ENV RDS_PASSWORD $RDS_PASSWORD
 RUN mkdir /backend
 WORKDIR /backend
 COPY Pipfile /backend/
+COPY Pipfile.lock /backend/
 EXPOSE 8000
 RUN pip3 install pipenv
-RUN pipenv install
+RUN pip3 install pipenv-to-requirements
+RUN pipenv run pipenv_to_requirements -f
+RUN pip3 install -r requirements.txt
 COPY . /backend/
 RUN python manage.py makemigrations
 RUN python manage.py migrate
