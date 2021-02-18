@@ -17,6 +17,7 @@ services:
         S3_ACCESS_KEY_ID: 'AKIA3Q7SB7PEC5SQGO4E'
         S3_SECRET_ACCESS_KEY: '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'
         S3_BUCKET_NAME: 'flglance-storage-bucket'
+        DEBUG: False
     command: gunicorn backend.wsgi --bind 0.0.0.0:8000
     ports:
       - "8000:8000"

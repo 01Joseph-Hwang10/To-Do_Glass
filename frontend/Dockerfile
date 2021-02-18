@@ -9,4 +9,4 @@ ARG BACKEND_API
 ENV BACKEND_API $BACKEND_API
 
 RUN npm install
-RUN npm build
+RUN npm run-script build
