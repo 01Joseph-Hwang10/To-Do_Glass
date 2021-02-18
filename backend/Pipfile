@@ -14,6 +14,7 @@ django = "==3.1.5"
 django-dotenv = "*"
 gunicorn = "*"
 psycopg2 = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
