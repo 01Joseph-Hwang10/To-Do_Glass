@@ -39,12 +39,12 @@ function TaskCard(props) {
 
     const displayDescription = (e) => {
         const button = e.target
-        const parentDiv = button.parentNode.parentNode
-        const handle = parentDiv.childNodes[0]
-        const name = parentDiv.childNodes[1]
-        const buttons = parentDiv.childNodes[2]
-        const description = parentDiv.childNodes[3]
-        const backButton = description.childNodes[0]
+        const parentDiv = button.closest('.taskCard')
+        const handle = parentDiv.querySelector('.handle')
+        const name = parentDiv.querySelector('.contentBody')
+        const buttons = parentDiv.querySelector('.buttons')
+        const description = parentDiv.querySelector('.description')
+        const backButton = description.querySelector('.description__backButton')
         handle.style.display = "none";
         name.style.display = "none";
         buttons.style.display = "none";
@@ -62,7 +62,7 @@ function TaskCard(props) {
 
     return (
         <div className="taskCard w-28 relative text-gray-900 flex flex-col justify-start items-center border-b-4" style={{backgroundColor:color}}>
-            <div className="w-full justify-center items-start h-8" style={{display:'flex'}}>
+            <div className="handle w-full justify-center items-start h-8" style={{display:'flex'}}>
                 <span className="text-center fas fa-grip-lines-vertical text-xl"></span>
             </div>
             <div className="contentBody w-full text-xl text-center" style={{display:'block'}}>
@@ -79,7 +79,7 @@ function TaskCard(props) {
             <div className="deleting w-full text-xl text-center flex justify-center items-center" style={{display:'none'}}>
                 <span className="font-semibold">Deleting...</span>
             </div>
-            <div className="justify-center items-center" style={{display:'flex'}}>
+            <div className="buttons justify-center items-center" style={{display:'flex'}}>
                 {
                     permission ? (
                     <>
@@ -92,8 +92,8 @@ function TaskCard(props) {
                     )
                 }
             </div>
-            <div className="w-full text-sm text-center bg-transparent rounded flex-col justify-start items-center" style={{display:'none'}}>
-                <div className="w-full flex justify-end items-center px-2 pt-2"><button className="fas fa-times"></button></div>
+            <div className="description w-full text-sm text-center bg-transparent rounded flex-col justify-start items-center" style={{display:'none'}}>
+                <div className="description__backButton w-full flex justify-end items-center px-2 pt-2"><button className="fas fa-times"></button></div>
                 <CTCInput 
                 id={task.id}
                 name={task.description || "No Description"}
