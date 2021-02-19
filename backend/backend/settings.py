@@ -228,5 +228,7 @@ SIMPLE_JWT = {
 
 # Django Cors
 
+CORS_ALLOW_CREDENTIALS = True
+
 CORS_ORIGIN_WHITELIST = os.environ.get("DJANGO_CORS_ORIGIN_WHITELIST").split(" ")
 

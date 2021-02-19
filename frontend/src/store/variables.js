@@ -1,5 +1,5 @@
 // Base url
-export const URL_PROXY = process.env.BACKEND_API;
+export const URL_PROXY = `http://ec2-13-125-77-159.ap-northeast-2.compute.amazonaws.com:8000`;
 // Auth url
 export const URL_SIGN_UP = `${URL_PROXY}/api/users-api/sign-up/`;
 export const URL_TOKEN = `${URL_PROXY}/api/users-api/token/`;
