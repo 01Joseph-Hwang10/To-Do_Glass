@@ -13,11 +13,10 @@ import { COLOR_FIFTH, COLOR_FOURTH } from '../../store/variables';
 class Overview extends Component {
 
     componentDidMount() {
-        const user_id = Number(window.location.hash.replace(/\D/g,''))
-        const my_id = Number(window.localStorage.getItem('user_id'))
-        if(user_id===my_id){
-            this.props.getProfile(user_id)
-        } else {
+        if(this.props.isAuthenticated) {
+            const user_id = Number(window.location.hash.replace(/\D/g,''))
+            const my_id = Number(window.localStorage.getItem('user_id'))
+            if(user_id===my_id) this.props.getProfile(my_id)
             this.props.getUserInfo(user_id)
         }
     }
@@ -25,11 +24,12 @@ class Overview extends Component {
     render() {
 
         let isMyProfile = false;
-        let Profile = this.props.Profile
+        let Profile;
+        if(this.props.Profile && this.props.Profile.data) Profile = this.props.Profile.data
         const user_id = Number(window.location.hash.replace(/\D/g,''))
         const my_id = Number(window.localStorage.getItem('user_id'))
         if(user_id===my_id) isMyProfile = true
-        if(!isMyProfile && this.props.Storage) Profile = this.props.Storage.data
+        if(!isMyProfile && this.props.Storage && this.props.Storage.data) Profile = this.props.Storage.data
 
         return (
             <section className="w-full">
@@ -83,7 +83,7 @@ class Overview extends Component {
 
 const mapStateToProps = state => {
     return {
-        Profile: state.userInfo.Profile.data,
+        Profile: state.userInfo.Profile,
         Storage: state.userInfo.Storage,
         isMyProfile: state.userInfo.isMyProfile,
         isAuthenticated: state.login.isAuthenticated
