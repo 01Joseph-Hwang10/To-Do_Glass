@@ -5,7 +5,7 @@ import sys
 
 # docker stop $(docker ps -a -q)
 # docker rm $(docker ps -a -q)
-# docker volume rm $(docker volume ls -q)cd 
+# docker volume rm $(docker volume ls -q)
 # docker rmi $(docker images -q)
 
 # sudo kill -9 $(sudo lsof -t -i:80)
