@@ -34,7 +34,7 @@ class Overview extends Component {
         return (
             <section className="w-full">
                 {
-                    this.props.Profile ? (
+                    Profile && Profile.get_my_projects ? (
                         <div className="w-full">
                             <div className="w-full flex justify-center items-center">
                                 <ProfileCard 
@@ -43,7 +43,7 @@ class Overview extends Component {
                                 />
                             </div>
                             <div className="w-full mt-2">
-                                <ProjectSection projects={Profile.get_my_projects} Profile={Profile} isMyProfile={isMyProfile} />
+                                <ProjectSection Profile={Profile} isMyProfile={isMyProfile} />
                             </div>
                         </div>
                     ) : (
