@@ -81,7 +81,7 @@ export default function(state=initialState,action) {
             return {
                 ...state,
                 Profile:action.payload.Profile,
-                UserInfo:action.payload.UserInfo,
+                Storage:action.payload.UserInfo,
                 isMyProfile:action.payload.isMyProfile,
             }
         case GET_USER_INFO:

@@ -45,7 +45,7 @@ class SignUpForm extends React.Component {
             confirmPassword.value="";
 
             const span = document.querySelector(".emailSignUp__failed")
-            setTimeout(()=>{span.style.display='block'},500)
+            setTimeout(()=>{span.style.display='block'},1000)
         };
     
         return (
