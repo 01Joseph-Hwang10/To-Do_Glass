@@ -43,7 +43,7 @@ class LoginForm extends React.Component {
                 // if(response && response !== 200) {
                 //     span.style.display='block'
                 // }
-                setTimeout(()=>{span.style.display='block'},500)
+                setTimeout(()=>{span.style.display='block'},1000)
             } else {
                 alert("Currently, only desktop and tablet pc are supported. Sorry for the inconvenience")
             }
