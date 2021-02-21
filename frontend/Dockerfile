@@ -3,10 +3,7 @@ USER root
 
 RUN mkdir /frontend
 WORKDIR /frontend
-COPY . /frontend
-
-ARG BACKEND_API
-ENV BACKEND_API $BACKEND_API
+COPY . /front
 
 RUN npm install
 RUN npm run-script build
