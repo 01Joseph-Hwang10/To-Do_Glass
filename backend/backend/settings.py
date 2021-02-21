@@ -35,12 +35,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+SECRET_KEY = 'ek3u^o%t$ei@d43j_z&(8bme&lp24cbf^qr(6&(b=9vx-(l9rv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('DEBUG')=='True')
+DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
+if not DEBUG:
+    ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
+else:
+    ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
 # Application definition
@@ -119,7 +122,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # sudo apt install python3-dev libpq-dev
 
-if 'RDS_HOSTNAME' in os.environ:
+if 'RDS_HOSTNAME' in os.environ and not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -181,24 +184,27 @@ USE_TZ = True
 
 # Amazon S3
 
-DEFAULT_FILE_STORAGE = "backend.custom_storages.UploadStorage"
-STATICFILES_STORAGE = "backend.custom_storages.StaticStorage"
-AWS_ACCESS_KEY_ID = os.environ.get("S3_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("S3_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.environ.get("S3_BUCKET_NAME")
-AWS_AUTO_CREATE_BUCKET = True
-AWS_BUCKET_ACL = "public-read"
+if not DEBUG:
+    DEFAULT_FILE_STORAGE = "backend.custom_storages.UploadStorage"
+    STATICFILES_STORAGE = "backend.custom_storages.StaticStorage"
+    AWS_ACCESS_KEY_ID = os.environ.get("S3_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("S3_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = os.environ.get("S3_BUCKET_NAME")
+    AWS_AUTO_CREATE_BUCKET = True
+    AWS_BUCKET_ACL = "public-read"
 
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
-MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/uploads/"
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/uploads/"
+else:
+    STATIC_URL = '/static/'
+    MEDIA_URL = '/media/'
 
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'staticfiles')
 # ]
 
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
-
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'uploads')
 
@@ -243,5 +249,13 @@ SIMPLE_JWT = {
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ORIGIN_WHITELIST = os.environ.get("DJANGO_CORS_ORIGIN_WHITELIST").split(" ")
+if not DEBUG:
+    CORS_ORIGIN_WHITELIST = os.environ.get("DJANGO_CORS_ORIGIN_WHITELIST").split(" ")
+else:
+    CORS_ORIGIN_WHITELIST = (
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
+        'https://localhost:3000',
+        'https://127.0.0.1:3000'
+        )
 
