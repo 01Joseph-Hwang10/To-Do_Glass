@@ -17,15 +17,22 @@ from pathlib import Path
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-sentry_sdk.init(
-    dsn="https://0fadfdb1ef064f95b3efc24a3b94651c@o496976.ingest.sentry.io/5644483",
-    integrations=[DjangoIntegration()],
-    traces_sample_rate=1.0,
 
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
-    send_default_pii=True
-)
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = bool(os.environ.get('DEBUG')!="False")
+
+if not DEBUG:
+    sentry_sdk.init(
+        dsn="https://0fadfdb1ef064f95b3efc24a3b94651c@o496976.ingest.sentry.io/5644483",
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=1.0,
+
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True
+    )
+else:
+    pass
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,9 +43,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'ek3u^o%t$ei@d43j_z&(8bme&lp24cbf^qr(6&(b=9vx-(l9rv'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('DEBUG')!="False")
 
 if not DEBUG:
     ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
