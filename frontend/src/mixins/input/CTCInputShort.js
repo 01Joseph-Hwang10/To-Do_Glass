@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { simulatePressingKey } from '../../functions/keyPressEvent';
 import { capitalize } from '../../functions/stringFunctions';
 // import PropTypes from 'prop-types'
 
@@ -32,7 +31,6 @@ class CTCInputShort extends Component {
             button.style.display="none"
             form.style.display="block"
             input.focus()
-            simulatePressingKey(37)
             document.addEventListener('click',(e)=>{
                 if(e.target !== button && e.target !== form && e.target !== input) {
                     button.style.display="block"

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { simulatePressingKey } from '../../functions/keyPressEvent';
 import { capitalize } from '../../functions/stringFunctions';
 // import PropTypes from 'prop-types'
 
@@ -17,10 +16,12 @@ class CTCInput extends Component {
     afterActionInput(Optional): the input afterAction recieves
     */
 
+
     render() {
 
         const textAlign = this.props.textAlign || "center"
         const capitalizedDataType = capitalize(this.props.dataType)
+        const textareaClassName = this.props.key
         
         const OnClick = e => {
             const button = e.target
@@ -32,13 +33,16 @@ class CTCInput extends Component {
             button.style.display="none"
             form.style.display="block"
             input.focus()
-            simulatePressingKey(37)
             document.addEventListener('click',(e)=>{
                 if(e.target !== button && e.target !== form && e.target !== input) {
                     button.style.display="block"
                     form.style.display="none"
                 }
             })
+
+            const textarea = form.querySelector('textarea')
+            textarea.style.height = '1px'
+            textarea.style.height = (12+textarea.scrollHeight) +'px'
         };
 
 
@@ -87,7 +91,7 @@ class CTCInput extends Component {
                 <div className='w-full h-full bg-transparent'>
                     <button className='w-full h-full font-semibold border-2 border-transparent hover:border-gray-300 rounded-lg' style={{display:'block',textAlign:textAlign}} onClick={OnClick}>{this.props.name}</button>
                     <form className='w-full h-full' style={{display:'none'}}>
-                        <textarea required onKeyUp={resize} onKeyDownCapture={resize} className='w-full h-full bg-transparent p-1 border-b-2 border-gray-600 text-center resize-none overflow-auto break-words' name={this.props.dataType} onKeyDown={OnSubmit} placeholder={capitalizedDataType}></textarea>
+                        <textarea required onKeyUp={resize} onKeyDownCapture={resize} className={['w-full h-full bg-transparent p-1 border-b-2 border-gray-600 text-center resize-none overflow-auto break-words',textareaClassName].join(' ')} name={this.props.dataType} onKeyDown={OnSubmit} placeholder={capitalizedDataType}></textarea>
                     </form>
                     <span className="text-center font-semibold" style={{display:'none'}}>Loading...</span>
                 </div>

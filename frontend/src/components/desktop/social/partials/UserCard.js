@@ -69,12 +69,12 @@ class UserCard extends Component {
                         {
                             permission ? (
                                 <div className="w-full flex justify-between items-center p-2 border-2 rounded border-gray-400">
-                                    <div><Avatar user={item} /></div>
+                                    <div><Avatar user={item} id={this.props.id} /></div>
                                     <div><button onClick={switchFollow} className="py-1 px-2 font-semibold rounded" style={{backgroundColor:bgColor,color:color}}>{innerText}</button></div>
                                 </div>
                             ) : (
                                 <div className="w-full flex justify-start items-center">
-                                    <Avatar user={item} />
+                                    <Avatar user={item} id={this.props.id} />
                                 </div>
                             )
                         }

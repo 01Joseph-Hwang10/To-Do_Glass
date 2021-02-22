@@ -8,10 +8,12 @@ function Avatar(props) {
 
     const user = props.user
 
+    const id = (function(){return(props.id?props.id:user.id)})()
+
     const OnClick = () => {
         props.clearProject()
         props.clearContainer()
-        window.location.href = `/#/${user.id}/home`
+        window.location.href = `/#/${id}/home`
         window.location.reload()
     }
 

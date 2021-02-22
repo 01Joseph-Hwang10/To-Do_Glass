@@ -2,7 +2,7 @@
 import React from 'react'
 // Redux
 import { connect } from 'react-redux'
-import { updateContainer,getContainer } from "../../../actions/todoactions/containerActions";
+import { updateContainer,getContainer, getPrivateContainer } from "../../../actions/todoactions/containerActions";
 // etc
 import { COLOR_THIRD } from '../../../store/variables'
 import PropTypes from 'prop-types'
@@ -14,6 +14,11 @@ function ContainerDetail(props) {
 
     const container = props.container
     const permission = props.permission
+    const isPrivate = props.isPrivate
+    const containerDescriptionClassName = ['containerDescription',String(container.id)].join('')
+    const containerNameClassName = ['containerName',String(container.id)].join('')
+
+    const getContainer = (function(){return(isPrivate?props.getPrivateContainer:props.getContainer)})()
 
     const hideDetail = (e) => {
         const containerDetail = e.target.closest('.containerDetail')
@@ -21,42 +26,38 @@ function ContainerDetail(props) {
         div.style.borderWidth = '0px'
         div.style.borderColor = "#E5E7EB"
         div.style.borderRadius = '0'
-        containerDetail.style.maxHeight = '0'
+        containerDetail.style.height = '0'
         containerDetail.style.borderBottomWidth = '0'
         containerDetail.style.opacity = 0
         containerDetail.style.zIndex = 0
-        setTimeout(()=>{containerDetail.style.transition = 'max-height 0.5s ease, border-bottom-width 0.1s ease-in-out'},510)
+        setTimeout(()=>{containerDetail.style.transition = 'height 0.5s ease-in-out, border-bottom-width 0.1s ease-in-out'},510)
     }
 
     const showForm = (e) => {
         const editButton = e.target
-        const div = editButton.parentNode.parentNode
-        const saveButton = div.getElementsByClassName('formElement')[1]
-        const cancelButton = div.getElementsByClassName('formElement')[2]
-        const span = div.getElementsByClassName('readElement')[0]
-        const textarea = div.getElementsByClassName('formElement')[0]
+        const div = editButton.closest('.descriptionParentDiv')
+        const saveButton = div.querySelector('.saveButton')
+        const cancelButton = div.querySelector('.cancelButton')
+        const textarea = div.querySelector('textarea')
         editButton.style.display = 'none'
         saveButton.style.display = 'block'
         cancelButton.style.display = 'block'
-        span.style.display = 'none'
-        textarea.style.display = 'block'
+        textarea.removeAttribute('readonly')
         div.style.backgroundColor = '#DBEAFE'
         textarea.focus()
     }
 
     const hideForm = (e) => {
         const button = e.target
-        const div = button.parentNode.parentNode
-        const editButton = div.getElementsByClassName('readElement')[1]
-        const saveButton = div.getElementsByClassName('formElement')[1]
-        const cancelButton = div.getElementsByClassName('formElement')[2]
-        const span = div.getElementsByClassName('readElement')[0]
-        const textarea = div.getElementsByClassName('formElement')[0]
+        const div = button.closest('.descriptionParentDiv')
+        const editButton = div.querySelector('.editButton')
+        const saveButton = div.querySelector('.saveButton')
+        const cancelButton = div.querySelector('.cancelButton')
+        const textarea = div.querySelector('textarea')
         editButton.style.display = 'block'
         saveButton.style.display = 'none'
         cancelButton.style.display = 'none'
-        span.style.display = 'block'
-        textarea.style.display = 'none'
+        textarea.readOnly = 'true'
         div.style.backgroundColor = '#EFF6FF'
         textarea.blur()
     }
@@ -69,7 +70,7 @@ function ContainerDetail(props) {
             user_id:id
         }
         await props.updateContainer(postData,container.id)
-        await props.getContainer(container.id)
+        await getContainer(container.id)
     }
 
     const updateDescription = async (e) => {
@@ -81,8 +82,14 @@ function ContainerDetail(props) {
             user_id:localStorage.getItem('user_id')
         }
         await props.updateContainer(postData,container.id)
-        await props.getContainer(container.id)
+        // await getContainer(container.id)
         hideForm(e)
+    }
+
+    const resize = (e) => {
+        const textarea = e.target
+        textarea.style.height = '1px'
+        textarea.style.height = (12+textarea.scrollHeight) +'px'
     }
 
     return (
@@ -100,14 +107,14 @@ function ContainerDetail(props) {
                             </div>
                         )
                     }
-                    <div>
+                    <div className={containerNameClassName}>
                         <CTCInputShort 
                         id={container.id}
                         name={container.name}
                         permission={permission}
                         dataType={'name'}
                         action={props.updateContainer}
-                        afterAction={props.getContainer}
+                        afterAction={getContainer}
                         afterActionInput={container.id}
                         />
                     </div>
@@ -117,13 +124,12 @@ function ContainerDetail(props) {
                     <button onClick={hideDetail} className="fas fa-times"></button>
                 </div>
             </div>
-            <div className="w-full px-2 pb-2 flex flex-col rounded" style={{transition:'all 0.2s ease-in-out',backgroundColor:'#EFF6FF'}}>
-                <span className="readElement p-2 w-full" style={{display:'block'}}>{container.description}</span>
-                <textarea defaultValue={container.description} className="formElement resize-none bg-transparent p-2 w-full outline-none" style={{display:'none'}}></textarea>
+            <div className="descriptionParentDiv w-full px-2 pb-2 flex flex-col rounded" style={{transition:'all 0.2s ease-in-out',backgroundColor:'#EFF6FF'}}>
+                <textarea readOnly onKeyDownCapture={resize} onKeyUp={resize} defaultValue={container.description} className={["resize-none bg-transparent p-2 w-full outline-none",containerDescriptionClassName].join(' ')}></textarea>
                 <div className="w-full flex justify-start items-center px-2 mt-1 space-x-1">
-                    <button onClick={showForm} className="readElement px-4 py-px text-white font-semibold rounded" style={{backgroundColor:COLOR_THIRD,display:'block'}}>Edit</button>
-                    <button onClick={updateDescription} className="formElement px-4 py-px text-white font-semibold rounded bg-pink-300" style={{display:'none'}}>Save</button>
-                    <button onClick={hideForm} className="formElement px-4 py-px text-white font-semibold rounded bg-gray-300" style={{display:'none'}}>Cancel</button>
+                    <button onClick={showForm} className="editButton px-4 py-px text-white font-semibold rounded" style={{backgroundColor:COLOR_THIRD,display:'block'}}>Edit</button>
+                    <button onClick={updateDescription} className="saveButton px-4 py-px text-white font-semibold rounded bg-pink-300" style={{display:'none'}}>Save</button>
+                    <button onClick={hideForm} className="cancelButton px-4 py-px text-white font-semibold rounded bg-gray-300" style={{display:'none'}}>Cancel</button>
                 </div>
             </div>
         </div>
@@ -133,7 +139,8 @@ function ContainerDetail(props) {
 ContainerDetail.propTypes = {
     updateContainer:PropTypes.func.isRequired,
     getContainer:PropTypes.func.isRequired,
+    getPrivateContainer:PropTypes.func.isRequired,
 }
 
-export default connect(null,{updateContainer,getContainer})(ContainerDetail)
+export default connect(null,{updateContainer,getContainer,getPrivateContainer})(ContainerDetail)
 

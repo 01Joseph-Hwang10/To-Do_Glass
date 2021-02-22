@@ -67,6 +67,7 @@ function TaskCard(props) {
             </div>
             <div className="contentBody w-full text-xl text-center" style={{display:'block'}}>
                 <CTCInput 
+                key={['taskName',String(task.id)].join('')}
                 id={task.id}
                 name={task.name}
                 permission={permission}
@@ -95,6 +96,7 @@ function TaskCard(props) {
             <div className="description w-full text-sm text-center bg-transparent rounded flex-col justify-start items-center" style={{display:'none'}}>
                 <div className="description__backButton w-full flex justify-end items-center px-2 pt-2"><button className="fas fa-times"></button></div>
                 <CTCInput 
+                key={['taskDescription',String(task.id)].join('')}
                 id={task.id}
                 name={task.description || "No Description"}
                 permission={permission}

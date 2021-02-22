@@ -60,14 +60,15 @@ function SchemeCard(props) {
                 </div>
                 <div className="contentBody w-full h-full flex flex-col justify-around items-center" style={{display:'flex'}}>
                     <CTCInput 
-                            id={container.id}
-                            name={container.name}
-                            permission={permission}
-                            dataType={"name"}
-                            action={props.updateContainer}
-                            // afterAction={props.getProject}
-                            // afterActionInput={projectId}
-                            />
+                        key={['containerName',String(container.id)].join('')}
+                        id={container.id}
+                        name={container.name}
+                        permission={permission}
+                        dataType={"name"}
+                        action={props.updateContainer}
+                        // afterAction={props.getProject}
+                        // afterActionInput={projectId}
+                        />
                     <div className="mt-px" style={{display:'none'}}>
                         <button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold" onClick={switchDisplay}>Detail</button>
                         <div className="absolute w-full right-1 bg-gray-200 rounded z-20" style={{display:'none',minWidth:"30px"}}>

@@ -38,8 +38,6 @@ class Overview extends Component {
         const isMyProfile = this.props.isMyProfile
         if(!isMyProfile && this.props.Storage && this.props.Storage.data) Profile = this.props.Storage.data
 
-        console.log(Profile,Profile.get_my_projects)
-
         return (
             <section className="w-full">
                 {

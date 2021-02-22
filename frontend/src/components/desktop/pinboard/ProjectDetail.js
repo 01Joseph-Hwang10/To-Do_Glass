@@ -11,6 +11,7 @@ function ProjectDetail(props) {
 
     const projectId = props.project.id
     const description = props.project.description || "No Description"
+    const projectDetailClassName = ['projectDetail',String(projectId)].join('')
     
     const showForm = (e) => {
         const editButton = e.target
@@ -71,12 +72,21 @@ function ProjectDetail(props) {
         textarea.style.height = (12+textarea.scrollHeight) +'px'
     }
 
+    let initialResize = setInterval(() => {
+        if(document.querySelector(`.${projectDetailClassName}`)) {
+            const textarea = document.querySelector(`.${projectDetailClassName}`)
+            textarea.style.height = '1px'
+            textarea.style.height = (12+textarea.scrollHeight) +'px'
+            clearInterval(initialResize)
+        }
+    }, 100);
+
     return (
         <div className="projectDetail w-full pb-2">
             {props.permission ? (
                 <div className="w-full">
                     <div className="w-full opacity-90 p-2 py-4 mb-1 rounded text-white shadow-inner" style={{backgroundColor:COLOR_SECOND,transition:"all 0.5s ease-in-out"}}>
-                        <textarea onKeyUp={resize} onKeyDown={resize} defaultValue={description} className="textArea bg-transparent outline-none border-none w-full resize-none whitespace-pre-line" readOnly placeholder="Write down the description below"></textarea>
+                        <textarea onKeyUp={resize} onKeyDown={resize} defaultValue={description} className={["textArea bg-transparent outline-none border-none w-full resize-none whitespace-pre-line",projectDetailClassName].join(' ')} readOnly placeholder="Write down the description below"></textarea>
                     </div>
                     <div className="w-full flex justify-end">
                         <button onClick={showForm} className="showForm px-3 py-1 rounded font-semibold" style={{display:'block',backgroundColor:COLOR_THIRD,color:COLOR_FIFTH}}>Edit</button>

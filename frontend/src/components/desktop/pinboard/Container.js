@@ -22,7 +22,8 @@ import useInterval from '../../../hooks/useInterval';
 
 function Container(props) {
 
-    const getContainer = (function(){return(props.isPrivate?props.getPrivateContainer:props.getContainer)})()
+    const isPrivate = props.isPrivate
+    const getContainer = (function(){return(isPrivate?props.getPrivateContainer:props.getContainer)})()
 
     let container=props.container;
     const [tasks,updateTasks] = useState((container&&container.get_tasks?container.get_tasks.sort(sortByOrder):[]))
@@ -116,8 +117,8 @@ function Container(props) {
         <div className="container w-full flex flex-col justify-center items-center bg-transparent h-full" style={{borderWidth:'0px',borderBottomWidth:'2px',borderColor:"#E5E7EB", transition:'all 0.1s ease-in-out',borderRadius:'0'}}>
             { container && tasks ? (
                 <>
-                <div className="containerDetail w-full flex flex-col" style={{opacity:0,maxHeight:'0',borderBottomWidth:'0',zIndex:0}}>
-                    <ContainerDetail container={container} permission={permission} />
+                <div className="containerDetail w-full flex flex-col" style={{opacity:0,height:'0',borderBottomWidth:'0',zIndex:0}}>
+                    <ContainerDetail isPrivate={isPrivate} container={container} permission={permission} />
                 </div>
                 <div className="w-full flex justify-center items-center bg-transparent">
                     <section className="containerHeader flex justify-center items-center" style={{width:"8.4%",transition:"all 0.4s ease-in-out"}}>

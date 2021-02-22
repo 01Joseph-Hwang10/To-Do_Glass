@@ -1,11 +1,12 @@
 
 
+// not supported-ish
 export const simulatePressingKey = (keycode ,element=document) => {
     var keyboardEvent = element.createEvent('KeyboardEvent');
     var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? 'initKeyboardEvent' : 'initKeyEvent';
 
     keyboardEvent[initMethod](
-    'keydown', // event type: keydown, keyup, keypress
+    'keypress', // event type: keydown, keyup, keypress
     true, // bubbles
     true, // cancelable
     window, // view: should be window
