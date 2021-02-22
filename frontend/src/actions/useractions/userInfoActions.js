@@ -7,7 +7,7 @@ import { GET_PROFILE, CLEAR_PROFILE, PROFILE_MINE, PROFILE_NOT_MINE, GET_USER_IN
 
 // Authenticated
 
-export const isMyProfile = () => dispatch => {
+export const myProfile = () => dispatch => {
     dispatch({
         type:PROFILE_MINE,
         payload:{
@@ -28,7 +28,7 @@ export const notMyProfile = () => dispatch => {
 
 export const getProfile = (user_id) => async dispatch => {
     await axios
-    .get([URL_PUBLIC_PROFILE,user_id,'/'].join(''),{withCredentials:true})
+    .get([URL_PROFILE,user_id,'/'].join(''),{withCredentials:true})
     .then(response => dispatch({
         type:GET_PROFILE,
         payload:{

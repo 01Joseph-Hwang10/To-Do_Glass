@@ -2,7 +2,7 @@
 import React from 'react'
 // Redux
 import { connect } from 'react-redux';
-import {getProject,clearProject,createProject} from '../../../actions/todoactions/projectActions';
+import {getProject,clearProject,createProject, getPrivateProject} from '../../../actions/todoactions/projectActions';
 import {clearContainer} from  '../../../actions/todoactions/containerActions';
 import { getProfile } from "../../../actions/useractions/userInfoActions";
 // etc
@@ -21,14 +21,23 @@ function ProjectSection(props) {
         projectsCount = Number(Profile.get_my_projects.length)
         myProjects = Profile.get_my_projects
     }
+    if(Profile && Profile.get_public_projects) {
+        projectsCount = Number(Profile.get_public_projects.length)
+        myProjects = Profile.get_public_projects
+    }
     const userId = localStorage.getItem('user_id')
 
     const getProject = async (e) => {
         e.preventDefault();
         props.clearContainer()
         props.clearProject()
-        const project_id = e.target.childNodes[0].value;
-        await props.getProject(project_id);
+        const project_id = e.target.querySelector('.projectId').value;
+        const isPrivate = e.target.querySelector('.isPrivate').value;
+        if(isPrivate==='true') {
+            await props.getPrivateProject(project_id)
+        } else {
+            await props.getProject(project_id);
+        }
     };
 
     const createProject = async (e) => {
@@ -56,13 +65,14 @@ function ProjectSection(props) {
         <div className="w-full">
             <div className="w-full flex flex-col justify-start">
                 {
-                    Profile && Profile.get_my_projects ? (
+                    Profile && (Profile.get_my_projects || Profile.get_public_projects) ? (
                         <>
                         {
                             myProjects.map(project => {
                                 return (
                                 <form key={project.id} className="w-full" onSubmit={getProject}>
-                                    <input className="hidden" value={project.id} readOnly></input>
+                                    <input className="projectId hidden" name="id" value={project.id} readOnly></input>
+                                    <input className="isPrivate hidden" name="isPrivate" value={project.isPrivate} readOnly></input>
                                     <button className="w-full">
                                         <ProjectCard 
                                         {...project}
@@ -96,11 +106,12 @@ function ProjectSection(props) {
 }
 
 
-const actions = {getProject,clearProject,clearContainer,getProfile,createProject}
+const actions = {getProject,getPrivateProject,clearProject,clearContainer,getProfile,createProject}
 
 
 ProjectSection.propTypes = {
     getProject:PropTypes.func.isRequired,
+    getPrivateProject:PropTypes.func.isRequired,
     getProfile:PropTypes.func.isRequired,
     createProject:PropTypes.func.isRequired,
     clearProject:PropTypes.func.isRequired,

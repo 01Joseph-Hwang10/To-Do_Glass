@@ -42,11 +42,16 @@ export default function(state=initialState,action) {
             }
         }
         case DELETE_CONTAINER:{
-            const id = action.payload
+            const id = Number(action.payload)
             let project = state.Project
             for(let i=0; i<project.get_containers.length; i++) {
-                if(Number(project.get_containers[i].id)===Number(id)) {
+                if(Number(project.get_containers[i].id)===id) {
                     project.get_containers.splice(i,1)
+                }
+            }
+            for(let j=0; j<project.get_container_ids.length; j++) {
+                if(Number(project.get_container_ids[j])===id) {
+                    project.get_container_ids.splice(j,1)
                 }
             }
             return {

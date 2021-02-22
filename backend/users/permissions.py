@@ -16,7 +16,6 @@ class IsAllowedToWrite(permissions.IsAuthenticated):
         cookie=get_cookie(request)
         isAuthenticated = bool(
             request.user == obj and
-            int(cookie['user_id']) == int(request.data['user_id']) and
             int(cookie['user_id']) == int(obj.id)
         )
         return isAuthenticated

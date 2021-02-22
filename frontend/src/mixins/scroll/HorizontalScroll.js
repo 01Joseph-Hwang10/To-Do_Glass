@@ -55,8 +55,8 @@ function HorizontalScroll(props) {
 
     return (
         <div className="scrollerParentDiv relative w-full">
-            <button onClick={scrollLeft} className='fas fa-chevron-circle-left absolute left-2 text-3xl z-20' style={{top:"30%",color:COLOR_FIRST,display:(function(){return(scrollButtonVisible && !leftOnEdge?'block':'none')})()}}></button>
-            <button onClick={scrollRight} className='fas fa-chevron-circle-right absolute right-2 text-3xl z-20' style={{top:"30%",color:COLOR_FIRST,display:(function(){return(scrollButtonVisible && !rightOnEdge?'block':'none')})()}}></button>
+            <button onClick={scrollLeft} className='leftButton fas fa-chevron-circle-left absolute left-2 text-3xl z-20' style={{top:"30%",color:COLOR_FIRST,display:(function(){return(scrollButtonVisible && !leftOnEdge?'block':'none')})()}}></button>
+            <button onClick={scrollRight} className='rightButton fas fa-chevron-circle-right absolute right-2 text-3xl z-20' style={{top:"30%",color:COLOR_FIRST,display:(function(){return(scrollButtonVisible && !rightOnEdge?'block':'none')})()}}></button>
             <DragDropContext onDragEnd={props.onDragEnd}>
                 <Droppable droppableId="card" direction="horizontal">
                     {

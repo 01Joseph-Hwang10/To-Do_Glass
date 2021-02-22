@@ -60,6 +60,7 @@ function ContainerBox(props) {
                         id={container_id} 
                         permission={permission}
                         container={container}
+                        isPrivate={project.isPrivate}
                          />
                     )
                 })

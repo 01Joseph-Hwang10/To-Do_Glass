@@ -1,7 +1,6 @@
+from django.db.models import Q
 from django.contrib.auth.models import AbstractUser
-from django.conf import settings
 from django.db import models
-from rest_framework.authtoken.models import Token
 
 class User(AbstractUser):
 
@@ -24,4 +23,7 @@ class User(AbstractUser):
 
     def get_my_projects(self):
         return self.project_created_user.all().values()
+
+    def get_public_projects(self):
+        return self.project_created_user.filter(Q(isPrivate=False)).values()
 

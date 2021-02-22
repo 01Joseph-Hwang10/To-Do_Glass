@@ -19,6 +19,22 @@ export const getContainer = (id) => async dispatch => {
     return response
     }
 
+export const getPrivateContainer = (id) => async dispatch => {
+    let response = await axios
+    .get([URL_CONTAINER,id,'/'].join(''),{withCredentials:true})
+    .then(response => {
+        dispatch({
+            type:GET_CONTAINER,
+            payload:{
+                containerId:response.data.id,
+                container:response.data
+            }
+        })
+        return response.data
+    })
+    return response
+    }
+
 export const createContainer = (post_data) => async dispatch => {
     let response = await axios
     .post(URL_CONTAINER,post_data,{withCredentials:true})

@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux';
-import {getProfile, getUserInfo} from '../../actions/useractions/userInfoActions';
+import {getProfile, getUserInfo, myProfile, notMyProfile} from '../../actions/useractions/userInfoActions';
 // etc
 import PropTypes from 'prop-types';
 // Components
@@ -23,18 +23,27 @@ class Overview extends Component {
 
     render() {
 
-        let isMyProfile = false;
         let Profile;
         if(this.props.Profile && this.props.Profile.data) Profile = this.props.Profile.data
+
         const user_id = Number(window.location.hash.replace(/\D/g,''))
         const my_id = Number(window.localStorage.getItem('user_id'))
-        if(user_id===my_id) isMyProfile = true
+        // const isMyProfile = (function(){return(user_id===my_id?true:false)})()
+        if(user_id===my_id) {
+            this.props.myProfile()
+        } else {
+            this.props.notMyProfile()
+        }
+
+        const isMyProfile = this.props.isMyProfile
         if(!isMyProfile && this.props.Storage && this.props.Storage.data) Profile = this.props.Storage.data
+
+        console.log(Profile,Profile.get_my_projects)
 
         return (
             <section className="w-full">
                 {
-                    Profile && Profile.get_my_projects ? (
+                    Profile && (Profile.get_my_projects || Profile.get_public_projects) ? (
                         <div className="w-full">
                             <div className="w-full flex justify-center items-center">
                                 <ProfileCard 
@@ -93,6 +102,8 @@ const mapStateToProps = state => {
 Overview.propTypes = {
     getProfile:PropTypes.func.isRequired,
     getUserInfo:PropTypes.func.isRequired,
+    myProfile:PropTypes.func.isRequired,
+    notMyProfile:PropTypes.func.isRequired,
 }
 
-export default connect(mapStateToProps,{getProfile,getUserInfo})(Overview);
+export default connect(mapStateToProps,{getProfile,getUserInfo,myProfile,notMyProfile})(Overview);

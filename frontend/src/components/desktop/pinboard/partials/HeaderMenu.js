@@ -12,7 +12,7 @@ import { switchDisplay } from '../../../../functions/switchDisplay';
 function headerMenu(props) {
 
     const projectId = props.projectId
-    // const isPrivate = props.isPrivate
+    const isPrivate = props.isPrivate
     const userId = localStorage.getItem('user_id')
 
     const deleteProject = async e => {
@@ -24,21 +24,21 @@ function headerMenu(props) {
         }
     }
 
-    // const switchPrivate = async () => {
-    //     const postData = {
-    //         isPrivate:!isPrivate,
-    //         user_id:userId
-    //     }
-    //     await props.updateProject(postData,projectId)
-    //     props.getProfile(userId)
-    // }
+    const switchPrivate = async () => {
+        const postData = {
+            isPrivate:!isPrivate,
+            user_id:userId
+        }
+        await props.updateProject(postData,projectId)
+        props.getProfile(userId)
+    }
 
     return (
         <div className="relative">
             <button className="fas fa-ellipsis-v text-2xl text-gray-600 p-2 ml-2" onClick={switchDisplay}></button>
             <div style={{display:'none'}} className='bg-white absolute rounded p-1 right-1 z-30'>
                 <div className="w-full"><button onClick={deleteProject} className="w-full p-1">Delete</button></div>
-                {/* <div className="w-full border-t-2"><button onClick={switchPrivate} className="w-full p-1">{isPrivate?"Public":"Private"}</button></div> */}
+                <div className="w-full border-t-2"><button onClick={switchPrivate} className="w-full p-1">{isPrivate?"Public":"Private"}</button></div>
                 {/* <div className="w-full border-t-2"><button className="w-full p-1">Settings</button></div> */}
             </div>
         </div>

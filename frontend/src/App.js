@@ -3,7 +3,6 @@ import React from 'react';
 import { HashRouter, Route } from "react-router-dom";
 // Redux
 import { connect } from 'react-redux';
-
 // CSS
 import './static/css/styles.css';
 // Routes

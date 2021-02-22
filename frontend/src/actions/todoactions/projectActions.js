@@ -14,6 +14,17 @@ export const getProject = (project_id) => async dispatch => {
     })
 }
 
+export const getPrivateProject = (project_id) => async dispatch => {
+    await axios
+    .get([URL_PROJECT,project_id,'/'].join(''),{withCredentials:true})
+    .then(response => {
+        dispatch({
+            type:GET_PROJECT,
+            payload:response.data
+        })
+    })
+}
+
 export const updateProject = (post_data, project_id) => async dispatch => {
     await axios
     .patch([URL_PROJECT,project_id,'/'].join(''),post_data,{withCredentials:true})

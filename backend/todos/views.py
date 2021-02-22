@@ -98,7 +98,7 @@ class ContainerViewSet(viewsets.ModelViewSet):
 
     queryset = models.Container.objects.all().order_by('order')
     serializer_class = ContainerSerializer
-    # permission_classes = (todo_permission.ContainerAllowedToWrite,)
+    permission_classes = (todo_permission.ContainerAllowedToWrite,)
 
     # def create(self, request, *args, **kwargs):
     #     serializer = self.get_serializer(data=request.data)
@@ -152,25 +152,25 @@ class TaskViewSet(viewsets.ModelViewSet):
 
 class PublicProjectViewSet(viewsets.ReadOnlyModelViewSet):
 
-    queryset = models.Project.objects.all().order_by('updated')
+    queryset = models.Project.objects.filter(Q(isPrivate=False)).order_by('updated')
     serializer_class = ProjectSerializer
 
 
 class PublicTagViewSet(viewsets.ReadOnlyModelViewSet):
 
-    queryset = models.Tag.objects.all()
+    queryset = models.Tag.objects.filter(Q(tag_for__isPrivate=False))
     serializer_class = TagSerializer
 
 
 class PublicContainerViewSet(viewsets.ReadOnlyModelViewSet):
 
-    queryset = models.Container.objects.all()
+    queryset = models.Container.objects.filter(Q(project__isPrivate=False))
     serializer_class = ContainerSerializer
 
 
 class PublicTaskViewSet(viewsets.ReadOnlyModelViewSet):
 
-    queryset = models.Task.objects.all()
+    queryset = models.Task.objects.filter(Q(container__project__isPrivate=False))
     serializer_class = TaskSerializer
 
 

@@ -10,7 +10,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView
 )
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
-from .serializers import UserSerializer
+from .serializers import PublicUserSerializer, UserSerializer
 from . import models as user_model
 from . import permissions as user_permission
 from .mixins import get_cookie
@@ -182,7 +182,7 @@ class SignUpView(generics.CreateAPIView):
 class PublicUserViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = user_model.User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
+    serializer_class = PublicUserSerializer
     
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
