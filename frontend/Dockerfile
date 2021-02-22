@@ -5,5 +5,5 @@ RUN mkdir /frontend
 WORKDIR /frontend
 COPY . /front
 
-RUN npm install
+RUN npm install --only=prod
 RUN npm run-script build
