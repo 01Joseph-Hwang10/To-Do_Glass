@@ -1,6 +1,6 @@
 // Base url
-// export const URL_PROXY = `${window.location.origin}:8001`;
-export const URL_PROXY = `http://localhost:8000`
+export const URL_PROXY = `${window.location.origin}:8001`;
+// export const URL_PROXY = `http://localhost:8000`
 // Auth url
 export const URL_SIGN_UP = `${URL_PROXY}/api/users-api/sign-up/`;
 export const URL_TOKEN = `${URL_PROXY}/api/users-api/token/`;
