@@ -3,7 +3,7 @@ USER root
 
 RUN mkdir /frontend
 WORKDIR /frontend
-COPY . /front
+COPY . /frontend
 
 RUN npm install --only=prod
-RUN npm run-script build
+RUN GENERATE_SOURCEMAP=false npm run-script build

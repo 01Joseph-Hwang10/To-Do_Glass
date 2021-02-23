@@ -5,9 +5,12 @@
   "dependencies": {
     "@sentry/react": "^6.2.0",
     "@sentry/tracing": "^6.2.0",
+    "autoprefixer":"^10.2.4",
     "axios": "^0.21.1",
     "i18next": "^19.8.9",
     "immer": "^8.0.1",
+    "node-sass":"^5.0.0",
+    "postcss":"^8.2.6",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-beautiful-dnd": "^13.0.0",
@@ -18,7 +21,8 @@
     "react-scripts": "4.0.1",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -49,15 +53,11 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
-    "autoprefixer": "^10.2.4",
     "gulp": "^4.0.2",
     "gulp-csso": "^4.0.1",
     "gulp-postcss": "^9.0.0",
     "gulp-sass": "^4.1.0",
-    "node-sass": "^5.0.0",
-    "postcss": "^8.2.6",
     "tailwindcss": "^2.0.3",
-    "web-vitals": "^0.2.4",
     "yarn": "^1.22.10"
   }
 }
