@@ -1,6 +1,6 @@
 # Deployment CheckList
 
-## 1. Port Scheme
+## 1. Port Scheme*(Blue's Turn)*
 
 ### Green
 #### docker-compose.yml
@@ -25,7 +25,7 @@ services:
 export const URL_PROXY = `${stripPort(window.location.origin)}:8001`;
 ```
 
-### Blue*(Blue's Turn)*
+### Blue
 #### docker-compose.yml
 ```
 services:
