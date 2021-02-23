@@ -1,43 +1,57 @@
-# Green's Turn
+# Deployment CheckList
 
-- Port Scheme
+## 1. Port Scheme
 
--> Green
-
-docker-compose.yml
-===================
+### Green
+#### docker-compose.yml
+```
 services:
-  backend:
+  backend-green:
     command: gunicorn backend.wsgi -bind 0.0.0.0:8001
     ports:
       - "8001:8000"
-  nginx:
+  frontend-green:
+  nginx-green:
     ports:
       - "8082:8080"
       - "8083:8081"
-===================
+    depends_on:
+      - backend-green
+      - frontend-green
+```
 
-variables.js
-===================
-export const URL_PROXY = `${window.location.origin}:8001`;
-===================
+#### variables.js
+```
+export const URL_PROXY = `${stripPort(window.location.origin)}:8001`;
+```
 
--> Blue
-
-docker-compose.yml
-===================
+### Blue*(Blue's Turn)*
+#### docker-compose.yml
+```
 services:
-  backend:
+  backend-blue:
     command: gunicorn -bind 0.0.0.0:8000
     ports:
       - "8000:8000"
-  nginx:
+  frontend-blue:
+  nginx-blue:
     ports:
       - "8080:8080"
       - "8081:8081"
-===================
+    depends_on:
+      - backend-blue
+      - frontend-blue
+```
 
-variables.js
-===================
-export const URL_PROXY = `${window.location.origin}:8000`;
-===================
+#### variables.js
+```
+export const URL_PROXY = `${stripPort(window.location.origin)}:8000`;
+```
+
+## 2. React JS Settings
+* You need to implement Sentry. It's in index.js. Uncomment Sentry codeline
+* You need to change `URL_PROXY` variable for the production build. Uncomment which is not a localhost and comment which is a localhost
+
+## 3. Django Settings
+* Change `SECRET_KEY` variable in settings.py to `os.environ.get('DJANGO_SECRET_KEY')`
+
