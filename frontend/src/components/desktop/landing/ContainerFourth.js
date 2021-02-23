@@ -33,7 +33,7 @@ export default function ContainerFourth(props) {
 
                 <div className="w-full flex space-x-1 items-center">
                     <form className="w-full flex justify-between items-center" onSubmit={figFourthOnSubmit}>
-                        <input className="flex-grow bg-transparent border-2 p-1 rounded-xl border-gray-400" placeholder="search for your glance!"></input>
+                        <input className="flex-grow bg-transparent border-2 p-1 rounded-xl border-gray-400" placeholder="Search for your glance!"></input>
                         <button className="fas fa-search pl-2 text-xl"></button>
                     </form>
                     <div><button onClick={alertCheckOut} className="far fa-lightbulb text-xl pl-2"></button></div>

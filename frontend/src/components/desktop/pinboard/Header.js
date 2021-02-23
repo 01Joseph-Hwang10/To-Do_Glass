@@ -61,6 +61,7 @@ function Header(props) {
                     afterAction={props.getProfile}
                     afterActionInput={localStorage.getItem('user_id')}
                     textAlign={"left"}
+                    placeholder={"Project Name"}
                     />
                 </div>
             </div>

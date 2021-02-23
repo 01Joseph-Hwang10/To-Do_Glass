@@ -57,7 +57,7 @@ class SignUpForm extends React.Component {
                         <input onKeyDown={spaceNotAllowed} className="emailSignUp__email w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="email" placeholder="Email"></input>
                         <input onKeyDown={spaceNotAllowed} className="emailSignUp__password w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="password" placeholder="Password"></input>
                         <input onKeyDown={spaceNotAllowed} className="emailSignUp__confirmPassword w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="password" placeholder="Confirm Password"></input>
-                        <span className="emailSignUp__failed text-red-500 font-semibold" style={{display:'none'}}>Sign Up Failed!!</span>
+                        <span className="emailSignUp__failed text-red-500 font-semibold text-center" style={{display:'none'}}>Sign Up Failed!! You may used already used name or email, or you may mismatched passwords</span>
                         <button className="emailSignUp__button w-full rounded-lg p-2 text-white font-semibold" style={{backgroundColor:COLOR_THIRD}}>Sign Up</button>
                     </form>
                 </div>

@@ -68,6 +68,7 @@ function SchemeCard(props) {
                         action={props.updateContainer}
                         // afterAction={props.getProject}
                         // afterActionInput={projectId}
+                        placeholder={"Scheme"}
                         />
                     <div className="mt-px" style={{display:'none'}}>
                         <button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold" onClick={switchDisplay}>Detail</button>
@@ -80,6 +81,7 @@ function SchemeCard(props) {
                                 action={props.updateContainer}
                                 // afterAction={props.getProject}
                                 // afterActionInput={projectId}
+                                placeholder={"Scheme Description"}
                                 />
                         </div>
                     </div>

@@ -14,13 +14,14 @@ class CTCInput extends Component {
     action: the function that'll axios data to backend
     afterAction(Optional): the function that'll do something after the action
     afterActionInput(Optional): the input afterAction recieves
+    textAlign: css text align property you want to set. Default is 'center'
+    placeholder: the placeholder you want to put into input. Default would be the capitalized dataType
     */
 
 
     render() {
 
         const textAlign = this.props.textAlign || "center"
-        const capitalizedDataType = capitalize(this.props.dataType)
         const textareaClassName = this.props.key
         
         const OnClick = e => {
@@ -91,7 +92,7 @@ class CTCInput extends Component {
                 <div className='w-full h-full bg-transparent'>
                     <button className='w-full h-full font-semibold border-2 border-transparent hover:border-gray-300 rounded-lg' style={{display:'block',textAlign:textAlign}} onClick={OnClick}>{this.props.name}</button>
                     <form className='w-full h-full' style={{display:'none'}}>
-                        <textarea required onKeyUp={resize} onKeyDownCapture={resize} className={['w-full h-full bg-transparent p-1 border-b-2 border-gray-600 text-center resize-none overflow-auto break-words',textareaClassName].join(' ')} name={this.props.dataType} onKeyDown={OnSubmit} placeholder={capitalizedDataType}></textarea>
+                        <textarea required onKeyUp={resize} onKeyDownCapture={resize} className={['w-full h-full bg-transparent p-1 border-b-2 border-gray-600 text-center resize-none overflow-auto break-words',textareaClassName].join(' ')} name={this.props.dataType} onKeyDown={OnSubmit} placeholder={this.props.placeholder || capitalize(this.props.dataType)}></textarea>
                     </form>
                     <span className="text-center font-semibold" style={{display:'none'}}>Loading...</span>
                 </div>

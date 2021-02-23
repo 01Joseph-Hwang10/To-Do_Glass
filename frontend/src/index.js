@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import configureStore from './store/store';
+// etc
+// import './store/i18n'
 // Sentry
 // import * as Sentry from "@sentry/react";
 // import { Integrations } from "@sentry/tracing";

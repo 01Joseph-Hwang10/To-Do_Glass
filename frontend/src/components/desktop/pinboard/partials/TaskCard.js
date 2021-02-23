@@ -75,6 +75,7 @@ function TaskCard(props) {
                 action={props.updateTask}
                 afterAction={props.getContainer}
                 afterActionInput={task.container_id}
+                placeholder={"Task"}
                 />
             </div>
             <div className="deleting w-full text-xl text-center flex justify-center items-center" style={{display:'none'}}>
@@ -104,6 +105,7 @@ function TaskCard(props) {
                 action={props.updateTask}
                 afterAction={props.getContainer}
                 afterActionInput={task.container_id}
+                placeholder={"Task Description"}
                 />
             </div>
         </div>

@@ -86,7 +86,7 @@ function ProjectDetail(props) {
             {props.permission ? (
                 <div className="w-full">
                     <div className="w-full opacity-90 p-2 py-4 mb-1 rounded text-white shadow-inner" style={{backgroundColor:COLOR_SECOND,transition:"all 0.5s ease-in-out"}}>
-                        <textarea onKeyUp={resize} onKeyDown={resize} defaultValue={description} className={["textArea bg-transparent outline-none border-none w-full resize-none whitespace-pre-line",projectDetailClassName].join(' ')} readOnly placeholder="Write down the description below"></textarea>
+                        <textarea onKeyUp={resize} onKeyDown={resize} defaultValue={description} className={["textArea bg-transparent outline-none border-none w-full resize-none whitespace-pre-line",projectDetailClassName].join(' ')} readOnly placeholder="Project Description"></textarea>
                     </div>
                     <div className="w-full flex justify-end">
                         <button onClick={showForm} className="showForm px-3 py-1 rounded font-semibold" style={{display:'block',backgroundColor:COLOR_THIRD,color:COLOR_FIFTH}}>Edit</button>

@@ -20,39 +20,23 @@ function App(props) {
 
   const onLanding = props.onLanding
   const minHeight = (function(){return(onLanding?"auto":"100vh")})()
-  const screenSize = Number(props.screenSize)
 
   return (
       <HashRouter>
-        {
-          screenSize >= 640 ? (
-          <div className="w-full text-gray-800">
-            <Route path='/' exact component={Landing} />
-            <Navigation />
-            <div className="mt-20" style={{minHeight:minHeight}}>
-              <Route path='/:id/home' exact component={Home} />
-              <Route path='/:id/social' exact component={Social} />
-              <Route path='/:id/edit_profile' exact component={updateProfileForm} />
-              <Route path='/login' exact component={LoginForm} />
-              <Route path='/signup' exact component={SignUpForm} />
-            </div>
-            <div>
-              <Footer />
-            </div>
+        <div className="w-full text-gray-800">
+          <Route path='/' exact component={Landing} />
+          <Navigation />
+          <div className="mt-20" style={{minHeight:minHeight}}>
+            <Route path='/:id/home' exact component={Home} />
+            <Route path='/:id/social' exact component={Social} />
+            <Route path='/:id/edit_profile' exact component={updateProfileForm} />
+            <Route path='/login' exact component={LoginForm} />
+            <Route path='/signup' exact component={SignUpForm} />
           </div>
-          ) : (
-            <div className="w-full text-gray-800">
-              <Route path='/' exact component={Landing} />
-              <div className="mt-20">
-                <Route path='/login' exact component={LoginForm} />
-                <Route path='/signup' exact component={SignUpForm} />
-              </div>
-              <div>
-                <Footer />
-              </div>
-            </div>
-          )
-        }
+          <div>
+            <Footer />
+          </div>
+        </div>
       </HashRouter>
   );
 }

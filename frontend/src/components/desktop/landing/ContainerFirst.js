@@ -122,7 +122,7 @@ export default function ContainerFirst(props) {
                         <div className="figFirst__formDiv w-full py-1 mt-2 rounded flex justify-between shadow-md" style={{backgroundColor:COLOR_FOURTH}}>
                             <button onClick={switchHidden} style={{display:'block'}} className="w-full"><i className="fas fa-plus-circle text-xl"></i></button>
                             <form onSubmit={figFirstOnSubmit} className="w-full flex justify-around items-center space-x-1" style={{display:'none'}}>
-                                <input required className="w-28 bg-transparent rounded border-2 focus:border-gray-600" placeholder="Name" style={{transition:'all 0.4s ease-in-out'}}></input>
+                                <input required className="w-28 bg-transparent rounded border-2 focus:border-gray-600" placeholder="Project" style={{transition:'all 0.4s ease-in-out'}}></input>
                                 <button className="bg-gray-100 text-center font-semibold px-2 py-1">Create</button>
                             </form>
                         </div>

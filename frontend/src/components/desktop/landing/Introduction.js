@@ -26,7 +26,7 @@ export default function Introduction(props) {
             {
                 screenSize <= 640 ? (
                     <div className="w-full flex flex-col rounded py-1" style={{backgroundColor:'rgba(156,163,175,0.8)'}}>
-                        <h3 className="text-red-600 font-semibold text-center text-sm">Currntly, only desktop and tablet-pc are supported</h3>
+                        <h3 className="text-red-600 font-semibold text-center text-sm">Currntly, only PC and Tablet-PC are supported</h3>
                         <h3 className="text-red-600 font-semibold text-center text-sm">Sorry for the inconvenience</h3>
                     </div>
                 ) : (

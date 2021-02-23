@@ -61,7 +61,7 @@ class Navigation extends React.Component {
                     <div className="relative flex items-center">
                         <button className="far fa-caret-square-down text-gray-600 text-2xl" style={{color:COLOR_FOURTH}} onClick={switchDisplay}></button>
                         <div className="absolute bg-white w-20 right-1 top-7 border rounded space-y-2" style={{display:'none'}}>
-                            <button className="w-full py-2" onClick={Logout}>Log out</button>
+                            <button className="w-full py-2" onClick={Logout}>Sign Out</button>
                             {/* <button className="border-t-2 w-full py-2">Profile</button>
                             <button className="border-t-2 w-full py-2">Settings</button> */}
                         </div>

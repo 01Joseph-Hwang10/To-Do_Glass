@@ -4,13 +4,14 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux';
 import { getContainer, getPrivateContainer } from '../../../actions/todoactions/containerActions';
 import { createTask, updateTask } from "../../../actions/todoactions/taskActions";
+import { hideScrollButton, showScrollButton } from "../../../actions/screenActions";
 // modules
 import { Draggable } from "react-beautiful-dnd";
 // etc
 import PropTypes from 'prop-types'
 import {switchHidden} from '../../../functions/switchDisplay';
 import { selectColor, selectColorScheme } from '../../../functions/tailwindColorScheme';
-import { COLOR_FIRST } from '../../../store/variables';
+import { COLOR_FIFTH, COLOR_FIRST } from '../../../store/variables';
 import { sortByOrder } from '../../../functions/sortByOrder';
 // Components
 import TaskCard from './partials/TaskCard';
@@ -98,20 +99,6 @@ function Container(props) {
         updateTasks(items.sort(sortByOrder))
     }
 
-    const onCreate = (e) => {
-        const button = e.target.parentNode
-        const form = button.parentNode.querySelector('form')
-
-        const scrollerParentDiv = e.target.closest('.scrollerParentDiv')
-        const rightButton = scrollerParentDiv.querySelector('.rightButton')
-        rightButton.style.display = 'none'
-        switchHidden(e)
-        document.addEventListener('click',(e)=> {
-            if (e.target !== form && !button.contains(e.target) && !form.contains(e.target)) {
-                rightButton.style.display = 'block'
-            }
-        })
-    }
 
     return (
         <div className="container w-full flex flex-col justify-center items-center bg-transparent h-full" style={{borderWidth:'0px',borderBottomWidth:'2px',borderColor:"#E5E7EB", transition:'all 0.1s ease-in-out',borderRadius:'0'}}>
@@ -160,10 +147,10 @@ function Container(props) {
                                 {
                                     permission ? (
                                         <div className="createFormParentDiv w-28 flex justify-center items-center border-b-4" style={{backgroundColor:color,minHeight:'4.7rem'}}>
-                                            <section className="w-28 flex justify-center items-center" style={{display:'block'}}><button className="w-28 fas fa-plus-circle text-2xl w-full h-full" style={{color:COLOR_FIRST}} onClick={onCreate}></button></section>
-                                            <form className="w-28 text-gray-900 flex flex-col justify-around items-center p-1 space-y-2" style={{display:"none"}} onSubmit={createTask}>
-                                                <input required className="w-11/12 text-sm text-gray-700 rounded px-1 bg-transparent border-2 focus:border-gray-400" placeholder="Name" style={{transition:"all 0.4s ease-in-out"}}></input>   
-                                                <button className="p-1 px-2 text-xs bg-gray-200 text-gray-700 font-semibold rounded">Create</button>
+                                            <section className="w-28 flex justify-center items-center" style={{display:'block'}}><button className="w-28 fas fa-plus-circle text-2xl w-full h-full" style={{color:COLOR_FIRST}} onClick={switchHidden}></button></section>
+                                            <form className="w-28 text-gray-900 flex flex-col justify-around items-center p-1 space-y-2 z-50" style={{display:"none",backgroundColor:color}} onSubmit={createTask}>
+                                                <input required className="w-11/12 text-sm text-gray-700 rounded px-1 border-2 focus:border-gray-400 z-50" placeholder="Task" style={{transition:"all 0.4s ease-in-out",backgroundColor:COLOR_FIFTH}}></input>   
+                                                <button className="p-1 px-2 text-xs bg-gray-200 text-gray-700 font-semibold rounded createTaskButton z-50">Create</button>
                                             </form>
                                             <span className="font-semibold text-center" style={{display:'none'}}>Creating...</span>
                                         </div>
@@ -194,13 +181,16 @@ Container.propTypes = {
     getPrivateContainer:PropTypes.func.isRequired,
     createTask:PropTypes.func.isRequired,
     updateTask:PropTypes.func.isRequired,
+    hideScrollButton:PropTypes.func.isRequired,
+    showScrollButton:PropTypes.func.isRequired,
 }
 
-const actions = {getContainer,getPrivateContainer,createTask,updateTask}
+const actions = {getContainer,getPrivateContainer,createTask,updateTask,hideScrollButton,showScrollButton}
 
 const mapStateToProps = state => {
     return {
-        Profile:state.userInfo.Profile
+        Profile:state.userInfo.Profile,
+        scrollButtonVisible:state.screen.scrollButtonVisible
     }
 }
 

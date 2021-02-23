@@ -138,7 +138,7 @@ export default function ContainerSecond(props) {
                             <div className="container__form rounded w-32 h-24 flex justify-center items-center shadow-md" style={{backgroundColor:COLOR_SIXTH,display:'flex'}}>
                                 <button onClick={switchHidden} style={{display:'block'}} className="w-full h-full fas fa-plus-circle"></button>
                                 <form onSubmit={figSecondOnSubmit} style={{display:'none'}} className="w-full h-full flex flex-col justify-around items-center">
-                                    <input required className="outline-none w-11/12 bg-transparent mx-auto text-center rounded border-2 border-gray-300" placeholder="Name"></input>
+                                    <input required className="outline-none w-11/12 bg-transparent mx-auto text-center rounded border-2 border-gray-300" placeholder="Scheme"></input>
                                     <button className="py-1 px-2 bg-pink-100 text-center font-semibold">Create</button>
                                 </form>
                             </div>

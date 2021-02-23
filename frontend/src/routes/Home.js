@@ -140,11 +140,11 @@ class Home extends React.Component {
                         <></>
                     ) : (
                         <div className="fixed bottom-0 w-full z-50 flex justify-center items-center">
-                            <div className="rounded-t-lg p-4 pb-0 pt-1 border-2 border-b-none flex justify-center items-center space-x-5 shadow-md" style={{backgroundColor:COLOR_FIFTH}}>
-                                <button onClick={switchOverview} style={{color:(function(){return(overviewOpened?'orange':COLOR_FIRST)})(),transition:'all 0.1s ease-in-out'}} className="p-1 text-4xl fas fa-user z-50"></button>
-                                <button onClick={this.props.focusPinboard} style={{color:(function(){return(!overviewOpened && !glanceOpened?'orange':COLOR_FIRST)})(),transition:'all 0.1s ease-in-out'}} className="p-1 text-4xl fas fa-clipboard z-50"></button>
-                                <button onClick={switchGlance} style={{color:(function(){return(glanceOpened?'orange':COLOR_FIRST)})(),transition:'all 0.1s ease-in-out'}} className="p-1 text-4xl fas fa-search z-50"></button>
-                                <button onClick={switchScrollVisible} style={{color:(function(){return(scrollButtonVisible?"orange":COLOR_FIRST)})(),transition:'all 0.1s ease-in-out'}} className="fas fa-chevron-circle-right text-4xl z-50 p-1 border-l-2 pl-4"></button>
+                            <div id="controlBar" className="rounded-t-lg p-4 pb-0 pt-1 border-2 border-b-none flex justify-center items-center space-x-5 shadow-md" style={{backgroundColor:COLOR_FIFTH}}>
+                                <button onClick={switchOverview} style={{color:(function(){return(overviewOpened?'orange':COLOR_FIRST)})(),transition:'all 0.1s ease-in-out'}} className="p-1 text-4xl fas fa-user z-50 overview"></button>
+                                <button onClick={this.props.focusPinboard} style={{color:(function(){return(!overviewOpened && !glanceOpened?'orange':COLOR_FIRST)})(),transition:'all 0.1s ease-in-out'}} className="p-1 text-4xl fas fa-clipboard z-50 pinboard"></button>
+                                <button onClick={switchGlance} style={{color:(function(){return(glanceOpened?'orange':COLOR_FIRST)})(),transition:'all 0.1s ease-in-out'}} className="p-1 text-4xl fas fa-search z-50 glance"></button>
+                                <button onClick={switchScrollVisible} style={{color:(function(){return(scrollButtonVisible?"orange":COLOR_FIRST)})(),transition:'all 0.1s ease-in-out'}} className="fas fa-chevron-circle-right text-4xl z-50 p-1 border-l-2 pl-4 toggleScrollButton"></button>
                             </div>
                         </div>
                     )

@@ -12,7 +12,8 @@ export const postSignUp = (post_data) => dispatch => {
                 dispatch({type:SIGN_UP});
                 window.location.href="/#/login";
             } else {
-                alert("Internal Server Error");
+                alert("Sign Up Failed! You may mismatched passwords, typed already used name or email");
+                dispatch({type:LOGOUT,payload:false})
             }
                 });
     } catch (error) {
@@ -28,7 +29,10 @@ export const postLogin = (post_data) => dispatch => {
         let response = axios
         .post(URL_TOKEN,post_data,{withCredentials:true})
         .then(response => {
-            if(Number(response.status) === 401) window.alert("Authorization Failed")
+            if(Number(response.status) === 401) {
+                alert("Authorization Failed! Check if your email and password are correctly typed")
+                dispatch({type:LOGOUT,payload:false})
+            }
             if(Number(response.status) === 200) {
                 const user_id = response.data.user_id;
                 if(!window.localStorage.getItem('user_id')) {
