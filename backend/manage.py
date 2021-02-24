@@ -10,6 +10,8 @@ import sys
 
 # sudo kill -9 $(sudo lsof -t -i:80)
 
+# docker exec -it to-do_glass_green_backend-green_1 /backend/manage.py createsuperuser
+
 
 def main():
 
