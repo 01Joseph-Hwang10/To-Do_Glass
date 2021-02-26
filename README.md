@@ -74,3 +74,6 @@ upstream api {
     server backend-green:8000;
 }
 ```
+
+## 5.Redux Devtools Setting
+* TURN IT OFF!!
