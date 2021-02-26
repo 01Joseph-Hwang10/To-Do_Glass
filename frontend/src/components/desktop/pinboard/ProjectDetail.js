@@ -96,8 +96,8 @@ function ProjectDetail(props) {
                 </div>
             ) : (
                 <div className="w-full">
-                    <div className="w-full opacity-90 p-2 rounded text-white shadow-inner" style={{backgroundColor:COLOR_SECOND}}>
-                        <span>{description}</span>
+                    <div className="w-full opacity-90 p-2 py-4 mb-1 rounded text-white shadow-inner" style={{backgroundColor:COLOR_SECOND}}>
+                        <textarea defaultValue={description} className={["textArea bg-transparent outline-none border-none w-full resize-none whitespace-pre-line",projectDetailClassName].join(' ')} readOnly></textarea>
                     </div>
                 </div>
             )}

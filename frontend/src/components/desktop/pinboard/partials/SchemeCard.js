@@ -101,7 +101,7 @@ function SchemeCard(props) {
                     </div>
                 </div>
                 <div className="w-full h-full flex flex-col justify-around items-center">
-                    <span className="font-semibold">{container.name}</span>
+                    <span className="font-semibold text-center">{container.name}</span>
                     {/* <div className="mt-px">
                         <button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold" onClick={switchDisplay}>Detail</button>
                         <div className="absolute w-full right-1 bg-gray-200 rounded z-20" style={{display:'none',minWidth:"30px"}}>
