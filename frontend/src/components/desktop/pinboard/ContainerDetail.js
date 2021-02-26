@@ -124,14 +124,22 @@ function ContainerDetail(props) {
                     <button onClick={hideDetail} className="fas fa-times"></button>
                 </div>
             </div>
-            <div className="descriptionParentDiv w-full px-2 pb-2 flex flex-col rounded" style={{transition:'all 0.2s ease-in-out',backgroundColor:'#EFF6FF'}}>
-                <textarea readOnly onKeyDownCapture={resize} onKeyUp={resize} defaultValue={container.description} className={["resize-none bg-transparent p-2 w-full outline-none",containerDescriptionClassName].join(' ')}></textarea>
-                <div className="w-full flex justify-start items-center px-2 mt-1 space-x-1">
-                    <button onClick={showForm} className="editButton px-4 py-px text-white font-semibold rounded" style={{backgroundColor:COLOR_THIRD,display:'block'}}>Edit</button>
-                    <button onClick={updateDescription} className="saveButton px-4 py-px text-white font-semibold rounded bg-pink-300" style={{display:'none'}}>Save</button>
-                    <button onClick={hideForm} className="cancelButton px-4 py-px text-white font-semibold rounded bg-gray-300" style={{display:'none'}}>Cancel</button>
+            {
+                permission ? (
+                <div className="descriptionParentDiv w-full px-2 pb-2 flex flex-col rounded" style={{transition:'all 0.2s ease-in-out',backgroundColor:'#EFF6FF'}}>
+                    <textarea readOnly onKeyDownCapture={resize} onKeyUp={resize} defaultValue={container.description} className={["resize-none bg-transparent p-2 w-full outline-none",containerDescriptionClassName].join(' ')}></textarea>
+                    <div className="w-full flex justify-start items-center px-2 mt-1 space-x-1">
+                        <button onClick={showForm} className="editButton px-4 py-px text-white font-semibold rounded" style={{backgroundColor:COLOR_THIRD,display:'block'}}>Edit</button>
+                        <button onClick={updateDescription} className="saveButton px-4 py-px text-white font-semibold rounded bg-pink-300" style={{display:'none'}}>Save</button>
+                        <button onClick={hideForm} className="cancelButton px-4 py-px text-white font-semibold rounded bg-gray-300" style={{display:'none'}}>Cancel</button>
+                    </div>
                 </div>
-            </div>
+                ) : (
+                <div className="descriptionParentDiv w-full px-2 pb-2 flex flex-col rounded" style={{transition:'all 0.2s ease-in-out',backgroundColor:'#EFF6FF'}}>
+                    <textarea readOnly defaultValue={container.description} className={["resize-none bg-transparent p-2 w-full outline-none",containerDescriptionClassName].join(' ')}></textarea>
+                </div>
+                )
+            }
         </div>
     )
 }
