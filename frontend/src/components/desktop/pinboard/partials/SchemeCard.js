@@ -7,7 +7,7 @@ import {getProject} from '../../../../actions/todoactions/projectActions';
 // etc
 import { COLOR_FIRST, COLOR_SIXTH } from '../../../../store/variables'
 import PropTypes from 'prop-types'
-import { switchDisplay } from '../../../../functions/switchDisplay';
+// import { switchDisplay } from '../../../../functions/switchDisplay';
 // Component
 import Important from '../../../../mixins/Important'
 import CTCInput from '../../../../mixins/input/CTCInput';
@@ -70,7 +70,7 @@ function SchemeCard(props) {
                         // afterActionInput={projectId}
                         placeholder={"Scheme"}
                         />
-                    <div className="mt-px" style={{display:'none'}}>
+                    {/* <div className="mt-px" style={{display:'none'}}>
                         <button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold" onClick={switchDisplay}>Detail</button>
                         <div className="absolute w-full right-1 bg-gray-200 rounded z-20" style={{display:'none',minWidth:"30px"}}>
                             <CTCInput 
@@ -84,7 +84,7 @@ function SchemeCard(props) {
                                 placeholder={"Scheme Description"}
                                 />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className='deleting w-full h-full flex justify-center items-center' style={{display:'none'}}>
                     <span className="text-center font-semibold">Deleting...</span>
@@ -101,13 +101,13 @@ function SchemeCard(props) {
                     </div>
                 </div>
                 <div className="w-full h-full flex flex-col justify-around items-center">
-                    <div><span className="font-semibold">{container.name}</span></div>
-                    <div className="mt-px">
+                    <span className="font-semibold">{container.name}</span>
+                    {/* <div className="mt-px">
                         <button className="text-xs bg-pink-100 p-1 px-2 rounded font-semibold" onClick={switchDisplay}>Detail</button>
                         <div className="absolute w-full right-1 bg-gray-200 rounded z-20" style={{display:'none',minWidth:"30px"}}>
                             <span>{container.description || "No Description"}</span>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </>
             )}

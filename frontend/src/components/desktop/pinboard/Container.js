@@ -127,6 +127,7 @@ function Container(props) {
                                                         task={task}
                                                         permission={permission}
                                                         colorScheme={colorScheme}
+                                                        isPrivate={isPrivate}
                                                         />
                                                     </div>
                                                     )

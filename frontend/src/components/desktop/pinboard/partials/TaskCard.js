@@ -3,7 +3,7 @@ import React from 'react'
 // Redux
 import { connect } from 'react-redux'
 import { updateTask, deleteTask } from "../../../../actions/todoactions/taskActions";
-import { getContainer } from "../../../../actions/todoactions/containerActions";
+import { getContainer, getPrivateContainer } from "../../../../actions/todoactions/containerActions";
 // etc
 import PropTypes from 'prop-types'
 // Components
@@ -15,6 +15,7 @@ function TaskCard(props) {
     const task = props.task
     const permission = props.permission
     const color = (function(){return(task.completed?"#9CA3AF":selectColor(props.colorScheme,task.id))})()
+    const getContainer = (function(){return(props.isPrivate ? props.getPrivateContainer : props.getContainer)})()
 
     const deleteTask = async (e) => {
         const div = e.target.closest('.taskCard')
@@ -23,7 +24,7 @@ function TaskCard(props) {
         deleting.style.display='flex'
         contentBody.style.display='none'
         await props.deleteTask(task.id)
-        await props.getContainer(task.container_id)
+        await getContainer(task.container_id)
     }
 
     const updateCompleted = async () => {
@@ -34,7 +35,7 @@ function TaskCard(props) {
             user_id:userId
         }
         await props.updateTask(postData,task.id)
-        await props.getContainer(task.container_id)
+        await getContainer(task.container_id)
     }
 
     const displayDescription = (e) => {
@@ -112,11 +113,12 @@ function TaskCard(props) {
     )
 }
 
-const actions = {updateTask,getContainer,deleteTask}
+const actions = {updateTask,getContainer,getPrivateContainer,deleteTask}
 
 TaskCard.propTypes = {
     updateTask:PropTypes.func.isRequired,
     getContainer:PropTypes.func.isRequired,
+    getPrivateContainer:PropTypes.func.isRequired,
     deleteTask:PropTypes.func.isRequired,
 }
 

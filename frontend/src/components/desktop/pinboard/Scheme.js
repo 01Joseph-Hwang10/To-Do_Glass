@@ -2,8 +2,8 @@
 import React, {useEffect, useState} from 'react'
 // Redux
 import { connect } from 'react-redux'
-import {createContainer,getContainer,updateContainer} from '../../../actions/todoactions/containerActions';
-import {getProject} from '../../../actions/todoactions/projectActions'
+import {createContainer,getContainer,updateContainer,getPrivateContainer} from '../../../actions/todoactions/containerActions';
+import {getProject, getPrivateProject} from '../../../actions/todoactions/projectActions'
 // modules
 import { Draggable } from "react-beautiful-dnd";
 // etc
@@ -18,6 +18,9 @@ import HorizontalScroll from '../../../mixins/scroll/HorizontalScroll';
 function Scheme(props) {
 
     const project = props.project
+    const getProject = (function(){return(project.isPrivate ? props.getPrivateProject : props.getProject)})()
+    const getContainer = (function(){return(project.isPrivate ? props.getPrivateContainer : props.getContainer)})()
+
     let initialContainers
     try {
         initialContainers = props.container
@@ -51,7 +54,7 @@ function Scheme(props) {
                     user_id:localStorage.getItem('user_id')
                 }
                 await props.updateContainer(postData,id)
-                await props.getContainer(id)
+                await getContainer(id)
             }
         }
         updateContainers(items)
@@ -75,7 +78,7 @@ function Scheme(props) {
             order:(countContainers+1),
         }
         await props.createContainer(post_data)
-        await props.getProject(projectId)
+        await getProject(projectId)
         input.value=""
         input.blur()
         innerDiv.style.display = 'flex'
@@ -150,11 +153,13 @@ Scheme.propTypes = {
     createContainer:PropTypes.func.isRequired,
     updateContainer:PropTypes.func.isRequired,
     getContainer:PropTypes.func.isRequired,
+    getPrivateContainer:PropTypes.func.isRequired,
     getProject:PropTypes.func.isRequired,
+    getPrivateProject:PropTypes.func.isRequired,
 }
 
 
-const actions = {createContainer,updateContainer,getContainer,getProject}
+const actions = {createContainer,updateContainer,getContainer,getPrivateContainer,getProject,getPrivateProject}
 
 const mapStateToProps = state => {
     return {
