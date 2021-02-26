@@ -19,6 +19,7 @@ services:
                                     http://13.125.77.159
                                     http://13.125.77.159:8080
                                     http://13.125.77.159:8082
+                                    http://13.125.77.159:8080
                                     https://ec2-13-125-77-159.ap-northeast-2.compute.amazonaws.com
                                     https://13.125.77.159
         BACKEND_ADMIN: '36JV9e3gtgrLYJTD'
