@@ -77,3 +77,6 @@ upstream api {
 
 ## 5.Redux Devtools Setting
 * TURN IT OFF!!
+
+## 6.EC2 Django permission
+* Give all traffic the permission when deploying. You might got a need to change a port scheme for that
