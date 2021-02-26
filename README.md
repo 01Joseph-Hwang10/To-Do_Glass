@@ -32,7 +32,7 @@ export const URL_PROXY = `${stripPort(window.location.origin)}:8000`;
 ```
 services:
   backend-green:
-    command: gunicorn backend.wsgi -bind 0.0.0.0:8001
+    command: gunicorn backend.wsgi -bind 0.0.0.0:8000
     ports:
       - "8001:8000"
   frontend-green:
