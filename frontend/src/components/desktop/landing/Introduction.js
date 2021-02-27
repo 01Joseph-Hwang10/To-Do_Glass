@@ -23,9 +23,6 @@ export default function Introduction(props) {
             <div className="w-full sm:w-auto flex justify-start items-center pt-1">
                 <div className="py-1 px-8 bg-green-400 rounded text-white 2xl:text-xl font-bold ring-2"><Link to='/signup'>Start Project</Link></div>
             </div>
-            <div className="w-full flex flex-col rounded py-1" style={{backgroundColor:'rgba(156,163,175,0.8)'}}>
-                <h3 className="text-red-600 font-semibold text-center text-sm">FLglance recommends you to use chrome browser</h3>
-            </div>
         </div>
         {
             screenSize>=640 ? (

@@ -4,7 +4,7 @@ from django.db import models
 
 class User(AbstractUser):
 
-    bio = models.TextField(max_length=200,blank=True,null=True)
+    bio = models.TextField(max_length=1000,blank=True,null=True)
     avatar = models.ImageField(blank=True, null=True, upload_to="avatars/",default='avatars/person-icon.png')
     following = models.ManyToManyField("users.User", blank=True,related_name="users")
 

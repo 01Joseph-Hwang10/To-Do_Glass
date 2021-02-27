@@ -84,26 +84,34 @@ function ContainerHeaderMobile(props) {
         <div className="containerDetailHeader flex justify-start items-center rounded" style={{opacity:1,transition:'opacity 0.25s ease-in-out'}}>
             {
                 permission ? (
+                <>
                 <button className="mr-1 z-30" onClick={updateImportance}>
                     <Important isImportant={container.importance} permission={permission} />
                 </button>
+                <div className="font-semibold z-30">
+                    <CTCInputShort 
+                    id={container.id}
+                    name={container.name}
+                    permission={permission}
+                    dataType={'name'}
+                    action={props.updateContainer}
+                    // afterAction={getContainer}
+                    // afterActionInput={container.id}
+                    placeholder={'Scheme'}
+                    />
+                </div>
+                </>
                 ) : (
-                <div className="mr-1">
+                <>
+                <div className="mr-1 z-30">
                     <Important isImportant={container.importance} />
                 </div>
+                <div className="font-semibold z-30">
+                    <span>{container.name}</span>
+                </div>
+                </>
                 )
             }
-            <div className="font-semibold z-30">
-                <CTCInputShort 
-                id={container.id}
-                name={container.name}
-                permission={permission}
-                dataType={'name'}
-                action={props.updateContainer}
-                afterAction={getContainer}
-                afterActionInput={container.id}
-                />
-            </div>
         </div>
         <button onClick={openDetail} className={['text-center text-2xl fas fa-chevron-down z-30',buttonClassNameMobile].join(' ')} style={{color:COLOR_FIRST, opacity:1, transition:'all 0.25s ease-in-out'}}></button>
     </div>

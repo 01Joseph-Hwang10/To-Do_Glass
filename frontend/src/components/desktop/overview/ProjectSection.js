@@ -39,7 +39,7 @@ function ProjectSection(props) {
         } else {
             await props.getProject(project_id);
         }
-        if(props.screenSize < 640 ) {
+        if(props.screenSize < 1024 ) {
             props.focusPinboard()
         }
     };

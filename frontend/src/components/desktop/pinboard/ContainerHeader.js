@@ -13,7 +13,7 @@ import Important from '../../../mixins/Important'
 function ContainerHeader(props) {
 
     const container = props.container
-    const projectId = container.project
+    // const projectId = container.project
     const name = container.name
     // const description = container.description
     const permission = props.permission
@@ -62,7 +62,7 @@ function ContainerHeader(props) {
             user_id:localStorage.getItem('user_id')
         }
         await props.updateContainer(postData,container.id)
-        await props.getProject(projectId)
+        // await props.getProject(projectId)
     }
 
     const openDetail = (e) => {

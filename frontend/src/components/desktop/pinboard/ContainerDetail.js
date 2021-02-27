@@ -1,5 +1,6 @@
 // React
 import React from 'react'
+// import {useState, useEffect} from 'react'
 // Redux
 import { connect } from 'react-redux'
 import { updateContainer,getContainer, getPrivateContainer } from "../../../actions/todoactions/containerActions";
@@ -20,6 +21,14 @@ function ContainerDetail(props) {
     const screenSize = props.screenSize
 
     const getContainer = (function(){return(isPrivate?props.getPrivateContainer:props.getContainer)})()
+
+    let description = container.description || "No Description"
+
+    // const [description, setDescription] = useState(container.description)
+    // useEffect(() => {
+    //     setDescription(container.description)
+    //     console.log("repeat?")
+    // }, [description, container.description])
 
     const hideDetail = (e) => {
         const containerDetail = e.target.closest('.containerDetail')
@@ -57,6 +66,7 @@ function ContainerDetail(props) {
         textarea.removeAttribute('readonly')
         div.style.backgroundColor = '#DBEAFE'
         textarea.focus()
+        description = textarea.value
     }
 
     const hideForm = (e) => {
@@ -71,6 +81,13 @@ function ContainerDetail(props) {
         cancelButton.style.display = 'none'
         textarea.readOnly = 'true'
         div.style.backgroundColor = '#EFF6FF'
+        textarea.value = description
+        textarea.style.height = '1px'
+        textarea.style.height = (12+textarea.scrollHeight) +'px'
+        const containerDetail = textarea.closest('.containerDetail')
+        const namearea = containerDetail.querySelector(`.${containerNameClassName}`)
+        containerDetail.style.height = '1px'
+        containerDetail.style.height = (60+textarea.scrollHeight+namearea.offsetHeight) +'px'
         textarea.blur()
     }
 
@@ -93,8 +110,14 @@ function ContainerDetail(props) {
             description:textarea.value,
             user_id:localStorage.getItem('user_id')
         }
+        // setDescription(textarea.value)
         await props.updateContainer(postData,container.id)
         // await getContainer(container.id)
+        description = textarea.value
+        const containerDetail = textarea.closest('.containerDetail')
+        const namearea = containerDetail.querySelector(`.${containerNameClassName}`)
+        containerDetail.style.height = '1px'
+        containerDetail.style.height = (60+textarea.scrollHeight+namearea.offsetHeight) +'px'
         hideForm(e)
     }
 
@@ -102,6 +125,11 @@ function ContainerDetail(props) {
         const textarea = e.target
         textarea.style.height = '1px'
         textarea.style.height = (12+textarea.scrollHeight) +'px'
+
+        const containerDetail = textarea.closest('.containerDetail')
+        const namearea = containerDetail.querySelector(`.${containerNameClassName}`)
+        containerDetail.style.height = '1px'
+        containerDetail.style.height = (60+textarea.scrollHeight+namearea.offsetHeight) +'px'
     }
 
     return (
@@ -110,26 +138,34 @@ function ContainerDetail(props) {
                 <div className="flex justify-start items-center space-x-1">
                     {
                         permission ? (
+                            <>
                             <button onClick={updateImportance}>
                                 <Important isImportant={container.importance} permission={permission} />
                             </button>
+                            <div className={containerNameClassName}>
+                                <CTCInputShort 
+                                id={container.id}
+                                name={container.name}
+                                permission={permission}
+                                dataType={'name'}
+                                action={props.updateContainer}
+                                // afterAction={getContainer}
+                                // afterActionInput={container.id}
+                                placeholder={'Scheme Name'}
+                                />
+                            </div>
+                            </>
                         ) : (
+                            <>
                             <div>
                                 <Important isImportant={container.importance} />
                             </div>
+                            <div className={containerNameClassName}>
+                                <span className="font-semibold">{container.name}</span>
+                            </div>
+                            </>
                         )
                     }
-                    <div className={containerNameClassName}>
-                        <CTCInputShort 
-                        id={container.id}
-                        name={container.name}
-                        permission={permission}
-                        dataType={'name'}
-                        action={props.updateContainer}
-                        afterAction={getContainer}
-                        afterActionInput={container.id}
-                        />
-                    </div>
                 </div>
                 <div className="flex justify-end items-center space-x-1" style={{minWidth:'100px'}}>
                     {/* <button className="fas fa-cog"></button> */}
@@ -137,12 +173,16 @@ function ContainerDetail(props) {
                 </div>
             </div>
             <div className="descriptionParentDiv w-full px-2 pb-2 flex flex-col rounded" style={{transition:'all 0.2s ease-in-out',backgroundColor:'#EFF6FF'}}>
-                <textarea readOnly onKeyDownCapture={resize} onKeyUp={resize} defaultValue={container.description} className={["resize-none bg-transparent p-2 w-full outline-none",containerDescriptionClassName].join(' ')}></textarea>
-                <div className="w-full flex justify-start items-center px-2 mt-1 space-x-1">
-                    <button onClick={showForm} className="editButton px-4 py-px text-white font-semibold rounded" style={{backgroundColor:COLOR_THIRD,display:'block'}}>Edit</button>
-                    <button onClick={updateDescription} className="saveButton px-4 py-px text-white font-semibold rounded bg-pink-300" style={{display:'none'}}>Save</button>
-                    <button onClick={hideForm} className="cancelButton px-4 py-px text-white font-semibold rounded bg-gray-300" style={{display:'none'}}>Cancel</button>
-                </div>
+                <textarea readOnly placeholder="Scheme Description" defaultValue={description} onKeyDownCapture={resize} onKeyUp={resize} className={["resize-none bg-transparent p-2 w-full outline-none",containerDescriptionClassName].join(' ')}></textarea>
+                {
+                    permission ? (
+                    <div className="w-full flex justify-start items-center px-2 mt-1 space-x-1">
+                        <button onClick={showForm} className="editButton px-4 py-px text-white font-semibold rounded" style={{backgroundColor:COLOR_THIRD,display:'block'}}>Edit</button>
+                        <button onClick={updateDescription} className="saveButton px-4 py-px text-white font-semibold rounded bg-pink-300" style={{display:'none'}}>Save</button>
+                        <button onClick={hideForm} className="cancelButton px-4 py-px text-white font-semibold rounded bg-gray-300" style={{display:'none'}}>Cancel</button>
+                    </div>
+                    ) : (<></>)
+                }
             </div>
         </div>
     )

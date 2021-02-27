@@ -5,8 +5,6 @@ import personIcon from '../../../static/images/person-icon.png'
 
 export default function ContainerFourth(props) {
 
-    const screenSize = props.screenSize
-
     const figFourthOnSubmit = (e) => {
         e.preventDefault()
         const form = e.target
@@ -27,42 +25,36 @@ export default function ContainerFourth(props) {
             </div>
         </div>
 
-        {
-            screenSize >= 640 ? (
-            <div className="figFourth w-96 p-4 rounded-lg" style={{backgroundColor:COLOR_FIFTH}}>
+        <div className="figFourth w-96 p-4 rounded-lg" style={{backgroundColor:COLOR_FIFTH}}>
 
-                <div className="w-full flex space-x-1 items-center">
-                    <form className="w-full flex justify-between items-center" onSubmit={figFourthOnSubmit}>
-                        <input className="flex-grow bg-transparent border-2 p-1 rounded-xl border-gray-400" placeholder="Search for your glance!"></input>
-                        <button className="fas fa-search pl-2 text-xl"></button>
-                    </form>
-                    <div><button onClick={alertCheckOut} className="far fa-lightbulb text-xl pl-2"></button></div>
-                </div>
-    
-                <div className="w-full flex flex-col justify-start items-center rounded p-2 space-y-2 mt-2" style={{backgroundColor:COLOR_SEVENTH}}>
-                    <div className="w-full flex justify-between items-center">
-                        <button onClick={alertCheckOut}><span className="underline text-blue-400 font-semibold text-lg">School Homework</span></button>
-                        <button onClick={alertCheckOut} className="flex justify-center items-center space-x-1 bg-gray-200 p-2 rounded">
-                            <div className="w-8 h-8 rounded-2xl bg-center bg-cover" style={{backgroundImage:`url(${personIcon})`}}></div>
-                            <div><span>Brian</span></div>
-                        </button>
-                    </div>
-                    <div className="w-full flex justify-start items-center">
-                        <span>Due: 2021.01.01 Mon, Requirement:pencil,<br></br> I want A plus</span>
-                    </div>
-                    <div className="w-full flex justify-start items-center space-x-1">
-                        <div className="rounded-2xl bg-blue-200 font-semibold px-2 py-1">Math</div>
-                        <div className="rounded-2xl bg-blue-200 font-semibold px-2 py-1">Calculus</div>
-                    </div>
-                </div>
-    
-                <div className="w-full flex justify-center py-4"><i className="fas fa-ellipsis-v text-2xl text-center"></i></div>
-    
+            <div className="w-full flex space-x-1 items-center">
+                <form className="w-full flex justify-between items-center" onSubmit={figFourthOnSubmit}>
+                    <input className="flex-grow bg-transparent border-2 p-1 rounded-xl border-gray-400" placeholder="Search for your glance!"></input>
+                    <button className="fas fa-search pl-2 text-xl"></button>
+                </form>
+                <div><button onClick={alertCheckOut} className="far fa-lightbulb text-xl pl-2"></button></div>
             </div>
-            ) : (
-                <></>
-            )
-        }
+
+            <div className="w-full flex flex-col justify-start items-center rounded p-2 space-y-2 mt-2" style={{backgroundColor:COLOR_SEVENTH}}>
+                <div className="w-full flex justify-between items-center">
+                    <button onClick={alertCheckOut}><span className="underline text-blue-400 font-semibold text-lg">School Homework</span></button>
+                    <button onClick={alertCheckOut} className="flex justify-center items-center space-x-1 bg-gray-200 p-2 rounded">
+                        <div className="w-8 h-8 rounded-2xl bg-center bg-cover" style={{backgroundImage:`url(${personIcon})`}}></div>
+                        <div><span>Brian</span></div>
+                    </button>
+                </div>
+                <div className="w-full flex justify-start items-center">
+                    <span>Due: 2021.01.01 Mon, Requirement:pencil,<br></br> I want A plus</span>
+                </div>
+                <div className="w-full flex justify-start items-center space-x-1">
+                    <div className="rounded-2xl bg-blue-200 font-semibold px-2 py-1">Math</div>
+                    <div className="rounded-2xl bg-blue-200 font-semibold px-2 py-1">Calculus</div>
+                </div>
+            </div>
+
+            <div className="w-full flex justify-center py-4"><i className="fas fa-ellipsis-v text-2xl text-center"></i></div>
+
+        </div>
 
     </div>
     )

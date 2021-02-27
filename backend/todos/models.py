@@ -6,11 +6,11 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class Task(core_model.TimeStampedModel):
 
     container = models.ForeignKey("todos.Container", on_delete=models.CASCADE, related_name="tasks")    
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
     order = models.IntegerField(validators=[MinValueValidator(1),])
     completed = models.BooleanField(default=False)
     importance = models.BooleanField(default=False)
-    description = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True,max_length=500)
 
     def __str__(self):
         return self.name
@@ -19,11 +19,11 @@ class Task(core_model.TimeStampedModel):
 class Container(core_model.TimeStampedModel):
 
     project = models.ForeignKey("todos.Project", on_delete=models.CASCADE, related_name="containers")
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
     order = models.IntegerField(validators=[MinValueValidator(1),])
     completed = models.BooleanField(default=False)
     importance = models.BooleanField(default=False)
-    description = models.TextField(blank=True,null=True)
+    description = models.TextField(blank=True,null=True,max_length=3000)
 
     def count_tasks(self):
         return int(len(self.tasks.all()))
@@ -38,10 +38,10 @@ class Container(core_model.TimeStampedModel):
 class Project(core_model.TimeStampedModel):
 
     created_user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="project_created_user")
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
     order = models.IntegerField(validators=[MinValueValidator(1),])
     importance = models.BooleanField(default=False)
-    description = models.TextField(blank=True,null=True)
+    description = models.TextField(blank=True,null=True,max_length=5000)
     participants = models.ManyToManyField("users.User", blank=True,related_name="project_contributor")
     isPrivate = models.BooleanField(default=False)
 
@@ -66,6 +66,6 @@ class Project(core_model.TimeStampedModel):
 
 class Tag(core_model.TimeStampedModel):
 
-    name=models.CharField(max_length=50)
+    name=models.CharField(max_length=200)
     tag_for = models.ForeignKey("todos.Project", on_delete=models.CASCADE, related_name="tags")
 

@@ -91,7 +91,7 @@ function TaskCard(props) {
                         <button className="far fa-check-circle text-3xl" onClick={updateCompleted}></button>
                     </>
                     ) : (
-                        <button className="infoButton fas fa-info-circle text-3xl mx-px" onClick={displayDescription}></button>
+                        <button className="infoButton fas fa-info-circle text-2xl mx-px" onClick={displayDescription}></button>
                     )
                 }
             </div>

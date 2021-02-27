@@ -101,6 +101,6 @@ export const clearContainer = () => dispatch => {
 }
 
 
-export const updateSchemeOrder = () => dispatch => {}
+// export const updateSchemeOrder = () => dispatch => {}
 
 

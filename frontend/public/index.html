@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Start the project, Share the workflow. FLglance provides you powerful tools for task managing"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
@@ -35,10 +35,127 @@
 
       gtag('config', 'G-QME9PQT92Q');
     </script>
+    <style>
+      @keyframes bounce {
+        0% {
+          transform: translateY(0px);
+        }
+        40% {
+          transform: translateY(-40px);
+        }
+        80%,
+        100% {
+          transform: translateY(0px);
+        }
+      }
+      .root__container {
+        height: 100vh;
+        background: #F8F8FF;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .root__loading {
+        display: flex;
+        flex-direction: row;
+      }
+      .root__loading__letter {
+        font-size: 3.5rem;
+        line-height: 1;
+        font-weight: normal;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        animation-name: bounce;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        -moz-animation-name: bounce;
+        -moz-animation-duration: 2s;
+        -moz-animation-iteration-count: infinite;
+        -webkit-animation-name: bounce;
+        -webkit-animation-duration: 2s;
+        -webkit-animation-iteration-count: infinite;
+        color: #0f3057;
+      }
+      .root__loading__letter:nth-child(2) {
+        animation-delay: 0.1s;
+        -moz-animation-delay: 0.1s;
+        -webkit-animation-delay: 0.1s;
+      }
+      .root__loading__letter:nth-child(3) {
+        animation-delay: 0.2s;
+        -moz-animation-delay: 0.2s;
+        -webkit-animation-delay: 0.2s;
+      }
+      .root__loading__letter:nth-child(4) {
+        animation-delay: 0.3s;
+        -moz-animation-delay: 0.3s;
+        -webkit-animation-delay: 0.3s;
+      }
+      .root__loading__letter:nth-child(5) {
+        animation-delay: 0.4s;
+        -moz-animation-delay: 0.4s;
+        -webkit-animation-delay: 0.4s;
+      }
+      .root__loading__letter:nth-child(6) {
+        animation-delay: 0.5s;
+        -moz-animation-delay: 0.5s;
+        -webkit-animation-delay: 0.5s;
+      }
+      .root__loading__letter:nth-child(7) {
+        animation-delay: 0.6s;
+        -moz-animation-delay: 0.6s;
+        -webkit-animation-delay: 0.6s;
+      }
+      .root__loading__letter:nth-child(8) {
+        animation-delay: 0.7s;
+        -moz-animation-delay: 0.7s;
+        -webkit-animation-delay: 0.7s;
+      }
+      .root__loading__letter:nth-child(9) {
+        animation-delay: 0.9s;
+        -moz-animation-delay: 0.9s;
+        -webkit-animation-delay: 0.9s;
+      }
+      .root__loading__letter:nth-child(10) {
+        animation-delay: 1s;
+        -moz-animation-delay: 1s;
+        -webkit-animation-delay: 1s;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="root__container">
+        <div class="root__loading">
+          <div class="root__loading__letter">L</div>
+          <div class="root__loading__letter">o</div>
+          <div class="root__loading__letter">a</div>
+          <div class="root__loading__letter">d</div>
+          <div class="root__loading__letter">i</div>
+          <div class="root__loading__letter">n</div>
+          <div class="root__loading__letter">g</div>
+          <div class="root__loading__letter">.</div>
+          <div class="root__loading__letter">.</div>
+          <div class="root__loading__letter">.</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+              navigator.serviceWorker.register('worker.js').then(function(registration) {
+                  console.log('Worker registration successful', registration.scope);
+              }, function(err) {
+                  console.log('Worker registration failed', err);
+              }).catch(function(err) {
+                  console.log(err);
+              });
+          });
+      } else {
+          console.log('Service Worker is not supported by browser.');
+      }
+  </script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

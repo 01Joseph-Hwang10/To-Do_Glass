@@ -2,16 +2,19 @@
 import React from 'react'
 // Redux
 import { connect } from 'react-redux'
-import {updateProject, getProject,updateDescription} from '../../../actions/todoactions/projectActions';
+import {updateProject, getProject,updateDescription, getPrivateProject} from '../../../actions/todoactions/projectActions';
 // etc
 import { COLOR_FIFTH, COLOR_SECOND, COLOR_SIXTH, COLOR_THIRD } from '../../../store/variables'
 import PropTypes from 'prop-types'
 
 function ProjectDetail(props) {
 
-    const projectId = props.project.id
-    const description = props.project.description || "No Description"
+    const project = props.project
+    const projectId = project.id
     const projectDetailClassName = ['projectDetail',String(projectId)].join('')
+    // const getProject = (function(){return(project.isPrivate ? props.getPrivateProject : props.getProject)})()
+    
+    let description = project.description || "No Description"
     
     const showForm = (e) => {
         const editButton = e.target
@@ -27,6 +30,7 @@ function ProjectDetail(props) {
         editButton.style.display = "none"
         textAreaDiv.style.backgroundColor = COLOR_THIRD
         textArea.focus()
+        description = textArea.value
     }
 
     const closeForm = (e) => {
@@ -42,6 +46,9 @@ function ProjectDetail(props) {
         cancelButton.style.display = "none"
         editButton.style.display = "block"
         textAreaDiv.style.backgroundColor = COLOR_SECOND
+        textArea.value = description
+        textArea.style.height = '1px'
+        textArea.style.height = (textArea.scrollHeight) +'px'
         textArea.blur()
     }
 
@@ -58,6 +65,8 @@ function ProjectDetail(props) {
             user_id:localStorage.getItem('user_id')
         }
         await props.updateDescription(postData,projectId)
+        // await getProject(projectId)
+        description = textArea.value
         textArea.readOnly = "true"
         saveButton.style.display = "none"
         cancelButton.style.display = "none"
@@ -69,14 +78,14 @@ function ProjectDetail(props) {
     const resize = (e) => {
         const textarea = e.target
         textarea.style.height = '1px'
-        textarea.style.height = (12+textarea.scrollHeight) +'px'
+        textarea.style.height = (textarea.scrollHeight) +'px'
     }
 
     let initialResize = setInterval(() => {
         if(document.querySelector(`.${projectDetailClassName}`)) {
             const textarea = document.querySelector(`.${projectDetailClassName}`)
             textarea.style.height = '1px'
-            textarea.style.height = (12+textarea.scrollHeight) +'px'
+            textarea.style.height = (textarea.scrollHeight) +'px'
             clearInterval(initialResize)
         }
     }, 100);
@@ -85,8 +94,8 @@ function ProjectDetail(props) {
         <div className="projectDetail w-full pb-2">
             {props.permission ? (
                 <div className="w-full">
-                    <div className="w-full opacity-90 p-2 py-4 mb-1 rounded text-white shadow-inner" style={{backgroundColor:COLOR_SECOND,transition:"all 0.5s ease-in-out"}}>
-                        <textarea onKeyUp={resize} onKeyDown={resize} defaultValue={description} className={["textArea bg-transparent outline-none border-none w-full resize-none whitespace-pre-line",projectDetailClassName].join(' ')} readOnly placeholder="Project Description"></textarea>
+                    <div className="w-full opacity-90 p-2 py-4 mb-1 rounded text-white shadow-inner" style={{backgroundColor:COLOR_SECOND,transition:"all 0.2s ease-in-out"}}>
+                        <textarea onKeyUp={resize} defaultValue={description} onKeyDown={resize} className={["textArea bg-transparent outline-none border-none w-full resize-none whitespace-pre-line",projectDetailClassName].join(' ')} readOnly placeholder="Project Description"></textarea>
                     </div>
                     <div className="w-full flex justify-end">
                         <button onClick={showForm} className="showForm px-3 py-1 rounded font-semibold" style={{display:'block',backgroundColor:COLOR_THIRD,color:COLOR_FIFTH}}>Edit</button>
@@ -97,7 +106,7 @@ function ProjectDetail(props) {
             ) : (
                 <div className="w-full">
                     <div className="w-full opacity-90 p-2 rounded text-white shadow-inner" style={{backgroundColor:COLOR_SECOND}}>
-                        <span>{description}</span>
+                        <textarea defaultValue={description} readOnly className={["textArea bg-transparent outline-none border-none w-full resize-none whitespace-pre-line",projectDetailClassName].join(' ')}></textarea>
                     </div>
                 </div>
             )}
@@ -108,8 +117,9 @@ function ProjectDetail(props) {
 ProjectDetail.propTypes = {
     updateProject:PropTypes.func.isRequired,
     getProject:PropTypes.func.isRequired,
-    updateDescription:PropTypes.func.isRequired
+    updateDescription:PropTypes.func.isRequired,
+    getPrivateProject:PropTypes.func.isRequired,
 }
 
-export default connect(null,{updateProject, getProject,updateDescription})(ProjectDetail)
+export default connect(null,{updateProject, getProject,updateDescription,getPrivateProject})(ProjectDetail)
 

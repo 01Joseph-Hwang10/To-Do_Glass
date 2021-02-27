@@ -5,7 +5,7 @@ import { clearProject } from "../../actions/todoactions/projectActions";
 import { clearContainer } from "../../actions/todoactions/containerActions";
 import { connect } from 'react-redux';
 import { openOverview } from '../../actions/screenActions';
-import { loading } from '../../actions/useractions/userInfoActions';
+import { loading, getProfile, getUserInfo, myProfile, notMyProfile } from '../../actions/useractions/userInfoActions';
 
 function Avatar(props) {
 
@@ -22,12 +22,17 @@ function Avatar(props) {
 
     return (
         <Link to={{pathname:`/${id}/home`}} 
-        // onClick={() => {
-        //     props.loading()
-        //     setTimeout(() => {
-        //         window.location.reload()
-        //     }, 50);
-        // }}
+        onClick={ async () => {
+            if(props.screenSize < 640 ) props.openOverview()
+            props.loading()
+            if(Number(id)===Number(localStorage.getItem('user_id'))) {
+                await props.getProfile(id)
+                props.myProfile()
+            } else {
+                await props.getUserInfo(id)
+                props.notMyProfile()
+            }
+        }}
         >
             <div className="w-full flex justify-center items-center">
                 <div className='w-8 h-8 rounded-2xl bg-cover bg-center' style={{backgroundImage:`url("${user.avatar}")`}}></div>
@@ -37,11 +42,17 @@ function Avatar(props) {
     )
 }
 
+const actions = {clearProject,clearContainer,openOverview,loading,getProfile, getUserInfo, myProfile, notMyProfile}
+
 Avatar.propTypes = {
     clearProject:PropTypes.func.isRequired,
     clearContainer:PropTypes.func.isRequired,
     openOverview:PropTypes.func.isRequired,
-    loading:PropTypes.func.isRequired
+    loading:PropTypes.func.isRequired,
+    getProfile:PropTypes.func.isRequired,
+    getUserInfo:PropTypes.func.isRequired,
+    myProfile:PropTypes.func.isRequired,
+    notMyProfile:PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => {
@@ -50,5 +61,5 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps,{clearProject,clearContainer,openOverview,loading})(Avatar)
+export default connect(mapStateToProps,actions)(Avatar)
 
