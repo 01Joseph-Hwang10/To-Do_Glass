@@ -3,7 +3,7 @@ import React from 'react'
 // Redux
 import { connect } from 'react-redux';
 import { createContainer } from "../../../actions/todoactions/containerActions";
-import { getProject } from "../../../actions/todoactions/projectActions";
+import { getProject, getPrivateProject } from "../../../actions/todoactions/projectActions";
 // modules
 // import { DragDropContext } from "react-beautiful-dnd";
 // etc
@@ -23,6 +23,8 @@ function ContainerBox(props) {
     const countContainers = Number(project.count_containers)
     const permission = props.permission
 
+    const getProject = (function(){return(project.isPrivate?props.getPrivateProject:props.getProject)})()
+
     const OnSubmit = async (e) => {
         e.preventDefault()
         const div = e.target.parentNode
@@ -38,7 +40,7 @@ function ContainerBox(props) {
             order:(countContainers+1)
         }
         await props.createContainer(postData)
-        await props.getProject(projectId)
+        await getProject(projectId)
         name.value=""
         description.value=""
         button.style.display ="block"
@@ -87,6 +89,7 @@ function ContainerBox(props) {
 ContainerBox.propTypes = {
     createContainer:PropTypes.func.isRequired,
     getProject:PropTypes.func.isRequired,
+    getPrivateProject:PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => {
@@ -96,4 +99,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps,{createContainer,getProject})(ContainerBox);
+export default connect(mapStateToProps,{createContainer,getProject,getPrivateProject})(ContainerBox);

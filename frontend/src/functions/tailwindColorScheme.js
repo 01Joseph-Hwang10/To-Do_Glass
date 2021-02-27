@@ -123,9 +123,9 @@ export const selectColor = (colorScheme,number) => {
 
     let index;
     if(number) {
-        index=Math.abs(number%6)
+        index=Math.abs(number%5)
     } else {
-        index=Math.floor(Math.random()*6)
+        index=Math.floor(Math.random()*5)
     }
 
     switch (colorScheme) {

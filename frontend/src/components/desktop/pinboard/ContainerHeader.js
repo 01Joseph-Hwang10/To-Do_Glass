@@ -18,6 +18,8 @@ function ContainerHeader(props) {
     // const description = container.description
     const permission = props.permission
     const isFullScreen = props.isFullScreen
+    const buttonClassName = ['containerDetailOpener',String(container.id)].join('')
+    const buttonClassNameMobile = ['containerDetailOpenerMobile',String(container.id)].join('')
 
     const OnMouseOver = (e) => {
         const button = e.target
@@ -64,8 +66,8 @@ function ContainerHeader(props) {
     }
 
     const openDetail = (e) => {
-        const button = e.target
-        const div = e.target.closest('.containerHeader').parentNode.parentNode
+        // const button = e.target
+        const div = e.target.closest('.container')
         div.style.borderWidth = '4px'
         div.style.borderColor = COLOR_THIRD
         div.style.borderRadius = '0.375rem'
@@ -91,7 +93,7 @@ function ContainerHeader(props) {
         containerDetail.style.height = (60+textarea.scrollHeight+namearea.offsetHeight) +'px'
 
         document.addEventListener('click', (e) => {
-            if(!containerDetail.contains(e.target) && e.target !== button) {
+            if(!containerDetail.contains(e.target) && !(e.target.classList.contains(buttonClassName) || e.target.classList.contains(buttonClassNameMobile))) {
                 div.style.borderWidth = '0px'
                 div.style.borderBottomWidth = '2px'
                 div.style.borderColor = "#E5E7EB"
@@ -123,7 +125,7 @@ function ContainerHeader(props) {
                 }
                 <div className="overflow-ellipsis font-semibold">{container.name}</div>
             </div>
-            <div className="w-full flex justify-end"><button onClick={openDetail} className="text-lg text-white rounded px-3 z-10" style={{backgroundColor:COLOR_THIRD}}>Detail</button></div>
+            <div className="w-full flex justify-end"><button onClick={openDetail} className={['text-lg text-white rounded px-3 z-30',buttonClassName].join(' ')} style={{backgroundColor:COLOR_THIRD}}>Detail</button></div>
         </section>
     </div>
     )

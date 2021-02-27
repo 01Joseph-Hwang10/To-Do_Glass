@@ -9,11 +9,12 @@ import { setScreenSize } from "../../actions/screenActions";
 import PropTypes from 'prop-types';
 import { spaceNotAllowed } from '../../functions/spaceNotAllowed';
 import { COLOR_FOURTH, COLOR_SECOND, COLOR_THIRD } from '../../store/variables';
+import { scrollToTop } from '../../functions/scrollFunctions';
 
 class SignUpForm extends React.Component {
 
     componentDidMount() {
-        window.scrollTo(0,0)
+        scrollToTop()
         const setScreenSize = this.props.setScreenSize
         setScreenSize(window.innerWidth)
         window.onresize = function() {

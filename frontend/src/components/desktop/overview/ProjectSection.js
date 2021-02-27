@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {getProject,clearProject,createProject, getPrivateProject} from '../../../actions/todoactions/projectActions';
 import {clearContainer} from  '../../../actions/todoactions/containerActions';
 import { getProfile } from "../../../actions/useractions/userInfoActions";
+import { focusPinboard } from "../../../actions/screenActions";
 // etc
 import PropTypes from 'prop-types';
 import { switchHidden } from "../../../functions/switchDisplay";
@@ -37,6 +38,9 @@ function ProjectSection(props) {
             await props.getPrivateProject(project_id)
         } else {
             await props.getProject(project_id);
+        }
+        if(props.screenSize < 640 ) {
+            props.focusPinboard()
         }
     };
 
@@ -106,7 +110,7 @@ function ProjectSection(props) {
 }
 
 
-const actions = {getProject,getPrivateProject,clearProject,clearContainer,getProfile,createProject}
+const actions = {getProject,getPrivateProject,clearProject,clearContainer,getProfile,createProject,focusPinboard}
 
 
 ProjectSection.propTypes = {
@@ -115,7 +119,14 @@ ProjectSection.propTypes = {
     getProfile:PropTypes.func.isRequired,
     createProject:PropTypes.func.isRequired,
     clearProject:PropTypes.func.isRequired,
-    clearContainer:PropTypes.func.isRequired
+    clearContainer:PropTypes.func.isRequired,
+    focusPinboard:PropTypes.func.isRequired
 }
 
-export default connect(null,actions)(ProjectSection);
+const mapStateToProps = state => {
+    return {
+        screenSize:state.screen.screenSize
+    }
+}
+
+export default connect(mapStateToProps,actions)(ProjectSection);

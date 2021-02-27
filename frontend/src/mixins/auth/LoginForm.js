@@ -8,11 +8,12 @@ import { setScreenSize } from "../../actions/screenActions";
 // etc
 import PropTypes from 'prop-types';
 import { COLOR_FOURTH, COLOR_SECOND, COLOR_THIRD } from '../../store/variables';
+import { scrollToTop } from "../../functions/scrollFunctions";
 
 class LoginForm extends React.Component {
 
     componentDidMount() {
-        window.scrollTo(0,0)
+        scrollToTop()
         const setScreenSize = this.props.setScreenSize
         setScreenSize(window.innerWidth)
         window.onresize = function() {
@@ -27,26 +28,22 @@ class LoginForm extends React.Component {
 
         const onSubmit = async (e) => {
             e.preventDefault()
-            if(screenSize >= 640) {
-                const email = document.querySelector(".emailLogin__email");
-                const password = document.querySelector(".emailLogin__password");
-                const post_data = {
-                    username:email.value,
-                    password:password.value
-                };
-                // eslint-disable-next-line
-                const response = await this.props.postLogin(post_data);
-                email.value="";
-                password.value="";
+            const email = document.querySelector(".emailLogin__email");
+            const password = document.querySelector(".emailLogin__password");
+            const post_data = {
+                username:email.value,
+                password:password.value
+            };
+            // eslint-disable-next-line
+            const response = await this.props.postLogin(post_data);
+            email.value="";
+            password.value="";
 
-                const span = document.querySelector('.emailLogin__failed');
-                // if(response && response !== 200) {
-                //     span.style.display='block'
-                // }
-                setTimeout(()=>{span.style.display='block'},1000)
-            } else {
-                alert("Currently, only PC and Tablet-PC are supported. Sorry for the inconvenience")
-            }
+            const span = document.querySelector('.emailLogin__failed');
+            // if(response && response !== 200) {
+            //     span.style.display='block'
+            // }
+            setTimeout(()=>{span.style.display='block'},1000)
         };
     
         return (

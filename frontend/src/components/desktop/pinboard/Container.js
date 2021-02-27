@@ -19,12 +19,16 @@ import HorizontalScroll from '../../../mixins/scroll/HorizontalScroll';
 import ContainerHeader from './ContainerHeader';
 import ContainerDetail from './ContainerDetail';
 import useInterval from '../../../hooks/useInterval';
+import ContainerHeaderMobile from '../../mobile/pinboard/ContainerHeaderMobile';
 
 
 function Container(props) {
 
     const isPrivate = props.isPrivate
     const getContainer = (function(){return(isPrivate?props.getPrivateContainer:props.getContainer)})()
+    const screenSize = props.screenSize
+    const containerWidth = (function(){return(screenSize >= 640 ? '91.6%' : '100%')})()
+    const borderLeftWidth = (function(){return(screenSize >= 640 ? '2px' : '0')})()
 
     let container=props.container;
     const [tasks,updateTasks] = useState((container&&container.get_tasks?container.get_tasks.sort(sortByOrder):[]))
@@ -104,14 +108,25 @@ function Container(props) {
         <div className="container w-full flex flex-col justify-center items-center bg-transparent h-full" style={{borderWidth:'0px',borderBottomWidth:'2px',borderColor:"#E5E7EB", transition:'all 0.1s ease-in-out',borderRadius:'0'}}>
             { container && tasks ? (
                 <>
+                {
+                    screenSize < 640 ? (
+                        <section className="w-full containerHeaderMobile">
+                            <ContainerHeaderMobile isPrivate={isPrivate} container={container} permission={permission} color={color} />
+                        </section>
+                    ) : (<></>)
+                }
                 <div className="containerDetail w-full flex flex-col" style={{opacity:0,height:'0',borderBottomWidth:'0',zIndex:0}}>
-                    <ContainerDetail isPrivate={isPrivate} container={container} permission={permission} />
+                    <ContainerDetail screenSize={screenSize} isPrivate={isPrivate} container={container} permission={permission} />
                 </div>
                 <div className="w-full flex justify-center items-center bg-transparent">
-                    <section className="containerHeader flex justify-center items-center" style={{width:"8.4%",transition:"all 0.4s ease-in-out"}}>
-                        <ContainerHeader container={container} permission={permission} />
-                    </section>
-                    <section className="containerBody flex flex-col justify-start items-center border-l-2" style={{width:"91.6%",transition:"all 0.4s ease-in-out"}}>
+                    {
+                        screenSize >= 640 ? (
+                        <section className="containerHeader flex justify-center items-center" style={{width:"8.4%",transition:"all 0.4s ease-in-out"}}>
+                            <ContainerHeader container={container} permission={permission} />
+                        </section>
+                        ): (<></>)
+                    }
+                    <section className="containerBody flex flex-col justify-start items-center" style={{width:containerWidth,transition:"all 0.4s ease-in-out",borderLeftWidth:borderLeftWidth}}>
                         <div className="w-full mx-2 border-t-8 border-double border-gray-600">
                             <HorizontalScroll onDragEnd={handleOnDragEnd} card={
                                 <>
@@ -134,7 +149,7 @@ function Container(props) {
                                                 }
                                             </Draggable>
                                             ) : (
-                                            <div id={['taskCard',task.id].join('')} className="w-28 flex flex-col">
+                                            <div key={['taskCard',task.id].join('')} id={['taskCard',task.id].join('')} className="w-28 flex flex-col">
                                                 <TaskCard 
                                                 task={task}
                                                 permission={permission}
@@ -191,7 +206,8 @@ const actions = {getContainer,getPrivateContainer,createTask,updateTask,hideScro
 const mapStateToProps = state => {
     return {
         Profile:state.userInfo.Profile,
-        scrollButtonVisible:state.screen.scrollButtonVisible
+        scrollButtonVisible:state.screen.scrollButtonVisible,
+        screenSize:state.screen.screenSize
     }
 }
 

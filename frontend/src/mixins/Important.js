@@ -1,17 +1,19 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 function Important(props) {
 
     const isImportant = props.isImportant
     const top = props.top || false
     const style=(function(){return(top?"flex":"block")})()
+    const screenSize = props.screenSize
     
     let permission = false
     if(props.permission) permission = props.permission
 
     let hover;
-    if(permission) hover="hover:bg-gray-300"
+    if(permission && screenSize > 768) hover="hover:bg-gray-300"
 
     return (
         <>
@@ -34,5 +36,11 @@ function Important(props) {
 
 // }
 
-export default Important
+const mapStateToProps = state => {
+    return {
+        screenSize:state.screen.screenSize
+    }
+}
+
+export default connect(mapStateToProps,null)(Important)
 

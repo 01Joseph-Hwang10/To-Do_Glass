@@ -19,6 +19,7 @@ import { COLOR_FIFTH, COLOR_FIRST } from '../store/variables';
 import Overview from '../components/desktop/Overview';
 import Pinboard from '../components/desktop/Pinboard';
 import Glance from '../components/desktop/Glance';
+import { scrollToTop } from '../functions/scrollFunctions';
 
 class Home extends React.Component {
 
@@ -41,6 +42,7 @@ class Home extends React.Component {
         const pinboardIsLoaded = Boolean(Object.keys(this.props.project).length > 0)
         const isFullScreen = this.props.isFullScreen
         const screenSize = this.props.screenSize
+        const marginTop = (function(){return(screenSize>=640?'1.25rem':'')})()
 
         const overviewOpened = this.props.overviewOpened
         const glanceOpened = this.props.glanceOpened
@@ -49,29 +51,55 @@ class Home extends React.Component {
         const showScrollButton = this.props.showScrollButton
         const hideScrollButton = this.props.hideScrollButton
 
-        let overviewWidth, overviewOpacity, pinboardWidth, glanceWidth, glanceOpacity,delay,overviewDelay,glanceDelay
+        let overviewWidth, overviewOpacity, pinboardWidth, pinboardOpacity, glanceWidth, glanceOpacity,delay,overviewDelay,glanceDelay, pinboardDelay, widthDuration, opacityDuration
         if(screenSize >= 1024) {
+            widthDuration = '0.5s'
+            opacityDuration = '0.1s'
             overviewWidth = (function(){return(isFullScreen?"0%":"17%")})()
             overviewOpacity = (function(){return(isFullScreen?0:1)})()
-            pinboardWidth = (function(){return(isFullScreen?"90%":"50%")})()
+            pinboardWidth = (function(){return(isFullScreen?"100%":"50%")})()
+            pinboardOpacity = 1
             glanceWidth = (function(){return(isFullScreen?"0%":"25%")})()
             glanceOpacity = (function(){return(isFullScreen?0:1)})()
             delay = (function(){return(isFullScreen?"":"0.4s")})()
             overviewDelay = delay
+            pinboardDelay = ''
             glanceDelay = delay
             showScrollButton()
-        } else {
-            overviewWidth = (function(){return(overviewOpened?"30%":'0%')})()
+        }
+        if(screenSize < 1024 && screenSize >= 640) {
+            widthDuration = '0.5s'
+            opacityDuration = '0.1s'
+            overviewWidth = (function(){return(overviewOpened?"35%":'0%')})()
             overviewOpacity = (function(){return(overviewOpened?1:0)})()
             pinboardWidth = (function(){
                 if(overviewOpened) return '60%'
                 if(glanceOpened) return '50%'
-                return '90%'
+                return '100%'
             })()
-            glanceWidth = (function(){return(glanceOpened?'40%':'0%')})()
+            pinboardOpacity = 1
+            glanceWidth = (function(){return(glanceOpened?'45%':'0%')})()
             glanceOpacity = (function(){return(glanceOpened?1:0)})()
             overviewDelay = (function(){return(overviewOpened?'0.4s':'')})()
+            pinboardDelay = ''
             glanceDelay = (function(){return(glanceOpened?'0.4s':'')})()
+        }
+        if(screenSize < 640) {
+            widthDuration = '0s'
+            opacityDuration = '0s'
+            overviewWidth = (function(){return(overviewOpened?"100%":'0%')})()
+            overviewOpacity = (function(){return(overviewOpened?1:0)})()
+            pinboardWidth = (function(){
+                if(overviewOpened) return '0%'
+                if(glanceOpened) return '0%'
+                return '100%'
+            })()
+            pinboardOpacity = (function(){return(glanceOpened||overviewOpened?0:1)})()
+            glanceWidth = (function(){return(glanceOpened?'100%':'0%')})()
+            glanceOpacity = (function(){return(glanceOpened?1:0)})()
+            overviewDelay = ''
+            pinboardDelay = ''
+            glanceDelay = ''
         }
 
         const switchScrollVisible = () => {
@@ -92,6 +120,7 @@ class Home extends React.Component {
             } else {
                 focusPinboard()
             }
+            if(screenSize < 640 ) scrollToTop()
         }
 
         const switchGlance = () => {
@@ -100,21 +129,24 @@ class Home extends React.Component {
             } else {
                 focusPinboard()
             }
+            if(screenSize < 640) scrollToTop()
         }
 
         return (
             <>
-            <div className="scroller mt-16 flex justify-center w-full overflow-x-hidden">
-                <div className="container m-2 rounded p-3" style={{
+            <div className="scroller mt-16 flex justify-around w-full overflow-x-hidden">
+                <div className="container rounded ml-2" style={{
                     width:overviewWidth,
                     opacity:overviewOpacity,
-                    transition:`width 0.5s, opacity 0.1s ease-in-out ${overviewDelay}`
+                    transition:`width ${widthDuration} ease-in-out, opacity ${opacityDuration} ease-in-out ${overviewDelay}`,
+                    marginTop:marginTop
                 }}>
                     <Overview />
                 </div>
-                <div className="container m-2" style={{
+                <div className="container" style={{
                     width:pinboardWidth,
-                    transition:'all 0.5s ease-in-out'
+                    opacity:pinboardOpacity,
+                    transition:`width ${widthDuration} ease-in-out, opacity ${opacityDuration} ease-in-out ${pinboardDelay}`
                 }}>
                     {
                         pinboardIsLoaded ? (
@@ -128,10 +160,10 @@ class Home extends React.Component {
                         )
                     }
                 </div>
-                <div className="container m-2 mt-6" style={{
+                <div className="container mt-6 mr-1" style={{
                     width:glanceWidth,
                     opacity:glanceOpacity,
-                    transition:`width 0.5s, opacity 0.1s ease-in-out ${glanceDelay}`
+                    transition:`width ${widthDuration} ease-in-out, opacity ${opacityDuration} ease-in-out ${glanceDelay}`
                 }}>
                     <Glance />
                 </div>

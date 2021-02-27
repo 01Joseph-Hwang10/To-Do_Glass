@@ -7,7 +7,8 @@ import {
     UPDATE_FOLLOW, 
     UPDATE_FOLLOWING_INFO, 
     UPDATE_PROFILE,
-    UPDATE_PROJECT_NAME 
+    UPDATE_PROJECT_NAME,
+    LOADING 
 } from "../../actions/types";
 
 
@@ -15,6 +16,7 @@ const initialState = {
     Profile:[],
     Storage:[],
     isMyProfile:false,
+    isLoading:true
 };
 
 // eslint-disable-next-line
@@ -34,6 +36,7 @@ export default function(state=initialState,action) {
             return {
                 ...state,
                 Profile:action.payload.Profile,
+                isLoading:false
             }
         case UPDATE_PROFILE:
             return {
@@ -87,7 +90,13 @@ export default function(state=initialState,action) {
         case GET_USER_INFO:
             return {
                 ...state,
-                Storage:action.payload.UserInfo
+                Storage:action.payload.UserInfo,
+                isLoading:false
+            }
+        case LOADING:
+            return {
+                ...state,
+                isLoading:true
             }
         default:
             return state;

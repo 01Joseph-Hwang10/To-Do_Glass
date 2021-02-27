@@ -23,15 +23,18 @@ class Pinboard extends Component {
         const isParticipant = (function(){return( participantList ? Boolean(participantList.includes(myId)) : false )})()
         const participantPermission = Boolean(userPermission || (this.props.isAuthenticated && isParticipant))
 
+        const screenSize = this.props.screenSize
+        const paddingHorizontal = (function(){return(screenSize >= 640 ? '1.25rem' : '0')})()
+
         return (
-            <div className="w-full">
+            <div className="w-full mb-10">
                 {
                     Boolean(project.url) ? (
                         <div className="w-full bg-blue-50 rounded shadow-inner">
                             <div className="p-3 rounded-t bg-gradient-to-b from-blue-100 to-blue-50">
                                 <Header project={project} permission={userPermission} />
                             </div>
-                            <div className="px-5 pt-5 rounded">
+                            <div className="pt-5 rounded" style={{paddingRight:paddingHorizontal,paddingLeft:paddingHorizontal}}>
                                 <Scheme project={project} permission={participantPermission} />
                             </div>
                             <div className="px-5 pt-3 rounded">
@@ -40,7 +43,7 @@ class Pinboard extends Component {
                             <div className="px-5 pb-3 rounded">
                                 <ProjectTags project={project} permission={participantPermission} />
                             </div>
-                            <div className="px-5 rounded">
+                            <div className="rounded"  style={{paddingRight:paddingHorizontal,paddingLeft:paddingHorizontal}}>
                                 <ContainerBox project={project} permission={participantPermission} />
                             </div>
                             <div className="w-1 h-10"></div>
@@ -62,7 +65,8 @@ const mapStateToProps = state => {
     return {
         Project:state.project.Project,
         isAuthenticated:state.login.isAuthenticated,
-        participantList:state.project.Project.participant_ids
+        participantList:state.project.Project.participant_ids,
+        screenSize:state.screen.screenSize
     }
 }
 

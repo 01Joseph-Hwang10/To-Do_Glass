@@ -74,7 +74,7 @@ function TaskCard(props) {
                 permission={permission}
                 dataType={"name"}
                 action={props.updateTask}
-                afterAction={props.getContainer}
+                afterAction={getContainer}
                 afterActionInput={task.container_id}
                 placeholder={"Task"}
                 />
@@ -82,16 +82,16 @@ function TaskCard(props) {
             <div className="deleting w-full text-xl text-center flex justify-center items-center" style={{display:'none'}}>
                 <span className="font-semibold">Deleting...</span>
             </div>
-            <div className="buttons justify-center items-center" style={{display:'flex'}}>
+            <div className="buttons justify-around items-center" style={{display:'flex'}}>
                 {
                     permission ? (
                     <>
-                        <button className="far fa-times-circle text-lg" onClick={deleteTask}></button>
-                        <button className="infoButton fas fa-info-circle text-lg mx-px" onClick={displayDescription}></button>
-                        <button className="far fa-check-circle text-lg" onClick={updateCompleted}></button>
+                        <button className="far fa-times-circle text-3xl" onClick={deleteTask}></button>
+                        <button className="infoButton fas fa-info-circle text-3xl mx-px" onClick={displayDescription}></button>
+                        <button className="far fa-check-circle text-3xl" onClick={updateCompleted}></button>
                     </>
                     ) : (
-                        <button className="infoButton fas fa-info-circle text-lg mx-px" onClick={displayDescription}></button>
+                        <button className="infoButton fas fa-info-circle text-3xl mx-px" onClick={displayDescription}></button>
                     )
                 }
             </div>
@@ -104,7 +104,7 @@ function TaskCard(props) {
                 permission={permission}
                 dataType={"description"}
                 action={props.updateTask}
-                afterAction={props.getContainer}
+                afterAction={getContainer}
                 afterActionInput={task.container_id}
                 placeholder={"Task Description"}
                 />

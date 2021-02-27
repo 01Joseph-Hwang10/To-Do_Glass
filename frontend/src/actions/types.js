@@ -14,6 +14,7 @@ export const GET_USER_INFO = 'GET_USER_INFO';
 export const CLEAR_USER_INFO = 'CLEAR_USER_INFO';
 export const PROFILE_MINE = "PROFILE_MINE";
 export const PROFILE_NOT_MINE = "PROFILE_NOT_MINE";
+export const LOADING = 'LOADING';
 // Project
 export const GET_PROJECT = "GET_PROJECT";
 export const CREATE_PROJECT = "CREATE_PROJECT";

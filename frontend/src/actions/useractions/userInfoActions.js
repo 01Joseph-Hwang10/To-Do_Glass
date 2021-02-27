@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { URL_PUBLIC_PROFILE, URL_PROFILE } from '../../store/variables';
-import { GET_PROFILE, CLEAR_PROFILE, PROFILE_MINE, PROFILE_NOT_MINE, GET_USER_INFO, UPDATE_PROFILE } from '../types';
+import { GET_PROFILE, CLEAR_PROFILE, PROFILE_MINE, PROFILE_NOT_MINE, GET_USER_INFO, UPDATE_PROFILE, LOADING } from '../types';
 
 
 // Not Authenticated
@@ -79,6 +79,11 @@ export const getUserInfo = (user_id) => async dispatch => {
         }
     }))
     .catch(error=>console.error(error))
+}
+export const loading = () => dispatch => {
+    dispatch({
+        type:LOADING
+    })
 }
 
 

@@ -17,6 +17,7 @@ function ContainerDetail(props) {
     const isPrivate = props.isPrivate
     const containerDescriptionClassName = ['containerDescription',String(container.id)].join('')
     const containerNameClassName = ['containerName',String(container.id)].join('')
+    const screenSize = props.screenSize
 
     const getContainer = (function(){return(isPrivate?props.getPrivateContainer:props.getContainer)})()
 
@@ -31,6 +32,17 @@ function ContainerDetail(props) {
         containerDetail.style.opacity = 0
         containerDetail.style.zIndex = 0
         setTimeout(()=>{containerDetail.style.transition = 'height 0.5s ease-in-out, border-bottom-width 0.1s ease-in-out'},510)
+
+        if(screenSize < 640) {
+            const buttonClassNameMobile = ['.containerDetailOpenerMobile',String(container.id)].join('')
+
+            const containerHeader = div.querySelector('.containerHeaderMobile')
+            const containerDetailOpener = containerHeader.querySelector(buttonClassNameMobile)
+            const containerDetailHeader = containerHeader.querySelector('.containerDetailHeader')
+
+            containerDetailOpener.style.opacity = 1
+            containerDetailHeader.style.opacity = 1
+        }
     }
 
     const showForm = (e) => {
@@ -75,8 +87,8 @@ function ContainerDetail(props) {
 
     const updateDescription = async (e) => {
         const button = e.target
-        const div = button.parentNode.parentNode
-        const textarea = div.getElementsByClassName('formElement')[0]
+        const div = button.closest('.descriptionParentDiv')
+        const textarea = div.querySelector('textarea')
         const postData = {
             description:textarea.value,
             user_id:localStorage.getItem('user_id')

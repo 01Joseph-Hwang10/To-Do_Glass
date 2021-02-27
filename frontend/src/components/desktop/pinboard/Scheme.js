@@ -110,7 +110,7 @@ function Scheme(props) {
                                 }
                             </Draggable>
                             ) : (
-                            <div id={['schemeCard',container.id].join('')} className="w-40 h-32 mx-1 mr-3">
+                            <div key={['schemeCard',container.id].join('')} id={['schemeCard',container.id].join('')} className="w-40 h-32 mx-1 mr-3">
                                 <SchemeCard 
                                 container={container}
                                 permission={permission}

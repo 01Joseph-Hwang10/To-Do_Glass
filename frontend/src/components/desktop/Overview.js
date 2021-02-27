@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 // Redux
 import { connect } from 'react-redux';
 import {getProfile, getUserInfo, myProfile, notMyProfile} from '../../actions/useractions/userInfoActions';
+import { openOverview } from "../../actions/screenActions";
 // etc
 import PropTypes from 'prop-types';
 // Components
@@ -18,6 +19,7 @@ class Overview extends Component {
             const my_id = Number(window.localStorage.getItem('user_id'))
             if(user_id===my_id) this.props.getProfile(my_id)
             this.props.getUserInfo(user_id)
+            if(this.props.screenSize < 1024) this.props.openOverview()
         }
     }
 
@@ -38,10 +40,12 @@ class Overview extends Component {
         const isMyProfile = this.props.isMyProfile
         if(!isMyProfile && this.props.Storage && this.props.Storage.data) Profile = this.props.Storage.data
 
+        const isLoading = this.props.isLoading
+
         return (
             <section className="w-full">
                 {
-                    Profile && (Profile.get_my_projects || Profile.get_public_projects) ? (
+                    Profile && (Profile.get_my_projects || Profile.get_public_projects) && !isLoading ? (
                         <div className="w-full">
                             <div className="w-full flex justify-center items-center">
                                 <ProfileCard 
@@ -92,8 +96,10 @@ const mapStateToProps = state => {
     return {
         Profile: state.userInfo.Profile,
         Storage: state.userInfo.Storage,
+        isLoading: state.userInfo.isLoading,
         isMyProfile: state.userInfo.isMyProfile,
-        isAuthenticated: state.login.isAuthenticated
+        isAuthenticated: state.login.isAuthenticated,
+        screenSize: state.screen.screenSize
     }
 }
 
@@ -102,6 +108,7 @@ Overview.propTypes = {
     getUserInfo:PropTypes.func.isRequired,
     myProfile:PropTypes.func.isRequired,
     notMyProfile:PropTypes.func.isRequired,
+    openOverview:PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps,{getProfile,getUserInfo,myProfile,notMyProfile})(Overview);
+export default connect(mapStateToProps,{getProfile,getUserInfo,myProfile,notMyProfile,openOverview})(Overview);
