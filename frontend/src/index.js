@@ -9,19 +9,19 @@ import configureStore from './store/store';
 // etc
 // import './store/i18n'
 // Sentry
-// import * as Sentry from "@sentry/react";
-// import { Integrations } from "@sentry/tracing";
+import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
 // App
 import App from './App';
 
-// Sentry.init({
-//   dsn: "https://7f5461adeb874ddb8ac371cf9b9ed756@o496976.ingest.sentry.io/5645252",
-//   integrations: [new Integrations.BrowserTracing()],
+Sentry.init({
+  dsn: "https://7f5461adeb874ddb8ac371cf9b9ed756@o496976.ingest.sentry.io/5645252",
+  integrations: [new Integrations.BrowserTracing()],
 
-//   // We recommend adjusting this value in production, or using tracesSampler
-//   // for finer control
-//   tracesSampleRate: 0.5,
-// });
+  // We recommend adjusting this value in production, or using tracesSampler
+  // for finer control
+  tracesSampleRate: 0.5,
+});
 
 const { store, persistor } = configureStore();
 
