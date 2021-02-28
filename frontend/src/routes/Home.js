@@ -54,8 +54,12 @@ class Home extends React.Component {
         const showScrollButton = this.props.showScrollButton
         const hideScrollButton = this.props.hideScrollButton
 
-        let overviewWidth, overviewOpacity, pinboardWidth, pinboardOpacity, glanceWidth, glanceOpacity,delay,overviewDelay,glanceDelay, pinboardDelay, widthDuration, opacityDuration
+        let overviewWidth, overviewOpacity, pinboardWidth, pinboardOpacity, glanceWidth, glanceOpacity,delay,overviewDelay,glanceDelay, pinboardDelay, 
+            widthDuration, opacityDuration, overviewDisplay,pinboardDisplay, glanceDisplay,padding,margin
         if(screenSize >= 1024) {
+            overviewDisplay = 'block'
+            pinboardDisplay = 'block'
+            glanceDisplay = 'block'
             widthDuration = '0.5s'
             opacityDuration = '0.1s'
             overviewWidth = (function(){return(isFullScreen?"0%":"17%")})()
@@ -68,9 +72,14 @@ class Home extends React.Component {
             overviewDelay = delay
             pinboardDelay = ''
             glanceDelay = delay
+            padding = '0'
+            margin='1rem'
             showScrollButton()
         }
         if(screenSize < 1024 && screenSize >= 640) {
+            overviewDisplay = 'block'
+            pinboardDisplay = 'block'
+            glanceDisplay = 'block'
             widthDuration = '0.5s'
             opacityDuration = '0.1s'
             overviewWidth = (function(){return(overviewOpened?"35%":'0%')})()
@@ -86,23 +95,26 @@ class Home extends React.Component {
             overviewDelay = (function(){return(overviewOpened?'0.4s':'')})()
             pinboardDelay = ''
             glanceDelay = (function(){return(glanceOpened?'0.4s':'')})()
+            padding = '0'
+            margin='1rem'
         }
         if(screenSize < 640) {
+            overviewDisplay = (function(){return(overviewOpened?'block':'none')})()
+            pinboardDisplay = (function(){return(!overviewOpened&&!glanceOpened?'block':'none')})()
+            glanceDisplay = (function(){return(glanceOpened?'block':'none')})()
             widthDuration = '0s'
             opacityDuration = '0s'
-            overviewWidth = (function(){return(overviewOpened?"100%":'0%')})()
-            overviewOpacity = (function(){return(overviewOpened?1:0)})()
-            pinboardWidth = (function(){
-                if(overviewOpened) return '0%'
-                if(glanceOpened) return '0%'
-                return '100%'
-            })()
-            pinboardOpacity = (function(){return(glanceOpened||overviewOpened?0:1)})()
-            glanceWidth = (function(){return(glanceOpened?'100%':'0%')})()
-            glanceOpacity = (function(){return(glanceOpened?1:0)})()
+            overviewWidth = '100%'
+            overviewOpacity = 1
+            pinboardWidth = '100%'
+            pinboardOpacity = 1
+            glanceWidth = '100%'
+            glanceOpacity = 1
             overviewDelay = ''
             pinboardDelay = ''
             glanceDelay = ''
+            padding = '0.5rem'
+            margin='0'
         }
 
         const switchScrollVisible = () => {
@@ -140,25 +152,30 @@ class Home extends React.Component {
             if(screenSize < 640 && pinboardIsLoaded) {
                 const textarea = document.querySelector(`.projectDetail`).querySelector('textarea')
                 textarea.style.height = '1px'
-                textarea.style.height = (12+textarea.scrollHeight) +'px'
+                textarea.style.height = (24+textarea.scrollHeight) +'px'
             }
         }
 
         return (
             <>
-            <div className="scroller mt-16 flex justify-around w-full overflow-x-hidden">
-                <div className="container rounded ml-2" style={{
+            <div className="scroller mt-16 flex justify-center w-full overflow-x-hidden">
+                <div className="container rounded px-2" style={{
                     width:overviewWidth,
                     opacity:overviewOpacity,
                     transition:`width ${widthDuration} ease-in-out, opacity ${opacityDuration} ease-in-out ${overviewDelay}`,
-                    marginTop:marginTop
+                    marginTop:marginTop,
+                    display:overviewDisplay,
+                    paddingRight:padding,
+                    paddingLeft:padding,
+                    marginRight:margin
                 }}>
                     <Overview />
                 </div>
                 <div className="container" style={{
                     width:pinboardWidth,
                     opacity:pinboardOpacity,
-                    transition:`width ${widthDuration} ease-in-out, opacity ${opacityDuration} ease-in-out ${pinboardDelay}`
+                    transition:`width ${widthDuration} ease-in-out, opacity ${opacityDuration} ease-in-out ${pinboardDelay}`,
+                    display:pinboardDisplay
                 }}>
                     {
                         pinboardIsLoaded ? (
@@ -172,10 +189,14 @@ class Home extends React.Component {
                         )
                     }
                 </div>
-                <div className="container mt-6 mr-1" style={{
+                <div className="container mt-6 px-2" style={{
                     width:glanceWidth,
                     opacity:glanceOpacity,
-                    transition:`width ${widthDuration} ease-in-out, opacity ${opacityDuration} ease-in-out ${glanceDelay}`
+                    transition:`width ${widthDuration} ease-in-out, opacity ${opacityDuration} ease-in-out ${glanceDelay}`,
+                    display:glanceDisplay,
+                    paddingLeft:padding,
+                    paddingRight:padding,
+                    marginLeft:margin
                 }}>
                     <Glance />
                 </div>
