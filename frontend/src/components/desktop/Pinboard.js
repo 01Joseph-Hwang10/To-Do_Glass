@@ -38,7 +38,7 @@ class Pinboard extends Component {
                                 <Scheme project={project} permission={participantPermission} />
                             </div>
                             <div className="px-5 pt-3 rounded">
-                                <ProjectDetail project={project} permission={participantPermission} />
+                                <ProjectDetail screenSize={screenSize} project={project} permission={participantPermission} />
                             </div>
                             <div className="px-5 pb-3 rounded">
                                 <ProjectTags project={project} permission={participantPermission} />

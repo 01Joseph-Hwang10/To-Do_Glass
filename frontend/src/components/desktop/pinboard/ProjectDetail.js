@@ -12,6 +12,7 @@ function ProjectDetail(props) {
     const project = props.project
     const projectId = project.id
     const projectDetailClassName = ['projectDetail',String(projectId)].join('')
+    const screenSize = props.screenSize
     // const getProject = (function(){return(project.isPrivate ? props.getPrivateProject : props.getProject)})()
     
     let description = project.description || "No Description"
@@ -94,7 +95,7 @@ function ProjectDetail(props) {
         <div className="projectDetail w-full pb-2">
             {props.permission ? (
                 <div className="w-full">
-                    <div className="w-full opacity-90 p-2 py-4 mb-1 rounded text-white shadow-inner" style={{backgroundColor:COLOR_SECOND,transition:"all 0.2s ease-in-out"}}>
+                    <div className="w-full opacity-90 p-2 py-4 mb-1 rounded text-white shadow-inner" style={{backgroundColor:COLOR_SECOND,transition:(function(){return(screenSize>=640?"all 0.2s ease-in-out":"")})()}}>
                         <textarea onKeyUp={resize} defaultValue={description} onKeyDown={resize} className={["textArea bg-transparent outline-none border-none w-full resize-none whitespace-pre-line",projectDetailClassName].join(' ')} readOnly placeholder="Project Description"></textarea>
                     </div>
                     <div className="w-full flex justify-end">

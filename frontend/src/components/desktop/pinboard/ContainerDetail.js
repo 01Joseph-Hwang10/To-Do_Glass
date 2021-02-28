@@ -40,7 +40,7 @@ function ContainerDetail(props) {
         containerDetail.style.borderBottomWidth = '0'
         containerDetail.style.opacity = 0
         containerDetail.style.zIndex = 0
-        setTimeout(()=>{containerDetail.style.transition = 'height 0.5s ease-in-out, border-bottom-width 0.1s ease-in-out'},510)
+        if(screenSize >= 640) setTimeout(()=>{containerDetail.style.transition = 'height 0.5s ease-in-out, border-bottom-width 0.1s ease-in-out'},510)
 
         if(screenSize < 640) {
             const buttonClassNameMobile = ['.containerDetailOpenerMobile',String(container.id)].join('')
@@ -172,7 +172,7 @@ function ContainerDetail(props) {
                     <button onClick={hideDetail} className="fas fa-times"></button>
                 </div>
             </div>
-            <div className="descriptionParentDiv w-full px-2 pb-2 flex flex-col rounded" style={{transition:'all 0.2s ease-in-out',backgroundColor:'#EFF6FF'}}>
+            <div className="descriptionParentDiv w-full px-2 pb-2 flex flex-col rounded" style={{transition:(function(){return(screenSize>=640?'all 0.2s ease-in-out':'')})(),backgroundColor:'#EFF6FF'}}>
                 <textarea readOnly placeholder="Scheme Description" defaultValue={description} onKeyDownCapture={resize} onKeyUp={resize} className={["resize-none bg-transparent p-2 w-full outline-none",containerDescriptionClassName].join(' ')}></textarea>
                 {
                     permission ? (
