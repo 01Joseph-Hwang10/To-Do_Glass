@@ -7,6 +7,8 @@ import { COLOR_FIRST, COLOR_THIRD } from '../../../store/variables'
 
 export default function ContainerThird(props) {
 
+    const screenSize = props.screenSize
+
     const figThirdSwitchHidden = (e) => {
         const nameButton = e.target
         const buttonParentDiv = nameButton.parentNode
@@ -83,35 +85,37 @@ export default function ContainerThird(props) {
     }
 
     const figThirdOnMouseOver = (e) => {
-        const taskHolder = e.target.closest('.taskHolder')
-        const taskHolderHeader = taskHolder.querySelector('.taskHolder__header')
-        const icon = taskHolderHeader.querySelector('i')
-        const taskHolderBody = taskHolder.querySelector('.taskHolder__body')
-        taskHolderHeader.style.transition = 'all 0.4s ease-in-out'
-        taskHolderBody.style.transition = 'all 0.4s ease-in-out'
-        taskHolderHeader.style.width = '30%'
-        taskHolderBody.style.width = '70%'
-        icon.style.opacity = 0
-        
-        const componentBody = taskHolderHeader.querySelector('.componentBody')
-        componentBody.style.transition = 'all 0.2s ease-in-out 0.4s'
-        componentBody.style.fontSize = 'medium'
-        componentBody.style.opacity = 1
-        
-        taskHolderHeader.addEventListener('mouseout',()=>{
-            taskHolderHeader.style.transition = 'all 0.4s ease-in-out 0.2s'
-            taskHolderBody.style.transition = 'all 0.4s ease-in-out 0.2s'
-            componentBody.style.transition = 'all 0.2s ease-in-out'
-            componentBody.style.fontsize = 0
-            taskHolderHeader.style.width = '8.3%'
-            taskHolderBody.style.width = '91.7%'
-            icon.style.opacity = 1
-            componentBody.style.opacity = 0
-        })
+        if(screenSize >= 640){
+            const taskHolder = e.target.closest('.taskHolder')
+            const taskHolderHeader = taskHolder.querySelector('.taskHolder__header')
+            const icon = taskHolderHeader.querySelector('i')
+            const taskHolderBody = taskHolder.querySelector('.taskHolder__body')
+            taskHolderHeader.style.transition = 'all 0.4s ease-in-out'
+            taskHolderBody.style.transition = 'all 0.4s ease-in-out'
+            taskHolderHeader.style.width = '30%'
+            taskHolderBody.style.width = '70%'
+            icon.style.opacity = 0
+            
+            const componentBody = taskHolderHeader.querySelector('.componentBody')
+            componentBody.style.transition = 'all 0.2s ease-in-out 0.4s'
+            componentBody.style.fontSize = 'medium'
+            componentBody.style.opacity = 1
+            
+            taskHolderHeader.addEventListener('mouseout',()=>{
+                taskHolderHeader.style.transition = 'all 0.4s ease-in-out 0.2s'
+                taskHolderBody.style.transition = 'all 0.4s ease-in-out 0.2s'
+                componentBody.style.transition = 'all 0.2s ease-in-out'
+                componentBody.style.fontsize = 0
+                taskHolderHeader.style.width = '8.3%'
+                taskHolderBody.style.width = '91.7%'
+                icon.style.opacity = 1
+                componentBody.style.opacity = 0
+            })
+        }
     }
 
     return (
-    <div className="containerThird flex flex-col lg:flex-row justify-around items-center space-y-10 lg:space-y-0 py-10 sm:py-16 border-b-2" style={{width:'100vw'}}>
+    <div className="containerThird flex flex-col lg:flex-row justify-around items-center space-y-10 lg:space-y-0 py-10 sm:py-16 border-b-2">
 
         <div className="descriptionThird w-full sm:w-auto flex flex-col justify-center items-start space-y-2 bg-gradient-to-b from-gray-200 to-gray-50 p-8 rounded shadow-md">
             <div className="flex flex-col justify-center items-start"><span className="text-3xl font-semibold">Make it more Concrete</span></div>
@@ -151,7 +155,7 @@ export default function ContainerThird(props) {
 
                         <div className="tasks w-full border-t-8 border-double flex justify-start items-start" style={{borderColor:COLOR_FIRST}}>
 
-                            <div className="task__example w-24 flex flex-col justify-start items-center border-b-2" style={{backgroundColor:selectColor(selectColorScheme())}}>
+                            <div className="task__example w-20 sm:w-24 flex flex-col justify-start items-center border-b-2" style={{backgroundColor:selectColor(selectColorScheme())}}>
                                 <div className="w-full h-full flex justify-center items-start"><button className="fas fa-grip-lines-vertical text-center w-full"></button></div>
                                 <div className="w-full h-full flex justify-center items-center">
                                     <button onClick={figThirdSwitchHidden} className="task__example__name text-center font-semibold w-full rounded border-2 border-transparent hover:border-gray-300" style={{display:'block'}}>Important Task</button>
@@ -167,7 +171,7 @@ export default function ContainerThird(props) {
                                 </div>
                             </div>
 
-                            <div className="task__willCreate w-24 flex flex-col justify-start items-center border-b-2" style={{backgroundColor:selectColor(selectColorScheme()),display:'none'}}>
+                            <div className="task__willCreate w-20 sm:w-24 flex flex-col justify-start items-center border-b-2" style={{backgroundColor:selectColor(selectColorScheme()),display:'none'}}>
                                 <div className="w-full flex justify-center items-start"><button className="fas fa-grip-lines-vertical text-center w-full"></button></div>
                                 <div className="w-full flex justify-center items-center">
                                     <button onClick={figThirdSwitchHidden} className="task__willCreate__name text-center font-semibold w-full rounded border-2 border-transparent hover:border-gray-300" style={{display:'block'}}></button>
@@ -183,7 +187,7 @@ export default function ContainerThird(props) {
                                 </div>
                             </div>
 
-                            <div className="task__form w-24 flex flex-col justify-center items-center border-b-2" style={{minHeight:'6rem',backgroundColor:selectColor(selectColorScheme()),display:'flex'}}>
+                            <div className="task__form w-20 sm:w-24 flex flex-col justify-center items-center border-b-2" style={{minHeight:'6rem',backgroundColor:selectColor(selectColorScheme()),display:'flex'}}>
                                 <button onClick={switchHidden} className="w-full fas fa-plus-circle text-center h-24" style={{display:'block'}}></button>
                                 <form onSubmit={figThirdCreateTask} className="w-full h-full flex flex-col justify-center items-center space-y-2" style={{display:'none',minHeight:'6rem'}}>
                                     <input required className="w-11/12 p-1 h-7 bg-transparent outline-none border-2 rounded" placeholder="Name"></input>
@@ -191,7 +195,7 @@ export default function ContainerThird(props) {
                                 </form>
                             </div>
 
-                            <div className="task__placeholder w-24 flex justify-center items-center border-b-2 h-20 bg-green-400" style={{opacity:0}}>
+                            <div className="task__placeholder w-20 sm:w-24 flex justify-center items-center border-b-2 h-20 bg-green-400" style={{opacity:0}}>
                                 <button onClick={figThirdTryAgain} className="w-full h-full text-center font-semibold" style={{display:'none'}}>Try Again</button>
                             </div>
 

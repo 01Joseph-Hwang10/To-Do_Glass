@@ -23,7 +23,7 @@ function App(props) {
 
   return (
       <HashRouter>
-        <div className="w-full text-gray-800" style={{width:'100vw',overflowX:'clip'}}>
+        <div className="w-full text-gray-800">
           <Route path='/' exact component={Landing} />
           <Navigation />
           <div className="mt-20" style={{minHeight:minHeight}}>

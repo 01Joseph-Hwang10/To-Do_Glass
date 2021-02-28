@@ -44,3 +44,15 @@ h2 {
 .descriptionFourth {
     border-radius: 0.5rem;
 }
+
+@media screen and (max-width: 640px) {
+    .landingNav,
+    .introduction,
+    .containerFirst, 
+    .containerSecond, 
+    .containerThird, 
+    .containerFourth,
+    .conclusion {
+        width: 100vw;
+    }
+}

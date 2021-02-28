@@ -14,7 +14,7 @@ export default function ContainerFourth(props) {
     }
 
     return (
-    <div className="containerFourth flex flex-col lg:flex-row-reverse justify-around items-center space-y-10 lg:space-y-0 py-10 sm:py-16 border-b-2" style={{width:'100vw'}}>
+    <div className="containerFourth flex flex-col lg:flex-row-reverse justify-around items-center space-y-10 lg:space-y-0 py-10 sm:py-16 border-b-2">
 
         <div className="descriptionFourth w-full sm:w-auto flex flex-col justify-center items-start space-y-2 p-8 2xl:p-16 bg-gradient-to-b from-indigo-100 to-indigo-50 shadow-md">
             <div className="flex flex-col justify-center items-start"><span className="text-3xl font-semibold">You're not Alone</span></div>

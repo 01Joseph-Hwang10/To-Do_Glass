@@ -10,7 +10,7 @@ export default function Introduction(props) {
     const screenSize = props.screenSize
 
     return (
-    <div className="introduction flex justify-around items-center bg-center bg-cover flex-wrap border-b-2 pt-0 mt-0" style={{backgroundColor:COLOR_FIRST,backgroundImage:`url(${bg5})`,width:'100vw'}}>
+    <div className="introduction w-full flex justify-around items-center bg-center bg-cover flex-wrap border-b-2 pt-0 mt-0" style={{backgroundColor:COLOR_FIRST,backgroundImage:`url(${bg5})`}}>
         <div className="welcomeCopy flex flex-col justify-center items-center sm:items-start space-y-2 mt-32 mb-32">
             <div className="w-full sm:w-auto flex flex-col justify-center items-start">
                 <h1 className="text-4xl 2xl:text-6xl text-white font-bold text-left">Start the project</h1>

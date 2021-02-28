@@ -9,7 +9,7 @@ export default function LandingNav(props) {
     const screenSize = props.screenSize
 
     return (
-    <div className="landingNav border-b-2 p-3 sm:px-6 flex justify-between items-center fixed top-0" style={{backgroundColor:(function(){return(y===0?"transparent":COLOR_FIRST)})(),transition:'all 0.4s ease-in-out',borderColor:(function(){return(y===0?"#374151":"#E5E7EB")})(),width:'100vw'}}>
+    <div className="landingNav w-full border-b-2 p-3 sm:px-6 flex justify-between items-center fixed top-0" style={{backgroundColor:(function(){return(y===0?"transparent":COLOR_FIRST)})(),transition:'all 0.4s ease-in-out',borderColor:(function(){return(y===0?"#374151":"#E5E7EB")})()}}>
         <div className='flex justify-start'>
         <Link to='/'><i className="text-2xl text-white font-bold" style={{fontFamily:"Brush Script MT, Brush Script Std, cursive",color:(function(){return(screenSize>=800||y!==0?COLOR_FOURTH:COLOR_FIRST)})(),transition:'all 0.4s ease-in-out'}}>FLglance<sup className="text-green-400 text-xs align-top">βeta</sup></i></Link>
         </div>
