@@ -78,7 +78,7 @@ export default function ContainerFirst(props) {
 
     return (
 
-        <div className="containerFirst w-full flex flex-col lg:flex-row justify-around items-center space-y-10 lg:space-x-2 py-10 sm:pb-16 border-b-2">
+        <div className="containerFirst flex flex-col lg:flex-row justify-around items-center space-y-10 lg:space-x-2 py-10 sm:pb-16 border-b-2" style={{width:'100vw'}}>
 
             <div className="descriptionFirst w-full sm:w-auto flex flex-col justify-center items-start space-y-2 bg-gradient-to-b from-blue-100 to-blue-50 p-8 py-10 2xl:p-16 rounded-lg shadow-md">
                 <div className="flex flex-col justify-center items-start"><span className="text-3xl font-semibold">Start the Project</span></div>
@@ -90,7 +90,7 @@ export default function ContainerFirst(props) {
                 </div>
             </div>
 
-            <div className="figFirst flex justify-center items-start space-x-2">
+            <div className="figFirst flex justify-center items-start w-11/12 sm:w-full space-x-2">
 
                 <div className="flex flex-col justify-start items-center">
 

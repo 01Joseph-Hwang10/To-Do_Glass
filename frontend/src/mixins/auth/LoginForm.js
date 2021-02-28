@@ -54,7 +54,7 @@ class LoginForm extends React.Component {
                         <form className="emailLogin w-full mx-auto space-y-2 py-5 flex flex-col justify-center items-center" onSubmit={onSubmit}>
                             <input className="emailLogin__email w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="email" placeholder="email"></input>
                             <input className="emailLogin__password w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="password" placeholder="password"></input>
-                            <span className="emailLogin__failed text-red-500 font-semibold" style={{display:'none'}}>Login Failed! Check if your email and password typed correctly!</span>
+                            <span className="emailLogin__failed text-red-500 font-semibold" style={{display:'none'}}>Login Failed! Check if your email and password typed correctly! If the error continues, please contact with the email at bottom</span>
                             <button className="emailLogin__login w-full rounded-lg p-2 text-white font-semibold" style={{backgroundColor:COLOR_THIRD}}>Login</button>
                         </form>
                     </div>

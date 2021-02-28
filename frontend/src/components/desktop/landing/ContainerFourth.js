@@ -14,7 +14,7 @@ export default function ContainerFourth(props) {
     }
 
     return (
-    <div className="containerFourth w-full flex flex-col lg:flex-row-reverse justify-around items-center space-y-10 lg:space-y-0 py-10 sm:py-16 border-b-2">
+    <div className="containerFourth flex flex-col lg:flex-row-reverse justify-around items-center space-y-10 lg:space-y-0 py-10 sm:py-16 border-b-2" style={{width:'100vw'}}>
 
         <div className="descriptionFourth w-full sm:w-auto flex flex-col justify-center items-start space-y-2 p-8 2xl:p-16 bg-gradient-to-b from-indigo-100 to-indigo-50 shadow-md">
             <div className="flex flex-col justify-center items-start"><span className="text-3xl font-semibold">You're not Alone</span></div>
@@ -25,7 +25,7 @@ export default function ContainerFourth(props) {
             </div>
         </div>
 
-        <div className="figFourth w-96 p-4 rounded-lg" style={{backgroundColor:COLOR_FIFTH}}>
+        <div className="figFourth sm:w-96 p-4 rounded-lg" style={{backgroundColor:COLOR_FIFTH}}>
 
             <div className="w-full flex space-x-1 items-center">
                 <form className="w-full flex justify-between items-center" onSubmit={figFourthOnSubmit}>

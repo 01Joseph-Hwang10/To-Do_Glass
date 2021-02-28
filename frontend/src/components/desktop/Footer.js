@@ -7,10 +7,10 @@ function Footer(props) {
     const paddingBottom = (function(){return(!props.onLanding&&props.screenSize<1024?"6rem":"2.5rem")})()
 
     return (
-        <div className="flex justify-center items-center border-t py-10 border-t-2" style={{backgroundColor:COLOR_FIRST,paddingBottom:paddingBottom}}>
+        <div className="flex justify-center items-center border-t py-10 border-t-2" style={{backgroundColor:COLOR_FIRST,paddingBottom:paddingBottom,width:'100vw'}}>
             <div className="flex flex-col justify-center items-center space-y-1">
-                <span className="font-semibold text-lg text-gray-400">2021 FLGlance, © All Right Reserved</span>
-                <span className="text-gray-400 text-sm">Contact(Bug Report, Suggestion, etc...): joseph95501@gmail.com</span>
+                <span className="text-center font-semibold text-lg text-gray-400">2021 FLGlance, © All Right Reserved</span>
+                <span className="text-center text-gray-400 text-sm">Contact(Bug Report, Suggestion, etc...): joseph95501@gmail.com</span>
             </div>
         </div>
     )

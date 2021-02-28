@@ -4,7 +4,7 @@ import bg6 from '../../../static/images/bg6.jpg'
 
 export default function Conclusion() {
     return (
-        <div className="w-full bg-cover bg-top flex justify-center items-center" style={{backgroundImage:`url(${bg6})`,minHeight:'300px'}}>
+        <div className="w-full bg-cover bg-top flex justify-center items-center" style={{backgroundImage:`url(${bg6})`,minHeight:'300px',width:'100vw'}}>
             <div className="w-full flex flex-col justify-center items-center">
                 <h1 className="text-4xl font-bold text-white text-center">Sign up now</h1>
                 <h1 className="text-4xl font-bold text-white text-center">And start out your project</h1>

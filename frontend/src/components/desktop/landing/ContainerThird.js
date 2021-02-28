@@ -111,7 +111,7 @@ export default function ContainerThird(props) {
     }
 
     return (
-    <div className="containerThird w-full flex flex-col lg:flex-row justify-around items-center space-y-10 lg:space-y-0 py-10 sm:py-16 border-b-2">
+    <div className="containerThird flex flex-col lg:flex-row justify-around items-center space-y-10 lg:space-y-0 py-10 sm:py-16 border-b-2" style={{width:'100vw'}}>
 
         <div className="descriptionThird w-full sm:w-auto flex flex-col justify-center items-start space-y-2 bg-gradient-to-b from-gray-200 to-gray-50 p-8 rounded shadow-md">
             <div className="flex flex-col justify-center items-start"><span className="text-3xl font-semibold">Make it more Concrete</span></div>
@@ -125,7 +125,7 @@ export default function ContainerThird(props) {
 
         <div className="figThird">
 
-            <div className="figThird__pinboard space-y-2 flex flex-col justify-center items-start rounded shadow-inner bg-blue-50 p-2" style={{minWidth:'500px'}}>
+            <div className="figThird__pinboard space-y-2 flex flex-col justify-center items-start rounded shadow-inner bg-blue-50 p-2" style={{minWidth:'300px'}}>
 
                 <div className="w-full flex justify-center py-4"><i className="fas fa-ellipsis-v text-2xl text-center"></i></div>
 

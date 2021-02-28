@@ -76,7 +76,7 @@ export default function ContainerSecond(props) {
 
     return (
 
-    <div className="containerSecond w-full flex flex-col lg:flex-row-reverse justify-around items-center space-y-10 lg:space-y-0 py-10 sm:py-16 border-b-2">
+    <div className="containerSecond flex flex-col lg:flex-row-reverse justify-around items-center space-y-10 lg:space-y-0 py-10 sm:py-16 border-b-2" style={{width:'100vw'}}>
 
         <div className="descriptionSecond w-full sm:w-auto flex flex-col justify-center items-start space-y-2 p-8 py-10 bg-gradient-to-b from-red-100 to-pink-50 rounded shadow-md 2xl:p-16">
             <div className="flex flex-col justify-center items-start"><span className="text-3xl font-semibold">Construct the Scheme</span></div>
@@ -94,10 +94,10 @@ export default function ContainerSecond(props) {
 
                 <div className="w-full flex justify-center py-4"><i className="fas fa-ellipsis-v text-2xl text-center"></i></div>
 
-                <div className="p-2 w-full">
-                    <div className="container flex w-full justify-start items-center p-2 space-x-2 bg-blue-100 shadow-inner rounded">
+                <div className="sm:p-2 w-full">
+                    <div className="container flex w-full justify-start items-center p-1 sm:p-2 space-x-2 bg-blue-100 shadow-inner rounded">
 
-                        <div className="container__example rounded w-32 h-24 flex flex-col justify-start items-center shadow-md" style={{backgroundColor:COLOR_SIXTH}}>
+                        <div className="container__example rounded w-28 h-20 sm:w-32 sm:h-24 flex flex-col justify-start items-center shadow-md" style={{backgroundColor:COLOR_SIXTH}}>
                             <div className="w-full flex items-start justify-center">
                                 <div className="w-3/12 flex justify-center items-center"><button onClick={alertCheckOut} className="fas fa-trash p-1 rounded-3xl hover:bg-gray-300" style={{transition:'all .1 ease-in-out'}}></button></div>
                                 <div className="w-6/12 bg-pink-200 rounded-b flex justify-center items-start"><button onMouseDown={alertCheckOut} className="fas fa-grip-lines-vertical text-center"></button></div>
@@ -111,7 +111,7 @@ export default function ContainerSecond(props) {
                             </div>
                         </div>
 
-                        <div className="container__willCreate rounded w-32 h-24 flex flex-col justify-start items-center shadow-md" style={{backgroundColor:COLOR_SIXTH,display:'none'}}>
+                        <div className="container__willCreate rounded w-28 h-20 sm:w-32 sm:h-24 flex flex-col justify-start items-center shadow-md" style={{backgroundColor:COLOR_SIXTH,display:'none'}}>
                             <div className="w-full flex items-start justify-center">
                                 <div className="w-3/12 flex justify-center items-center"><button onClick={alertCheckOut} className="fas fa-trash p-1 rounded-3xl hover:bg-gray-300" style={{transition:'all .1 ease-in-out'}}></button></div>
                                 <div className="w-6/12 bg-pink-200 rounded-b flex justify-center items-start"><button onMouseDown={alertCheckOut} className="fas fa-grip-lines-vertical text-center"></button></div>
@@ -125,7 +125,7 @@ export default function ContainerSecond(props) {
                             </div>
                         </div>
 
-                        <div className="container__form rounded w-32 h-24 flex justify-center items-center shadow-md" style={{backgroundColor:COLOR_SIXTH,display:'flex'}}>
+                        <div className="container__form rounded w-28 h-20 sm:w-32 sm:h-24 flex justify-center items-center shadow-md" style={{backgroundColor:COLOR_SIXTH,display:'flex'}}>
                             <button onClick={switchHidden} style={{display:'block'}} className="w-full h-full fas fa-plus-circle"></button>
                             <form onSubmit={figSecondOnSubmit} style={{display:'none'}} className="w-full h-full flex flex-col justify-around items-center">
                                 <input required className="outline-none w-11/12 bg-transparent mx-auto text-center rounded border-2 border-gray-300" placeholder="Scheme"></input>
@@ -133,7 +133,7 @@ export default function ContainerSecond(props) {
                             </form>
                         </div>
 
-                        <div className="container__placeholder rounded w-32 h-24 flex justify-center items-center bg-green-300 shadow-md" style={{opacity:0,display:'block'}}>
+                        <div className="container__placeholder rounded w-28 h-20 sm:w-32 sm:h-24 flex justify-center items-center bg-green-300 shadow-md" style={{opacity:0,display:'block'}}>
                             <button onClick={figSecondTryAgain} className="w-full h-full text-center font-semibold" style={{display:'none'}}>Try Again</button>
                         </div>
 
