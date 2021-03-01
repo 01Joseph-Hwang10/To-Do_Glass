@@ -25,6 +25,7 @@ class LoginForm extends React.Component {
 
         const screenSize = this.props.screenSize
         const minHeight = (function(){return(screenSize>=640?'85vh':'75vh')})()
+        const loginSuccessful = this.props.loginSuccessful
 
         const onSubmit = async (e) => {
             e.preventDefault()
@@ -34,16 +35,9 @@ class LoginForm extends React.Component {
                 username:email.value,
                 password:password.value
             };
-            // eslint-disable-next-line
-            const response = await this.props.postLogin(post_data);
+            await this.props.postLogin(post_data);
             email.value="";
             password.value="";
-
-            const span = document.querySelector('.emailLogin__failed');
-            // if(response && response !== 200) {
-            //     span.style.display='block'
-            // }
-            setTimeout(()=>{span.style.display='block'},1000)
         };
     
         return (
@@ -54,7 +48,11 @@ class LoginForm extends React.Component {
                         <form className="emailLogin w-full mx-auto space-y-2 py-5 flex flex-col justify-center items-center" onSubmit={onSubmit}>
                             <input className="emailLogin__email w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="email" placeholder="email"></input>
                             <input className="emailLogin__password w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="password" placeholder="password"></input>
-                            <span className="emailLogin__failed text-red-500 font-semibold" style={{display:'none'}}>Login Failed! Check if your email and password typed correctly! If the error continues, please contact with the email at bottom</span>
+                            {
+                                loginSuccessful ? (<></>) : (
+                                    <span className="emailLogin__failed text-red-500 font-semibold">Login Failed! Check if your email and password typed correctly! If the error continues, please contact with the email at bottom</span>
+                                )
+                            }
                             <button className="emailLogin__login w-full rounded-lg p-2 text-white font-semibold" style={{backgroundColor:COLOR_THIRD}}>Login</button>
                         </form>
                     </div>
@@ -76,7 +74,8 @@ LoginForm.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        screenSize:state.screen.screenSize
+        screenSize:state.screen.screenSize,
+        loginSuccessful:state.login.loginSuccessful
     }
 }
 

@@ -34,7 +34,7 @@ class Home extends React.Component {
         window.onresize = function() {
             setScreenSize(window.innerWidth)
         }
-        if(window.innerWidth < 1024) {
+        if(window.innerWidth < 1024 && Boolean(Object.keys(this.props.project).length === 0)) {
             this.props.hideScrollButton()
             this.props.openOverview()
         }

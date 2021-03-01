@@ -17,8 +17,10 @@ class Overview extends Component {
         if(this.props.isAuthenticated) {
             const user_id = Number(window.location.hash.replace(/\D/g,''))
             const my_id = Number(window.localStorage.getItem('user_id'))
-            if(user_id===my_id) this.props.getProfile(my_id)
-            this.props.getUserInfo(user_id)
+            if(user_id && my_id) {
+                if(user_id===my_id) this.props.getProfile(my_id)
+                this.props.getUserInfo(user_id)
+            }
         }
     }
 

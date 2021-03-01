@@ -10,6 +10,8 @@ import Important from '../../../mixins/Important';
 
 export default function ContainerSecond(props) {
 
+    const screenSize = props.screenSize
+
     const figSecondShowForm = (e) => {
         const nameButton = e.target
         const buttonParentDiv = nameButton.parentNode
@@ -142,22 +144,38 @@ export default function ContainerSecond(props) {
 
                 <div className="task p-2 w-full flex flex-col">
 
-                    <div className="task__example w-full border-t-2 border-b-2 flex">
-                        <div className="w-1/12 flex justify-center items-center">
-                            <span className="text-center">1</span>
-                        </div>
-                        <div className="w-11/12 flex justify-start items-start" style={{borderColor:COLOR_FIRST}}>
-                            <button onMouseDown={alertCheckOut} className="flex flex-col justify-start items-center w-16 h-12 border border-b-2" style={{backgroundColor:selectColor(selectColorScheme())}}><i className="fas fa-grip-lines-vertical"></i></button>
-                            <button onMouseDown={alertCheckOut} className="flex flex-col justify-start items-center w-16 h-16 border border-b-2" style={{backgroundColor:selectColor(selectColorScheme())}}><i className="fas fa-grip-lines-vertical"></i></button>
-                            <button onMouseDown={alertCheckOut} className="flex flex-col justify-start items-center w-16 h-10 border border-b-2" style={{backgroundColor:selectColor(selectColorScheme())}}><i className="fas fa-grip-lines-vertical"></i></button>
+                    <div className="task__example w-full border-t-2 border-b-2 flex flex-col sm:flex-row">
+                        {
+                            screenSize >= 640 ? (
+                            <div className="w-1/12 flex justify-center items-center">
+                                <span className="text-center">1</span>
+                            </div>
+                            ) : (
+                                <div className="w-full flex justify-end items-center p-1 px-2" style={{backgroundColor:selectColor(selectColorScheme(5))}}>
+                                    <button onClick={alertCheckOut} className="fas fa-chevron-down"></button>
+                                </div>
+                            )
+                        }
+                        <div className="flex justify-start items-start" style={{borderColor:COLOR_FIRST,width:(function(){return(screenSize>=640?'91.6%':'100%')})()}}>
+                            <button onMouseDown={alertCheckOut} className="flex flex-col justify-start items-center w-16 h-12 border border-b-2" style={{backgroundColor:selectColor(selectColorScheme(5))}}><i className="fas fa-grip-lines-vertical"></i></button>
+                            <button onMouseDown={alertCheckOut} className="flex flex-col justify-start items-center w-16 h-16 border border-b-2" style={{backgroundColor:selectColor(selectColorScheme(5))}}><i className="fas fa-grip-lines-vertical"></i></button>
+                            <button onMouseDown={alertCheckOut} className="flex flex-col justify-start items-center w-16 h-10 border border-b-2" style={{backgroundColor:selectColor(selectColorScheme(5))}}><i className="fas fa-grip-lines-vertical"></i></button>
                         </div>
                     </div>
 
                     <div className="task__willCreate w-full border-b-2 flex" style={{display:'none'}}>
-                        <div className="w-1/12 flex justify-center items-center">
-                            <span className="text-center">2</span>
-                        </div>
-                        <div className="w-11/12 flex justify-start items-start" style={{borderColor:COLOR_FIRST}}>
+                        {
+                            screenSize >= 640 ? (
+                            <div className="w-1/12 flex justify-center items-center">
+                                <span className="text-center">2</span>
+                            </div>
+                            ) : (
+                                <div className="w-full flex justify-end items-center p-1 px-2" style={{backgroundColor:selectColor(selectColorScheme(5))}}>
+                                    <button onClick={alertCheckOut} className="fas fa-chevron-down"></button>
+                                </div>
+                            )
+                        }
+                        <div className="flex justify-start items-start" style={{borderColor:COLOR_FIRST,width:(function(){return(screenSize>=640?'91.6%':'100%')})()}}>
                             <button onMouseDown={alertCheckOut} className="flex flex-col justify-start items-center w-16 h-10 border border-b-2" style={{backgroundColor:selectColor(selectColorScheme())}}><i className="fas fa-grip-lines-vertical"></i></button>
                         </div>
                     </div>

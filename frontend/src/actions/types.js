@@ -2,6 +2,8 @@
 export const SIGN_UP = "SIGN_UP";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const SIGN_UP_FAILED = 'SIGN_UP_FAILED';
 // Nav Control
 export const ON_LANDING = "ON_LANDING";
 export const NOT_ON_LANDING = "NOT_ON_LANDING";

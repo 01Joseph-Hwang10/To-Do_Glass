@@ -26,8 +26,9 @@ class SignUpForm extends React.Component {
 
         const screenSize = this.props.screenSize
         const minHeight = (function(){return(screenSize>=640?'95vh':'75vh')})()
+        const signUpSuccessful = this.props.signUpSuccessful
 
-        const onSubmit = (e) => {
+        const onSubmit = async (e) => {
             e.preventDefault()
             const name = document.querySelector(".emailSignUp__name");
             const email = document.querySelector(".emailSignUp__email");
@@ -40,14 +41,11 @@ class SignUpForm extends React.Component {
                 email:email.value,
                 password:password.value
             };
-            this.props.postSignUp(post_data);
+            await this.props.postSignUp(post_data);
             name.value="";
             email.value="";
             password.value="";
             confirmPassword.value="";
-
-            const span = document.querySelector(".emailSignUp__failed")
-            setTimeout(()=>{span.style.display='block'},1000)
         };
     
         return (
@@ -60,7 +58,11 @@ class SignUpForm extends React.Component {
                         <input onKeyDown={spaceNotAllowed} className="emailSignUp__email w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="email" placeholder="Email"></input>
                         <input onKeyDown={spaceNotAllowed} className="emailSignUp__password w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="password" placeholder="Password"></input>
                         <input onKeyDown={spaceNotAllowed} className="emailSignUp__confirmPassword w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="password" placeholder="Confirm Password"></input>
-                        <span className="emailSignUp__failed text-red-500 font-semibold text-center" style={{display:'none'}}>Sign Up Failed!! You may used already used email!! If the error continues, contact with the email below</span>
+                        {
+                            signUpSuccessful ? (<></>) : (
+                                <span className="emailSignUp__failed text-red-500 font-semibold text-center">Sign Up Failed!! You may used already used email!! If the error continues, contact with the email below</span>
+                            )
+                        }
                         <button className="emailSignUp__button w-full rounded-lg p-2 text-white font-semibold" style={{backgroundColor:COLOR_THIRD}}>Sign Up</button>
                     </form>
                 </div>
@@ -76,7 +78,8 @@ SignUpForm.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        screenSize:state.screen.screenSize
+        screenSize:state.screen.screenSize,
+        signUpSuccessful:state.signUp.signUpSuccessful
     }
 }
 

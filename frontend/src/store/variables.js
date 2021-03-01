@@ -1,7 +1,7 @@
 import { stripPort } from "../functions/stringFunctions";
 
 // Base url
-export const URL_PROXY = `${stripPort(window.location.origin)}:8001`;
+export const URL_PROXY = `${stripPort(window.location.origin)}:8000`;
 // export const URL_PROXY = `http://localhost:8000`
 // Auth url
 export const URL_SIGN_UP = `${URL_PROXY}/api/users-api/sign-up/`;

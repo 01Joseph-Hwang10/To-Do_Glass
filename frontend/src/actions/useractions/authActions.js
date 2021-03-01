@@ -1,6 +1,6 @@
 import axios from "axios";
 import { URL_CHECK_SELF_AUTH, URL_LOGOUT, URL_SIGN_UP, URL_TOKEN, URL_TOKEN_REFRESH } from "../../store/variables";
-import { CLEAR_PROFILE, LOGIN, LOGOUT, PROFILE_MINE, NOT_ON_LANDING, SIGN_UP, CLEAR_PROJECT, ON_LANDING } from "../types";
+import { CLEAR_PROFILE, LOGIN, LOGOUT, PROFILE_MINE, NOT_ON_LANDING, SIGN_UP, CLEAR_PROJECT, ON_LANDING, LOGIN_FAILED, SIGN_UP_FAILED } from "../types";
 
 
 export const postSignUp = (post_data) => dispatch => {
@@ -11,11 +11,14 @@ export const postSignUp = (post_data) => dispatch => {
             if(response.status===201) {
                 dispatch({type:SIGN_UP});
                 window.location.href="/#/login";
-            } else {
-                alert("Sign Up Failed! You may mismatched passwords, typed already used name or email");
-                dispatch({type:LOGOUT,payload:false})
-            }
-                });
+            } 
+                })
+        .catch(()=>{
+            alert('Sign Up Failed')
+            dispatch({
+                type:SIGN_UP_FAILED
+            })
+        });
     } catch (error) {
         console.log(error);
         alert("Signup error");
@@ -29,10 +32,6 @@ export const postLogin = (post_data) => dispatch => {
         let response = axios
         .post(URL_TOKEN,post_data,{withCredentials:true})
         .then(response => {
-            if(Number(response.status) === 401) {
-                alert("Authorization Failed! Check if your email and password are correctly typed")
-                dispatch({type:LOGOUT,payload:false})
-            }
             if(Number(response.status) === 200) {
                 const user_id = response.data.user_id;
                 if(!window.localStorage.getItem('user_id')) {
@@ -46,7 +45,13 @@ export const postLogin = (post_data) => dispatch => {
                 // window.location.reload()
             } 
             return response.status
-                });
+                })
+        .catch(()=>{
+            alert('Login Failed')
+            dispatch({
+                type:LOGIN_FAILED
+            })
+        });
                 return Number(response)
     } catch (error) {
         console.log(error);
@@ -96,18 +101,23 @@ export const Logout = () => dispatch => {
         axios
         .get(URL_LOGOUT,{withCredentials:true})
         .then(response => {
-            if(response.status===200){
-                window.localStorage.removeItem('user_id')
-                userNotAuthenticatedDispatchSet(dispatch)
-                window.location.href = "/#/";
-                window.location.reload();
-            } else {
-                alert("Logout failed")
-            }
+            window.localStorage.removeItem('user_id')
+            userNotAuthenticatedDispatchSet(dispatch)
+            window.location.href = "/#/";
+            window.location.reload();
+        })
+        .error(()=>{
+            window.localStorage.removeItem('user_id')
+            userNotAuthenticatedDispatchSet(dispatch)
+            window.location.href = "/#/";
+            window.location.reload();
         })
     } catch (error) {
         console.error(error)
-        alert("Logout error")
+        window.localStorage.removeItem('user_id')
+        userNotAuthenticatedDispatchSet(dispatch)
+        window.location.href = "/#/";
+        window.location.reload();
     }
 }
 

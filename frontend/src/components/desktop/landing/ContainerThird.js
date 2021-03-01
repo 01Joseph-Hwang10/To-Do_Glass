@@ -133,29 +133,43 @@ export default function ContainerThird(props) {
 
                 <div className="w-full flex justify-center py-4"><i className="fas fa-ellipsis-v text-2xl text-center"></i></div>
 
-                <div className="taskHolder border-t-2 border-b-2 w-full flex justify-center items-center">
+                <div className="taskHolder border-t-2 border-b-2 w-full flex flex-col sm:flex-row justify-center items-center">
 
-                    <div onMouseOver={figThirdOnMouseOver} className="taskHolder__header h-full flex justify-start items-center space-x-1 pl-1" style={{width:'8.3%'}}>
-                        <div className="componentHeader flex justify-center items-center">
-                            <span>1</span>
-                            <i className="fas fa-chevron-right" style={{transition:'all 0.2s ease-in-out',opacity:1}}></i>
-                        </div>
-                        <div className="componentBody flex flex-col justify-center items-center space-y-2" style={{opacity:0,fontSize:0}}>
-                            <div className="flex justify-start items-center">
-                                <button onClick={alertCheckOut} className="rounded-3xl hover:bg-gray-300" style={{transition:'all 0.1s ease-in-out'}}><Important isImportant={false} /></button>
-                                <div><span>Important Tasks</span></div>
+                    {
+                        screenSize >= 640 ? (
+                        <div onMouseOver={figThirdOnMouseOver} className="taskHolder__header h-full flex justify-start items-center space-x-1 pl-1" style={{width:'8.3%'}}>
+                            <div className="componentHeader flex justify-center items-center">
+                                <span>1</span>
+                                <i className="fas fa-chevron-right" style={{transition:'all 0.2s ease-in-out',opacity:1}}></i>
                             </div>
-                            <div className="flex justify-end items-center">
-                                <button onClick={alertCheckOut} className="px-2 rounded font-semibold text-white" style={{backgroundColor:COLOR_THIRD}}>Detail</button>
+                            <div className="componentBody flex flex-col justify-center items-center space-y-2" style={{opacity:0,fontSize:0}}>
+                                <div className="flex justify-start items-center">
+                                    <button onClick={alertCheckOut} className="rounded-3xl hover:bg-gray-300" style={{transition:'all 0.1s ease-in-out'}}><Important isImportant={false} /></button>
+                                    <div><span>Important Tasks</span></div>
+                                </div>
+                                <div className="flex justify-end items-center">
+                                    <button onClick={alertCheckOut} className="px-2 rounded font-semibold text-white" style={{backgroundColor:COLOR_THIRD}}>Detail</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        ) : (
+                            <div className="w-full flex p-1 justify-between items-center" style={{backgroundColor:selectColor(selectColorScheme(5))}}>
+                                <div className="flex justify-start items-center">
+                                    <button onClick={alertCheckOut}><Important /></button>
+                                    <button onClick={alertCheckOut} className="">Important Tasks</button>
+                                </div>
+                                <div className="px-1">
+                                    <button onClick={alertCheckOut} className="fas fa-chevron-down text-lg"></button>
+                                </div>
+                            </div>
+                        )
+                    }
 
-                    <div className="taskHolder__body border-l-2" style={{width:'91.7%'}}>
+                    <div className="taskHolder__body border-l-2" style={{width:(function(){return(screenSize>=640?'91.7%':'100%')})()}}>
 
                         <div className="tasks w-full border-t-8 border-double flex justify-start items-start" style={{borderColor:COLOR_FIRST}}>
 
-                            <div className="task__example w-20 sm:w-24 flex flex-col justify-start items-center border-b-2" style={{backgroundColor:selectColor(selectColorScheme())}}>
+                            <div className="task__example w-20 sm:w-24 flex flex-col justify-start items-center border-b-2" style={{backgroundColor:selectColor(selectColorScheme(5))}}>
                                 <div className="w-full h-full flex justify-center items-start"><button className="fas fa-grip-lines-vertical text-center w-full"></button></div>
                                 <div className="w-full h-full flex justify-center items-center">
                                     <button onClick={figThirdSwitchHidden} className="task__example__name text-center font-semibold w-full rounded border-2 border-transparent hover:border-gray-300" style={{display:'block'}}>Important Task</button>
@@ -171,7 +185,7 @@ export default function ContainerThird(props) {
                                 </div>
                             </div>
 
-                            <div className="task__willCreate w-20 sm:w-24 flex flex-col justify-start items-center border-b-2" style={{backgroundColor:selectColor(selectColorScheme()),display:'none'}}>
+                            <div className="task__willCreate w-20 sm:w-24 flex flex-col justify-start items-center border-b-2" style={{backgroundColor:selectColor(selectColorScheme(5)),display:'none'}}>
                                 <div className="w-full flex justify-center items-start"><button className="fas fa-grip-lines-vertical text-center w-full"></button></div>
                                 <div className="w-full flex justify-center items-center">
                                     <button onClick={figThirdSwitchHidden} className="task__willCreate__name text-center font-semibold w-full rounded border-2 border-transparent hover:border-gray-300" style={{display:'block'}}></button>
@@ -187,7 +201,7 @@ export default function ContainerThird(props) {
                                 </div>
                             </div>
 
-                            <div className="task__form w-20 sm:w-24 flex flex-col justify-center items-center border-b-2" style={{minHeight:'6rem',backgroundColor:selectColor(selectColorScheme()),display:'flex'}}>
+                            <div className="task__form w-20 sm:w-24 flex flex-col justify-center items-center border-b-2" style={{minHeight:'6rem',backgroundColor:selectColor(selectColorScheme(5)),display:'flex'}}>
                                 <button onClick={switchHidden} className="w-full fas fa-plus-circle text-center h-24" style={{display:'block'}}></button>
                                 <form onSubmit={figThirdCreateTask} className="w-full h-full flex flex-col justify-center items-center space-y-2" style={{display:'none',minHeight:'6rem'}}>
                                     <input required className="w-11/12 p-1 h-7 bg-transparent outline-none border-2 rounded" placeholder="Name"></input>
