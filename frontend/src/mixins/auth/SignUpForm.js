@@ -30,6 +30,9 @@ class SignUpForm extends React.Component {
 
         const onSubmit = async (e) => {
             e.preventDefault()
+            const loading = document.querySelector('.emailSignUp__loading')
+            loading.style.display ='block'
+
             const name = document.querySelector(".emailSignUp__name");
             const email = document.querySelector(".emailSignUp__email");
             const password = document.querySelector(".emailSignUp__password");
@@ -46,6 +49,8 @@ class SignUpForm extends React.Component {
             email.value="";
             password.value="";
             confirmPassword.value="";
+
+            loading.style.display = 'none'
         };
     
         return (
@@ -63,6 +68,7 @@ class SignUpForm extends React.Component {
                                 <span className="emailSignUp__failed text-red-500 font-semibold text-center">Sign Up Failed!! You may used already used email!! If the error continues, contact with the email below</span>
                             )
                         }
+                        <span className="emailSignUp__loading font-semibold text-center" style={{display:'none'}}>Signing In...</span>
                         <button className="emailSignUp__button w-full rounded-lg p-2 text-white font-semibold" style={{backgroundColor:COLOR_THIRD}}>Sign Up</button>
                     </form>
                 </div>

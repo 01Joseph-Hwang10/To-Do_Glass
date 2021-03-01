@@ -29,6 +29,9 @@ class LoginForm extends React.Component {
 
         const onSubmit = async (e) => {
             e.preventDefault()
+            const loading = document.querySelector('.emailLogin__loading')
+            loading.style.display ='block'
+
             const email = document.querySelector(".emailLogin__email");
             const password = document.querySelector(".emailLogin__password");
             const post_data = {
@@ -38,6 +41,8 @@ class LoginForm extends React.Component {
             await this.props.postLogin(post_data);
             email.value="";
             password.value="";
+
+            loading.style.display = 'none'
         };
     
         return (
@@ -53,6 +58,7 @@ class LoginForm extends React.Component {
                                     <span className="emailLogin__failed text-red-500 font-semibold">Login Failed! Check if your email and password typed correctly! If the error continues, please contact with the email at bottom</span>
                                 )
                             }
+                            <span className="emailLogin__loading font-semibold text-center" style={{display:'none'}}>Logging In...</span>
                             <button className="emailLogin__login w-full rounded-lg p-2 text-white font-semibold" style={{backgroundColor:COLOR_THIRD}}>Login</button>
                         </form>
                     </div>
