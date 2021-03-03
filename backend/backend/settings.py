@@ -65,6 +65,7 @@ PROJECT_APPS = [
     'users.apps.UsersConfig',
     'todos.apps.TodosConfig',
     'core.apps.CoreConfig',
+    'auths.apps.AuthsConfig',
 ]
 
 THIRD_PARTY_APPS = [
@@ -105,7 +106,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -263,3 +264,10 @@ else:
         'https://127.0.0.1:3000'
         )
 
+# Email
+
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 587
+EMAIL_HOST_USER =os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True

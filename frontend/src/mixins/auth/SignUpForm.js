@@ -42,7 +42,8 @@ class SignUpForm extends React.Component {
             const post_data = {
                 first_name:name.value,
                 email:email.value,
-                password:password.value
+                password:password.value,
+                passwordConfirm:confirmPassword.value
             };
             await this.props.postSignUp(post_data);
             name.value="";
@@ -58,7 +59,7 @@ class SignUpForm extends React.Component {
                 <div className="my-5 mb-12 mx-auto w-11/12 sm:w-1/2 text-center"><Link to='/'><i className="text-6xl text-center font-bold" style={{fontFamily:"Brush Script MT, Brush Script Std, cursive",color:COLOR_SECOND}}>FLglance<sup className="text-green-400 text-sm align-top">βeta</sup></i></Link></div>
                 <div className="mx-auto w-11/12 sm:w-1/2 2xl:w-1/3 rounded-lg p-2 flex flex-col items-center justify-center shadow-md" style={{backgroundColor:COLOR_FOURTH}}>
                     <form className="emailSignUp w-11/12 mx-auto space-y-2 py-5 flex flex-col justify-center items-center" onSubmit={onSubmit}>
-                        <span className="emailSignUp__warning text-yellow-500 font-semibold text-justify">Because the site's domain is not capable for sending an email, flglance currently not able to solve your login problem in case of forgetting the password or miswriting email and/or password. Sorry for the inconvenience. Please contact with the email at bottom when struggling with sign up.</span>
+                        <span className="emailSignUp__warning text-yellow-500 font-semibold text-justify">Please use the real email address that is able to receive email since the email will be used in password reset when you forgot it.</span>
                         <input onKeyDown={spaceNotAllowed} className="emailSignUp__name w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="text" placeholder="Name"></input>
                         <input onKeyDown={spaceNotAllowed} className="emailSignUp__email w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="email" placeholder="Email"></input>
                         <input onKeyDown={spaceNotAllowed} className="emailSignUp__password w-full border-2 rounded-lg p-2 h-10 focus:border-gray-400" style={{transition:'all 0.2s ease-in-out'}} required type="password" placeholder="Password"></input>

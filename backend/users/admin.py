@@ -37,5 +37,9 @@ class CustomUserAdmin(UserAdmin):
         "last_name",
         "is_active",
         "following_count",
-        "followers_count"
+        "followers_count",
+        "projects_count",
+        "containers_count",
+        "tasks_count",
+        "tags_count",
     )

@@ -27,3 +27,15 @@ class User(AbstractUser):
     def get_public_projects(self):
         return self.project_created_user.filter(Q(isPrivate=False)).values()
 
+    def projects_count(self):
+        return self.project_created_user.count()
+
+    def containers_count(self):
+        return self.project_created_user.containers.count()
+    
+    def tasks_count(self):
+        return self.project_created_user.containers.tasks.count()
+
+    def tags_count(self):
+        return self.project_created_user.tags.count()
+

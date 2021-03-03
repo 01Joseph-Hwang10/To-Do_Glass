@@ -165,6 +165,9 @@ class SignUpView(generics.CreateAPIView):
             email=post_data['email']
             username=email
             password=post_data['password']
+            password_confirm=post_data['passwordConfirm']
+            if(password != password_confirm and user_model.User.objects.filter(email=email).exists()):
+                raise Exception
             new_object =user_model.User(
                 username=username,
                 first_name=first_name,

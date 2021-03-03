@@ -1,6 +1,6 @@
 # Deployment CheckList
 
-## 0. Deployment Turn: Blue
+## 0. Deployment Turn: Green
 
 ## 1. Port Scheme
 
@@ -80,3 +80,17 @@ upstream api {
 
 ## 6.EC2 Django permission
 * Give all traffic the permission when deploying. You might got a need to change a port scheme for that
+
+## 7.LoginForm Password Change Link
+
+### Blue
+#### frontend/src/mixins/auth/LoginForm.js
+```
+to='https://flglance.net:8000/auth/password_reset'
+```
+
+## Green
+#### frontend/src/mixins/auth/LoginForm.js
+```
+to='https://flglance.net:8001/auth/password_reset'
+```

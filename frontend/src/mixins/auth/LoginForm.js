@@ -65,6 +65,9 @@ class LoginForm extends React.Component {
                     <div className="w-full text-center pb-2">
                         <span>Have No Account? </span><Link to='/signup'><span className="font-bold text-lg text-green-500">Sign Up</span></Link>
                     </div>
+                    <div className="w-full text-center pb-2">
+                        <span>Forgot a password? </span><Link to='https://flglance.net:8001/auth/password_reset'><span className="font-bold text-lg">Reset Password</span></Link>
+                    </div>
                 </div>
             </div>
         )
