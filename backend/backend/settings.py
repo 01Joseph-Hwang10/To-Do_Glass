@@ -270,8 +270,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_PORT = 587
-# EMAIL_HOST_USER =os.environ.get('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_HOST_USER ='joseph@mail.flglance.net'
-EMAIL_HOST_PASSWORD = '8b3a666a798dd146141ecd32a583e324-e49cc42c-1d04dd45'
+EMAIL_HOST_USER =os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True

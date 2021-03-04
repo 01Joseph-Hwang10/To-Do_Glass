@@ -81,16 +81,16 @@ upstream api {
 ## 6.EC2 Django permission
 * Give all traffic the permission when deploying. You might got a need to change a port scheme for that
 
-## 7.LoginForm Password Change Link
+## 7.ResetPassword Password Change Link
 
 ### Blue
-#### frontend/src/mixins/auth/LoginForm.js
+#### frontend/src/mixins/auth/ResetPassword.js
 ```
-to='https://flglance.net:8000/auth/password_reset'
+window.location.href = 'https://flglance.net:8000/auth/password_reset'
 ```
 
 ## Green
-#### frontend/src/mixins/auth/LoginForm.js
+#### frontend/src/mixins/auth/ResetPassword.js
 ```
-to='https://flglance.net:8001/auth/password_reset'
+window.location.href = 'https://flglance.net:8001/auth/password_reset'
 ```

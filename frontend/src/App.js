@@ -14,6 +14,7 @@ import Home from './routes/Home';
 import Footer from './components/desktop/Footer';
 import updateProfileForm from './mixins/updateProfileForm';
 import Social from './routes/Social';
+import ResetPassword from './mixins/auth/ResetPassword';
 
 
 function App(props) {
@@ -32,6 +33,7 @@ function App(props) {
             <Route path='/:id/edit_profile' exact component={updateProfileForm} />
             <Route path='/login' exact component={LoginForm} />
             <Route path='/signup' exact component={SignUpForm} />
+            <Route path='/reset_password' exact component={ResetPassword} />
           </div>
           <div>
             <Footer />

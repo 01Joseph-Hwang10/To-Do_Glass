@@ -20,7 +20,10 @@ from django.urls.conf import include
 from django.conf import settings
 from django.conf.urls.static import static
 
-admin_url = os.environ.get('BACKEND_ADMIN')
+if settings.DEBUG:
+    admin_url = 'admin'
+else:
+    admin_url = os.environ.get('BACKEND_ADMIN')
 
 urlpatterns = [
     path(f"{admin_url}/", admin.site.urls),

@@ -66,6 +66,7 @@ function ContainerDetail(props) {
         textarea.removeAttribute('readonly')
         div.style.backgroundColor = '#DBEAFE'
         textarea.focus()
+        textarea.setSelectionRange(textarea.value.length, textarea.value.length)
         description = textarea.value
     }
 

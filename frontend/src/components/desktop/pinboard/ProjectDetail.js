@@ -31,6 +31,7 @@ function ProjectDetail(props) {
         editButton.style.display = "none"
         textAreaDiv.style.backgroundColor = COLOR_THIRD
         textArea.focus()
+        textArea.setSelectionRange(textArea.value.length, textArea.value.length)
         description = textArea.value
     }
 
