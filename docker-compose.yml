@@ -21,7 +21,11 @@ services:
                                     http://13.125.77.159:8080
                                     http://13.125.77.159:8082
                                     http://flglance.net
+                                    http://flglance.net:8080
+                                    http://flglance.net:8082
                                     https://flglance.net
+                                    https://flglance.net:8080
+                                    https://flglance.net:8082
         BACKEND_ADMIN: '36JV9e3gtgrLYJTD'
         RDS_HOSTNAME: 'flglancedbinstance.cnccbx1rihhz.ap-northeast-2.rds.amazonaws.com'
         RDS_PORT: 5432

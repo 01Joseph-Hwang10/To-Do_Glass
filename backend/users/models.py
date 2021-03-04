@@ -30,12 +30,12 @@ class User(AbstractUser):
     def projects_count(self):
         return self.project_created_user.count()
 
-    def containers_count(self):
-        return self.project_created_user.containers.count()
+    # def containers_count(self):
+    #     return self.project_created_user.containers.count()
     
-    def tasks_count(self):
-        return self.project_created_user.containers.tasks.count()
+    # def tasks_count(self):
+    #     return self.project_created_user.containers.tasks.count()
 
-    def tags_count(self):
-        return self.project_created_user.tags.count()
+    # def tags_count(self):
+    #     return self.project_created_user.tags.count()
 

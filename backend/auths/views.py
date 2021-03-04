@@ -6,8 +6,9 @@ from django.shortcuts import render
 
 
 class CustomPasswordResetView(views.PasswordResetView):
+    email_template_name = 'auth/email_template.html'
     template_name = 'auth/password_reset.html'
-    success_url = reverse_lazy('auth/password_reset_done')
+    success_url = reverse_lazy('auths:password_reset_done')
     form_class = forms.PasswordResetForm
 
     def form_valid(self, form):
