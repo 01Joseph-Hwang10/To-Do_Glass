@@ -50,10 +50,6 @@ services:
 export const URL_PROXY = `${stripPort(window.location.origin)}:8001`;
 ```
 
-## 2. React JS Settings
-* You need to implement Sentry. It's in index.js. Uncomment Sentry codeline
-* You need to change `URL_PROXY` variable for the production build. Uncomment which is not a localhost and comment which is a localhost
-
 ## 2. Django Settings
 * Change `SECRET_KEY` variable in settings.py to `os.environ.get('DJANGO_SECRET_KEY')`
 

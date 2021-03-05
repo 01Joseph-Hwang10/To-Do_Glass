@@ -3,7 +3,7 @@ import { stripPort } from "../functions/stringFunctions";
 // Base url
 export let URL_PROXY;
 if(process.env.NODE_ENV === 'production') {
-    URL_PROXY = `${stripPort(window.location.origin)}:8000`;
+    URL_PROXY = `${stripPort(window.location.origin)}:8001`;
 } else {
     URL_PROXY = `http://localhost:8000`
 }
