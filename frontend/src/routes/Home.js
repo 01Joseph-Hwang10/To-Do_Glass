@@ -20,6 +20,7 @@ import Overview from '../components/desktop/Overview';
 import Pinboard from '../components/desktop/Pinboard';
 import Glance from '../components/desktop/Glance';
 import { scrollToTop } from '../functions/scrollFunctions';
+import { setNavHeight } from '../actions/navControl';
 
 class Home extends React.Component {
 
@@ -38,6 +39,7 @@ class Home extends React.Component {
             this.props.hideScrollButton()
             this.props.openOverview()
         }
+        this.props.setNavHeight()
     }
 
     render() {
@@ -45,7 +47,8 @@ class Home extends React.Component {
         const pinboardIsLoaded = Boolean(Object.keys(this.props.project).length > 0)
         const isFullScreen = this.props.isFullScreen
         const screenSize = this.props.screenSize
-        const marginTop = (function(){return(screenSize>=640?'1.25rem':'')})()
+        const overviewMarginTop = (function(){return(screenSize>=640?'1.25rem':'')})()
+        const marginTop = this.props.navHeight
 
         const overviewOpened = this.props.overviewOpened
         const glanceOpened = this.props.glanceOpened
@@ -158,12 +161,12 @@ class Home extends React.Component {
 
         return (
             <>
-            <div className="scroller mt-16 flex justify-center w-full overflow-x-hidden">
+            <div className="scroller flex justify-center w-full overflow-x-hidden" style={{marginTop:marginTop}}>
                 <div className="container rounded px-2" style={{
                     width:overviewWidth,
                     opacity:overviewOpacity,
                     transition:`width ${widthDuration} ease-in-out, opacity ${opacityDuration} ease-in-out ${overviewDelay}`,
-                    marginTop:marginTop,
+                    marginTop:overviewMarginTop,
                     display:overviewDisplay,
                     paddingRight:padding,
                     paddingLeft:padding,
@@ -229,6 +232,7 @@ Home.propTypes = {
     focusPinboard:PropTypes.func.isRequired,
     showScrollButton:PropTypes.func.isRequired,
     hideScrollButton:PropTypes.func.isRequired,
+    setNavHeight:PropTypes.func.isRequired,
 }
 
 
@@ -240,7 +244,8 @@ const mapStateToProps = state => {
         screenSize:state.screen.screenSize,
         overviewOpened:state.screen.overviewOpened,
         glanceOpened:state.screen.glanceOpened,
-        scrollButtonVisible:state.screen.scrollButtonVisible
+        scrollButtonVisible:state.screen.scrollButtonVisible,
+        navHeight:state.screen.navHeight
     }
 }
 
@@ -253,6 +258,7 @@ const actions = {
     focusPinboard,
     showScrollButton,
     hideScrollButton,
+    setNavHeight
 }
 
 

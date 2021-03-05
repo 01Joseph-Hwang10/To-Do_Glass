@@ -48,8 +48,12 @@ function ProjectSection(props) {
         e.preventDefault();
         const form = e.target
         const div = e.target.parentNode
+        const loading = div.querySelector('i')
+        loading.style.display = 'block'
+        form.style.display = "none"
+
         const button = div.childNodes[0]
-        const input = form.childNodes[0]
+        const input = form.querySelector('input')
         const postData = {
             name:input.value,
             user_id:userId,
@@ -61,8 +65,8 @@ function ProjectSection(props) {
         await props.getProject(id)
         await props.getProfile(userId)
         input.value = ""
-        form.style.display = "none"
         button.style.display ="block"
+        loading.style.display = 'none'
     }
 
     return (
@@ -94,6 +98,7 @@ function ProjectSection(props) {
                                     <input required placeholder="Project" className="w-7/12 bg-transparent rounded border-b-2 border-gray-400 focus:border-gray-600" style={{transition:"all 0.5s ease-in-out"}}></input>
                                     <button className="px-2 my-1 rounded bg-gray-300 font-semibold">Create</button>
                                 </form>
+                                <i style={{display:'none'}} className="font-semibold">Loading...</i>
                             </div>
                             ) : (
                                 <></>

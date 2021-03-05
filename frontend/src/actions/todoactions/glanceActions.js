@@ -7,12 +7,16 @@ export const getGlance = () => async dispatch => {
     await axios
     .get(URL_GLANCE,{withCredentials:true})
     .then(response => {
+        let ids = [];
+        for(let i=0; i<response.data.length; i++) {
+            ids.push(response.data[i].id)
+        }
         dispatch({
             type:GET_GLANCE,
             payload:{
                 data:response.data,
                 keyword:"",
-                searchContinue:0
+                searchedId:ids
             }
         })
     })
@@ -22,15 +26,18 @@ export const searchGlance = (postData) => async dispatch => {
     const response = await axios
     .patch(URL_GLANCE,postData,{withCredentials:true})
     .then(response => {
+        let ids = [];
+        for(let i=0; i<response.data.length; i++) {
+            ids.push(response.data[i].id)
+        }
         dispatch({
             type:GET_GLANCE,
             payload:{
                 data:response.data,
                 keyword:postData.input,
-                searchContinue:postData.searchContinue
+                searchedId:ids
             }
         })
-        console.log(response.data)
         return response.data.length
     })
     return Number(response)

@@ -46,16 +46,18 @@ class TagViewSet(viewsets.ModelViewSet):
         return response.Response(data=model_to_dict(new_object),status=status.HTTP_201_CREATED)
 
 
+QUERY_COUNT = 5
+
 class SortedProjectView(generics.RetrieveUpdateAPIView):
 
-    queryset = models.Project.objects.all().order_by('updated')
+    queryset = models.Project.objects.all()
     serializer_class = ProjectSerializer
 
     def retrieve(self, request, *args, **kwargs):
         cookie=get_cookie(request)
         user_id=int(cookie['user_id'])
         user=user_model.User.objects.get(id=user_id)
-        instance = models.Project.objects.filter(~Q(created_user=user) & Q(isPrivate=False))[:20]
+        instance = models.Project.objects.filter(~Q(created_user=user) & Q(isPrivate=False)).order_by('-updated')[:QUERY_COUNT]
         response_data = []
         for i in instance:
             serializer = self.get_serializer(i)
@@ -65,29 +67,36 @@ class SortedProjectView(generics.RetrieveUpdateAPIView):
     def update(self, request, *args, **kwargs):
         input_value = request.data['input']
         user_id = request.data['user_id']
-        search_index = int(request.data['searchContinue'])
-        index_start = int(search_index*20)
-        index_end = int(index_start + 19)
-        search_word = input_value.split()
-        search_word.insert(0,input_value)
+        searched_id = request.data['searchedId']
+        user=user_model.User.objects.get(id=user_id)
         response_data = []
-        for word in input_value.split():
-            tags_iexact = models.Tag.objects.filter(name__iexact=word)
-            tags_icontains = models.Tag.objects.filter(name__icontains=word)
-            instance_iexact = models.Project.objects.filter(
-                (Q(name__iexact=word) | Q(description__iexact=word) |
-                Q(tags__in=tags_iexact) | Q(created_user__first_name__iexact=word)) &
-                Q(isPrivate=False) & ~Q(created_user__id__iexact=user_id)
-                )[index_start:index_end]
-            instance_icontains = models.Project.objects.filter(
-                (Q(name__icontains=word) | Q(description__icontains=word) |
-                Q(tags__in=tags_icontains) | Q(created_user__first_name__icontains=word)) &
-                Q(isPrivate=False) & ~Q(created_user__id__iexact=user_id)
-                )[index_start:index_end]
-            for i in instance_iexact:
-                serializer = self.get_serializer(i)
-                response_data.append(serializer.data)
-            for i in instance_icontains:
+        if input_value:
+            for word in input_value.split():
+                tags_iexact = models.Tag.objects.filter(name__iexact=word)
+                instance_iexact = models.Project.objects.filter(
+                    (Q(name__iexact=word) | Q(description__iexact=word) |
+                    Q(tags__in=tags_iexact) | Q(created_user__first_name__iexact=word)) &
+                    Q(isPrivate=False) & ~Q(created_user__id__iexact=user_id) & 
+                    ~Q(created_user=user) & ~Q(id__in=searched_id)
+                    )[:QUERY_COUNT]
+                for i in instance_iexact:
+                    serializer = self.get_serializer(i)
+                    response_data.append(serializer.data)
+            if not response_data:
+                for word in input_value:
+                    tags_icontains = models.Tag.objects.filter(name__icontains=word)
+                    instance_icontains = models.Project.objects.filter(
+                        (Q(name__icontains=word) | Q(description__icontains=word) |
+                        Q(tags__in=tags_icontains) | Q(created_user__first_name__icontains=word)) &
+                        Q(isPrivate=False) & ~Q(created_user__id__iexact=user_id) & 
+                        ~Q(created_user=user) & ~Q(id__in=searched_id)
+                        )[:QUERY_COUNT]
+                    for i in instance_icontains:
+                        serializer = self.get_serializer(i)
+                        response_data.append(serializer.data)
+        else:
+            instance = models.Project.objects.filter(~Q(created_user=user) & Q(isPrivate=False) & ~Q(id__in=searched_id)).order_by('-updated')[:QUERY_COUNT]
+            for i in instance:
                 serializer = self.get_serializer(i)
                 response_data.append(serializer.data)
         cleaned_data = list({v['id']:v for v in response_data}.values())

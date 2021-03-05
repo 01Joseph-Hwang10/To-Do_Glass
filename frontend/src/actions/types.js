@@ -7,6 +7,7 @@ export const SIGN_UP_FAILED = 'SIGN_UP_FAILED';
 // Nav Control
 export const ON_LANDING = "ON_LANDING";
 export const NOT_ON_LANDING = "NOT_ON_LANDING";
+export const SET_NAV_HEIGHT = "SET_NAV_HEIGHT";
 // Profile
 export const GET_PROFILE = "GET_PROFILE";
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';

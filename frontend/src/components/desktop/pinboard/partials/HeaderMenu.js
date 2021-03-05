@@ -4,6 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { deleteProject, updateProject } from "../../../../actions/todoactions/projectActions";
 import { getProfile } from "../../../../actions/useractions/userInfoActions";
+import { openOverview } from "../../../../actions/screenActions";
 // etc
 import PropTypes from 'prop-types'
 // Components
@@ -14,6 +15,7 @@ function headerMenu(props) {
     const projectId = props.projectId
     const isPrivate = props.isPrivate
     const userId = localStorage.getItem('user_id')
+    const screenSize = props.screenSize
 
     const deleteProject = async e => {
         e.preventDefault()
@@ -22,6 +24,7 @@ function headerMenu(props) {
             await props.deleteProject(projectId)
             props.getProfile(userId)
         }
+        if(screenSize < 1024) props.openOverview()
     }
 
     const switchPrivate = async () => {
@@ -48,9 +51,16 @@ function headerMenu(props) {
 headerMenu.propTypes = {
     deleteProject:PropTypes.func.isRequired,
     getProfile:PropTypes.func.isRequired,
-    updateProject:PropTypes.func.isRequired
+    updateProject:PropTypes.func.isRequired,
+    openOverview:PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => {
+    return {
+        screenSize: state.screen.screenSize
+    }
 }
 
 
-export default connect(null,{deleteProject,getProfile,updateProject})(headerMenu);
+export default connect(mapStateToProps,{deleteProject,getProfile,updateProject,openOverview})(headerMenu);
 

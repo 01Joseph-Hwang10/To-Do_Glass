@@ -1,6 +1,6 @@
 # Deployment CheckList
 
-## 0. Deployment Turn: Blue
+## 0. Deployment Turn: Green
 
 ## 1. Port Scheme
 
@@ -54,10 +54,10 @@ export const URL_PROXY = `${stripPort(window.location.origin)}:8001`;
 * You need to implement Sentry. It's in index.js. Uncomment Sentry codeline
 * You need to change `URL_PROXY` variable for the production build. Uncomment which is not a localhost and comment which is a localhost
 
-## 3. Django Settings
+## 2. Django Settings
 * Change `SECRET_KEY` variable in settings.py to `os.environ.get('DJANGO_SECRET_KEY')`
 
-## 4. Nginx Settings
+## 3. Nginx Settings
 
 ### Blue
 #### webserver/nginx-proxy.conf
@@ -75,22 +75,8 @@ upstream api {
 }
 ```
 
-## 5.Redux Devtools Setting
+## 4.Redux Devtools Setting
 * TURN IT OFF!!
 
-## 6.EC2 Django permission
+## 5.EC2 Django permission
 * Give all traffic the permission when deploying. You might got a need to change a port scheme for that
-
-## 7.ResetPassword Password Change Link
-
-### Blue
-#### frontend/src/mixins/auth/ResetPassword.js
-```
-window.location.href = 'https://flglance.net:8000/auth/password_reset'
-```
-
-## Green
-#### frontend/src/mixins/auth/ResetPassword.js
-```
-window.location.href = 'https://flglance.net:8001/auth/password_reset'
-```

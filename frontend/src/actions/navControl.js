@@ -1,4 +1,4 @@
-import { NOT_ON_LANDING, ON_LANDING } from "./types";
+import { NOT_ON_LANDING, ON_LANDING, SET_NAV_HEIGHT } from "./types";
 
 
 export const checkPlace = () => dispatch => {
@@ -38,5 +38,14 @@ export const hideNavAfterLogout = () => dispatch => {
     dispatch({
         type:ON_LANDING,
         payload:true
+    })
+}
+
+export const setNavHeight = () => dispatch => {
+    const nav = document.getElementById("navigation")
+    const height = nav.offsetHeight
+    dispatch({
+        type:SET_NAV_HEIGHT,
+        payload:height
     })
 }

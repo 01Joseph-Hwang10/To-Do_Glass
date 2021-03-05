@@ -1,8 +1,9 @@
-import { NOT_ON_LANDING, ON_LANDING } from "../actions/types";
+import { NOT_ON_LANDING, ON_LANDING, SET_NAV_HEIGHT } from "../actions/types";
 
 
 const initialState = {
-    onLanding:false
+    onLanding:false,
+    navHeight:'4rem',
 }
 
 // eslint-disable-next-line
@@ -18,6 +19,11 @@ export default function(state=initialState,action) {
                 ...state,
                 onLanding:action.payload
             };
+        case SET_NAV_HEIGHT:
+            return {
+                ...state,
+                navHeight:action.payload
+            }
         default:
             return state;
     }

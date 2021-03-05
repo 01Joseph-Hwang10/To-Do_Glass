@@ -16,7 +16,7 @@ class GlanceBox extends Component {
 
         const glances = this.props.Glance
         const isLoading = this.props.isLoading
-        const searchContinue = this.props.searchContinue
+        const searchedId = this.props.searchedId
         const keyword = this.props.keyword
         
         const searchGlance = this.props.searchGlance
@@ -28,8 +28,8 @@ class GlanceBox extends Component {
             button.style.display='none'
             loading.style.display = 'block'
             const postData = {
-                input:keyword,
-                searchContinue:searchContinue+1,
+                input:keyword.join(' '),
+                searchedId:searchedId,
                 user_id:localStorage.getItem('user_id')
             }
             const response = await searchGlance(postData)
@@ -58,10 +58,10 @@ class GlanceBox extends Component {
                                     )
                                 })
                             }
-                            <div className="moreGlances w-full flex justify-center items-center rounded shadow-md py-2 mt-3" style={{backgroundColor:COLOR_SEVENTH}}>
+                            <div className="moreGlances w-full flex justify-center items-center rounded shadow-md py-2 my-3" style={{backgroundColor:COLOR_SEVENTH}}>
                                 <button style={{display:'block'}} onClick={continueSearch} className="w-full font-semibold">More...</button>
                                 <span style={{display:'none'}} className="font-semibold">No Glances are found</span>
-                                <i style={{display:'none'}} className="font-semibold">Loading</i>
+                                <i style={{display:'none'}} className="font-semibold">Loading...</i>
                             </div>
                         </>
                     ) : (
@@ -131,7 +131,7 @@ const mapStateToProps = state => {
     return {
         Glance:state.glance.Glance,
         isLoading:state.glance.isLoading,
-        searchContinue:state.glance.searchContinue,
+        searchedId:state.glance.searchedId,
         keyword:state.glance.keyword
     }
 }

@@ -62,8 +62,16 @@
         <div class="jumbotron">
             <span id="logo">Flglance<sup>βeta</sup></span>
             <span>This is the root page of FLglance API<br/> You can go to the main website with the button below</span>
-            <a href="https://flglance.net" class="btn btn-success">Go to FLglance</a>
+            <button onclick="goToMain()" class="btn btn-success">Go to FLglance</button>
         </div>
     </div>
+    <script>
+        const goToMain = () => {
+            const url = window.location.origin
+            const urlSplitByColon = url.split(':')
+            const portStrippedUrl = [urlSplitByColon[0],urlSplitByColon[1]].join(':')
+            window.location = portStrippedUrl
+        }
+    </script>
 </body>
 </html>

@@ -27,12 +27,12 @@ class Search extends Component {
             const postData = {
                 input:input.value,
                 user_id:localStorage.getItem('user_id'),
-                searchContinue:0
+                searchedId:[]
             }
             await this.props.searchGlance(postData)
             input.value=''
 
-            setToInitial(e)
+            // setToInitial(e)
         }
 
         const OnClick = async (e) => {
@@ -45,7 +45,7 @@ class Search extends Component {
                 const postData = {
                     input:tagNames.join(' '),
                     user_id:localStorage.getItem('user_id'),
-                    searchContinue:0
+                    searchedId:[]
                 }
                 await this.props.searchGlance(postData)
             } else {
