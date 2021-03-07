@@ -12,7 +12,7 @@ from . import permissions as todo_permission
 
 class ProjectViewSet(viewsets.ModelViewSet):
 
-    queryset = models.Project.objects.all().order_by('updated')
+    queryset = models.Project.objects.all().order_by('-updated').order_by('importance')
     serializer_class = ProjectSerializer
     permission_classes = (todo_permission.ProjectAllowedToWrite,)
     
@@ -161,7 +161,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
 class PublicProjectViewSet(viewsets.ReadOnlyModelViewSet):
 
-    queryset = models.Project.objects.filter(Q(isPrivate=False)).order_by('updated')
+    queryset = models.Project.objects.filter(Q(isPrivate=False)).order_by('-updated').order_by('importance')
     serializer_class = ProjectSerializer
 
 
