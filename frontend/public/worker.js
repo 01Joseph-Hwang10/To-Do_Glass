@@ -1,11 +1,5 @@
-var CACHE_NAME = 'frontend';
+var CACHE_NAME = 'FLglance';
 var urlsToCache = [
-    '/',
-    '/:id/home',
-    '/:id/social',
-    '/:id/edit_profile',
-    '/login',
-    '/signup',
     './index.html',
     './logo192.png',
     './logo512.png',
@@ -41,7 +35,7 @@ self.addEventListener('fetch', event => {
 });
 // Update a service worker
 self.addEventListener('activate', event => {
-    var cacheWhitelist = ['frontend'];
+    var cacheWhitelist = ['FLglance'];
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(

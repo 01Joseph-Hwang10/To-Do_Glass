@@ -1,6 +1,6 @@
 # Deployment CheckList
 
-## 0. Deployment Turn: Green
+## 0. Deployment Turn: Blue
 
 ## 1. Port Scheme
 

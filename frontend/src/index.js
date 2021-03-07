@@ -27,7 +27,7 @@ if(process.env.NODE_ENV === 'production') {
 
 
 const { store, persistor } = configureStore();
-
+console.log("Test Version")
 
 ReactDOM.render(
   <React.StrictMode>
