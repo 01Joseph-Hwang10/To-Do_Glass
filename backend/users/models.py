@@ -22,10 +22,10 @@ class User(AbstractUser):
         return self.users.count()
 
     def get_my_projects(self):
-        return self.project_created_user.all().values()
+        return self.project_created_user.all().order_by('-importance').values()
 
     def get_public_projects(self):
-        return self.project_created_user.filter(Q(isPrivate=False)).values()
+        return self.project_created_user.filter(Q(isPrivate=False)).order_by('-importance').values()
 
     def projects_count(self):
         return self.project_created_user.count()

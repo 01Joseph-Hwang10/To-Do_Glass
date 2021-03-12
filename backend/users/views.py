@@ -61,7 +61,7 @@ class CustomTokenRefreshView(TokenRefreshView):
         max_age_1day = 24*60*60
 
         # Need to add Secure options!!
-        auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_1day,secure=True,httponly=True)
+        auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_1day,secure=True,httponly=True,samesite='Lax')
 
         return auth_response
 
