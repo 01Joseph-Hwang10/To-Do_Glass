@@ -35,9 +35,9 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         max_age_54weeks = 54*7*24*60*60
 
         # Need to add Secure options!!
-        auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_1day,secure=True,httponly=True)
-        auth_response.set_cookie("refresh_token",value=serializer.validated_data['refresh'],max_age=max_age_54weeks,secure=True,httponly=True)
-        auth_response.set_cookie("user_id",value=user_id,max_age=max_age_54weeks,secure=True,httponly=True)
+        auth_response.set_cookie("access_token",value=serializer.validated_data['access'],max_age=max_age_1day,secure=True,httponly=True,samesite='Lax')
+        auth_response.set_cookie("refresh_token",value=serializer.validated_data['refresh'],max_age=max_age_54weeks,secure=True,httponly=True,samesite='Lax')
+        auth_response.set_cookie("user_id",value=user_id,max_age=max_age_54weeks,secure=True,httponly=True,samesite='Lax')
 
         return auth_response
 

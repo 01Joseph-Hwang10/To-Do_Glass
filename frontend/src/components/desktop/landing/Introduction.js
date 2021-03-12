@@ -25,7 +25,7 @@ export default function Introduction(props) {
             </div>
             <div className="w-full sm:w-auto px-1">
                 <div className="w-full flex justify-center items-center p-1 rounded" style={{backgroundColor:'rgba(0,0,0,0.2)'}}>
-                    <span className="text-red-400 font-semibold text-sm">FLglance recommends you to use the chrome browser</span>
+                    <span className="text-red-400 font-semibold text-sm">FLglance recommends you to use the latest version of chrome browser</span>
                 </div>
             </div>
         </div>
