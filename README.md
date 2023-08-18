@@ -22,6 +22,9 @@
 
 ## Showcase: Desktop
 
+> [!NOTE]\
+> Click each gifs to see more clean version of those.
+
 ### Basic pages
 
 Landing Page | Sign Up & Sign In
